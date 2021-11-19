@@ -41,7 +41,9 @@ public class ChaseNode : Node
 
     public override NodeState Evaluate()
     {
+        SetState();
         Debug.Log("Chase !!!");
+
         float distance = Vector3.Distance(targetTransform.position, navAgentTransform.position);
 
         if (distance > 0.2f)
@@ -58,6 +60,14 @@ public class ChaseNode : Node
             speedController.SetCurrentMaxSpeed(RestSpeed());
             speedController.SetAcceleration(Acceleration());
             return NodeState.SUCCESS;
+        }
+    }
+
+    private void SetState()
+    {
+        if (entity.GetEntityState() != EntityState.CHASE)
+        {
+            entity.SetEntityState(EntityState.CHASE);
         }
     }
 }

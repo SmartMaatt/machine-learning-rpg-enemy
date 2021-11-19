@@ -1,5 +1,13 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public enum SpellType
+{
+    NONE = -1,
+    CAST = 0,
+    SHIELD = 1,
+    CUSTOM = 2
+}
 
 [System.Serializable]
 public enum CastSpell
@@ -32,17 +40,20 @@ public abstract class SpellNode
 [System.Serializable]
 public class CastSpellNode : SpellNode
 {
+    public float damage;
     public CastSpell spell;
 }
 
 [System.Serializable]
 public class ShieldSpellNode : SpellNode
 {
+    public float time;
     public ShieldSpell spell;
 }
 
 [System.Serializable]
 public class CustomSpellNode : SpellNode
 {
+    public float healPoints;
     public CustomSpell spell;
 }

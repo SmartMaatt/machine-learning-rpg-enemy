@@ -10,7 +10,6 @@ public class SpeedController : MonoBehaviour
     private float _currentMoveSpeed;
     private float _currentMaxSpeed;
     private bool _reachedSpeedPoint;
-
     private float _currentAcceleration;
 
     private void Start()

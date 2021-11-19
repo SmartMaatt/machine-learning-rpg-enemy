@@ -1,19 +1,26 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemySpellController))]
 public class Mage : AbstractEntity
 {
+    /*Mage params*/
     [Header("Mana")]
     public float maxMana;
     public float manaRestoreRate;
-    private float mana;
 
+    [Header("Mage References")]
+    private EnemySpellController spellController;
+
+
+
+    /*Unity methods*/
     protected override void Awake()
     {
         base.Awake();
-        SetMana(maxMana);
+        spellController = GetComponent<EnemySpellController>();
 
         ConstructBehaviourTree();
         InvokeRepeating("EvaluateBehaviourTree", 0.3f, 0.3f);
@@ -24,6 +31,9 @@ public class Mage : AbstractEntity
         ChangeHealth(Time.deltaTime * healthRestoreRate);
     }
 
+
+
+    /*Behaviour tree methods*/
     private void EvaluateBehaviourTree()
     {
         decisionTreeTopNode.Evaluate();
@@ -87,7 +97,7 @@ public class Mage : AbstractEntity
         RangeNode attackingRangeNode = new RangeNode(player.transform, this.transform, new GetFloatValue(() => attackRange));
         AttackNode attackNode = new AttackNode(this, player.transform, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => restSpeed),
-            new GetFloatValue(() => acceleration)
+            new GetFloatValue(() => breakAcceleration)
         });
 
         /*Attack level 2*/
@@ -178,6 +188,9 @@ public class Mage : AbstractEntity
         decisionTreeTopNode = new Selector(new List<Node> { healthDecisionsSelector, senseDecisionsSelector, wanderSelector });
     }
 
+
+
+    /*Hurting / Die methods*/
     public override void Die()
     {
         Debug.Log("I've never died before!");
@@ -189,45 +202,29 @@ public class Mage : AbstractEntity
         Debug.Log("Health: " + health);
     }
 
+    
+
+    /*Attack methods*/
     public override void Attack()
     {
-        Debug.Log("PEW PEW PEW!");
+        spellController.ExecuteSpell();
     }
 
-    public bool SetMana(float newMana)
+    public void SetSpellType(SpellType spellType, int spellID)
     {
-        if(newMana > 0 && newMana <= maxMana)
+        try
         {
-            mana = newMana;
-            return true;
+            spellController.SetSpellType(spellType, spellID);
         }
-        return false;
+        catch (UnknownSpellException err)
+        {
+            Debug.Log(err);
+        }
     }
 
-    public bool AddMana(float additionalMana)
-    {
-        if(additionalMana > 0)
-        {
-            mana += additionalMana;
-            if(mana > maxMana)
-            {
-                mana = maxMana;
-            }
-            return true;
-        }
-        return false;
-    }
 
-    public bool UseMana(float manaToUse)
-    {
-        if((manaToUse > 0) && (manaToUse < mana))
-        {
-            mana -= manaToUse;
-            return true;
-        }
-        return false;
-    }
 
+    /*Debuging gizmoses*/
     private void OnDrawGizmosSelected()
     {
         //Gizmos.color = Color.red;

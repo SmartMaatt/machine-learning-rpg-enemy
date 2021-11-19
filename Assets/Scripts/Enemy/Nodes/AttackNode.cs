@@ -39,7 +39,9 @@ public class AttackNode : Node
 
     public override NodeState Evaluate()
     {
+        SetState();
         Debug.Log("Attack!");
+
         speedController.SetCurrentMaxSpeed(RestSpeed());
         speedController.SetAcceleration(Acceleration());
         entity.SetCurrentDestination(targetTransform.position);
@@ -47,4 +49,11 @@ public class AttackNode : Node
         return NodeState.RUNNING;
     }
 
+    private void SetState()
+    {
+        if (entity.GetEntityState() != EntityState.ATTACK)
+        {
+            entity.SetEntityState(EntityState.ATTACK);
+        }
+    }
 }

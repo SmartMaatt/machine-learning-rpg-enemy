@@ -89,7 +89,9 @@ public class EffectSettings : MonoBehaviour
 	[Tooltip("Allows you to adjust the layers, which can interact with the projectile.")]
 	#endif 
   public LayerMask LayerMask = -1;
-  
+
+    /*MP part*/
+    public float damage;
 
   public event EventHandler<CollisionInfo> CollisionEnter;
   public event EventHandler EffectDeactivated;

@@ -2,9 +2,10 @@
 
 class PlayerSpellController : SpellController
 {
+    [Header("Player Mana")]
     [SerializeField] private float maxMana;
     [SerializeField] private float manaRestoreRate;
-    private float mana;
+    [SerializeField] private float timeBetweenAttacks;
 
     private void Start()
     {
@@ -16,46 +17,32 @@ class PlayerSpellController : SpellController
         base.Update();
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            CastFireball();
+            SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
+            ExecuteSpell();
         }
     }
 
-    protected override void ChargeMana()
+    protected override float GetMaxMana()
     {
-        AddMana(Time.deltaTime * manaRestoreRate);
+        return maxMana;
     }
 
-    private bool SetMana(float newMana)
+    protected override float GetManaRestoreRate()
     {
-        if (newMana > 0 && newMana <= maxMana)
+        return manaRestoreRate;
+    }
+
+    public override void ExecuteSpell()
+    {
+        if (!alreadyAttacked)
         {
-            mana = newMana;
-            return true;
+            UseSpellType();
+            alreadyAttacked = true;
+            StartCoroutine(ResetAttack(timeBetweenAttacks));
         }
-        return false;
-    }
-
-    private bool AddMana(float additionalMana)
-    {
-        if (additionalMana > 0)
+        else
         {
-            mana += additionalMana;
-            if (mana > maxMana)
-            {
-                mana = maxMana;
-            }
-            return true;
+            Debug.LogError("Can't attack right now!!!");
         }
-        return false;
-    }
-
-    private bool UseMana(float manaToUse)
-    {
-        if ((manaToUse > 0) && (manaToUse < mana))
-        {
-            mana -= manaToUse;
-            return true;
-        }
-        return false;
     }
 }

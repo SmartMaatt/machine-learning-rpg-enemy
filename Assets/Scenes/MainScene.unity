@@ -128,6 +128,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3020833358047269185, guid: 7c1bc6010c9d87341b9894e51c1bea8f, type: 3}
   m_PrefabInstance: {fileID: 3020833358288031712}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &325650685 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4118388424914834418, guid: 4ef469438fdba6d4193e193ca4ea5c71, type: 3}
+  m_PrefabInstance: {fileID: 4118388424900404552}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &351926851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3020833358047269185, guid: 7c1bc6010c9d87341b9894e51c1bea8f, type: 3}
@@ -171,35 +176,46 @@ MonoBehaviour:
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 100002, guid: 191589f347528004188b737dd8cbba19, type: 3}
+    damage: 15
     spell: 0
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 0}
+    damage: 15
     spell: 1
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 0}
+    damage: 15
     spell: 2
   avaliableShieldSpells:
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 30
     spell: 0
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 30
     spell: 1
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 30
     spell: 2
   avaliableCustomSpells:
   - isAvaliable: 1
     cost: 50
     prefab: {fileID: 0}
+    healPoints: 50
     spell: 0
+  chestPositionCorrection: {x: 0, y: 0.5, z: 0}
+  distanceFromInvoke: 1
+  orientation: {fileID: 325650685}
   maxMana: 200
   manaRestoreRate: 1.5
+  timeBetweenAttacks: 1
 --- !u!1001 &382769942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -617,8 +633,9 @@ GameObject:
   - component: {fileID: 1195241293}
   - component: {fileID: 1195241291}
   - component: {fileID: 1195241292}
-  - component: {fileID: 1195241290}
   - component: {fileID: 1195241294}
+  - component: {fileID: 1195241290}
+  - component: {fileID: 1195241295}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -663,7 +680,7 @@ MonoBehaviour:
   immortal: 0
   restSpeed: 0
   walkSpeed: 3
-  acceleration: 2
+  acceleration: 5
   walkPointRange: 20
   maxRestTime: 10
   minRestTime: 3
@@ -671,7 +688,8 @@ MonoBehaviour:
   rotateAcceleration: 5
   runSpeed: 6
   obstacleRange: 1
-  accelerationChaseBonus: 3
+  accelerationChaseBonus: 8
+  breakAcceleration: 12
   timeBetweenAttacks: 1.5
   minTimeAttackStartDelay: 0.5
   maxTimeAttackStartDelay: 1.5
@@ -680,6 +698,7 @@ MonoBehaviour:
   hearRange: 20
   attackRange: 10
   currentDestination: {x: 0, y: 0, z: 0}
+  entityState: 0
   maxMana: 200
   manaRestoreRate: 1.5
 --- !u!195 &1195241291
@@ -693,12 +712,12 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
-  m_Acceleration: 8
+  m_Acceleration: 5
   avoidancePriority: 50
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
@@ -747,33 +766,57 @@ MonoBehaviour:
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 100002, guid: 191589f347528004188b737dd8cbba19, type: 3}
+    damage: 0
     spell: 0
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 0}
+    damage: 0
     spell: 1
   - isAvaliable: 1
     cost: 10
     prefab: {fileID: 0}
+    damage: 0
     spell: 2
   avaliableShieldSpells:
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 0
     spell: 0
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 0
     spell: 1
   - isAvaliable: 1
     cost: 30
     prefab: {fileID: 0}
+    time: 0
     spell: 2
   avaliableCustomSpells:
   - isAvaliable: 1
     cost: 50
     prefab: {fileID: 0}
+    healPoints: 0
     spell: 0
+  chestPositionCorrection: {x: 0, y: 0, z: 0}
+  distanceFromInvoke: 0
+  orientation: {fileID: 1195241293}
+--- !u!136 &1195241295
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195241289}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 1.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!1001 &1230697732
 PrefabInstance:
   m_ObjectHideFlags: 0

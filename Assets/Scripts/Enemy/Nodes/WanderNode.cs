@@ -19,6 +19,7 @@ public class WanderNode : Node
     private Vector3 walkPoint;
     private bool walkPointSet;
     private bool enemyReadyToPatrol;
+    private bool shouldIRest;
 
     public WanderNode(AbstractEntity entity, Transform origin, GetFloatValue[] delegates)
     {
@@ -29,6 +30,7 @@ public class WanderNode : Node
         walkPoint = Vector3.zero;
         walkPointSet = false;
         enemyReadyToPatrol = false;
+        shouldIRest = false;
 
         try
         {
@@ -53,6 +55,14 @@ public class WanderNode : Node
 
     public override NodeState Evaluate()
     {
+        if(entity.GetEntityState() != EntityState.WANDER)
+        {
+            entity.SetEntityState(EntityState.WANDER);
+            walkPointSet = false;
+            enemyReadyToPatrol = false;
+            shouldIRest = false;
+        }
+
         if (!walkPointSet && !enemyReadyToPatrol)
         {
             SearchWalkPoint();
@@ -66,7 +76,7 @@ public class WanderNode : Node
         {
             float distance = Vector3.Distance(entity.GetCurrentDestination(), originTransform.position);
 
-            if (distance < 0.2f)
+            if (distance < 1f)
             {
                 walkPointSet = false;
                 enemyReadyToPatrol = false;
@@ -100,8 +110,16 @@ public class WanderNode : Node
             entity.SetCurrentDestination(walkPoint);
             Debug.Log("New walk point " + walkPoint);
 
-            float timeToRest = UnityEngine.Random.Range(MinRestTime(), MaxRestTime());
-            entity.RunCoroutine(EnemyWalkingPause(timeToRest));
+            if(shouldIRest)
+            {
+                float timeToRest = UnityEngine.Random.Range(MinRestTime(), MaxRestTime());
+                entity.RunCoroutine(EnemyWalkingPause(timeToRest));
+            }
+            else
+            {
+                enemyReadyToPatrol = true;
+                shouldIRest = true;
+            }
         }
     }
 
@@ -110,6 +128,7 @@ public class WanderNode : Node
         Debug.Log("Started restring, sec: " + timeOfRest);
         yield return new WaitForSeconds(timeOfRest);
         enemyReadyToPatrol = true;
+        shouldIRest = true;
         Debug.Log("Finished resting!");
     }
 }

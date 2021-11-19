@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -47,6 +45,7 @@ public abstract class AbstractEntity : MonoBehaviour
     public float accelerationChaseBonus;
 
     [Header("Attacking")]
+    public float breakAcceleration;
     public float timeBetweenAttacks;
     public float minTimeAttackStartDelay;
     public float maxTimeAttackStartDelay;
@@ -61,12 +60,14 @@ public abstract class AbstractEntity : MonoBehaviour
     [Space]
     [SerializeField] protected Node decisionTreeTopNode;
     [SerializeField] protected Vector3 currentDestination;
+    [SerializeField] protected EntityState entityState;
 
     protected virtual void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         speedController = GetComponent<SpeedController>();
         avaliableCovers = FindObjectsOfType<Cover>();
+        entityState = EntityState.WANDER;
         SetPlayer();
     }
 
@@ -112,6 +113,11 @@ public abstract class AbstractEntity : MonoBehaviour
         return currentDestination;
     }
 
+    public EntityState GetEntityState()
+    {
+        return entityState;
+    }
+
 
     /*>>> Setters <<<*/
     public void SetNavAgentDestination(Vector3 destination)
@@ -148,11 +154,6 @@ public abstract class AbstractEntity : MonoBehaviour
         armour += change;
     }
 
-    public void SetDamage(int damage)
-    {
-        this.damage = damage;
-    }
-
     public void SetBlock(bool blocking)
     {
         this.blocking = blocking;
@@ -161,6 +162,11 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetCurrentDestination(Vector3 currentDestination)
     {
         this.currentDestination = currentDestination;
+    }
+
+    public void SetEntityState(EntityState entityState)
+    {
+        this.entityState = entityState;
     }
 
     /*>>> ABSTRACT <<<*/

@@ -19,6 +19,8 @@ public class IsCoverAvaliableNode : Node
 
     public override NodeState Evaluate()
     {
+        SetState();
+
         Vector3 bestSpot = FindBestCoverSpot();
         entity.SetCurrentDestination(bestSpot);
         return bestSpot != null ? NodeState.SUCCESS : NodeState.FAILURE;
@@ -95,5 +97,13 @@ public class IsCoverAvaliableNode : Node
         }
 
         return (sideOfWall && wayFreeFromTarget);
+    }
+
+    private void SetState()
+    {
+        if (entity.GetEntityState() != EntityState.HIDE)
+        {
+            entity.SetEntityState(EntityState.HIDE);
+        }
     }
 }
