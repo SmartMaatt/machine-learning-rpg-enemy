@@ -359,7 +359,7 @@ MonoBehaviour:
     healPoints: 50
     spell: 0
   chestPositionCorrection: {x: 0, y: 0.5, z: 0}
-  distanceFromInvoke: 1
+  distanceFromInvoke: 0.3
   orientation: {fileID: 57013946}
   shieldParent: {fileID: 1467343276}
   maxMana: 200
@@ -1137,7 +1137,7 @@ MonoBehaviour:
     healPoints: 0
     spell: 0
   chestPositionCorrection: {x: 0, y: 1.5, z: 0}
-  distanceFromInvoke: 1
+  distanceFromInvoke: 0.3
   orientation: {fileID: 1195241293}
   shieldParent: {fileID: 919132147754990009}
 --- !u!136 &1195241295

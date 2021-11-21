@@ -61,7 +61,7 @@ public class Mage : AbstractEntity
         // <Safe jump> => Sense decisions (Selector)
 
         /*Cover level 4*/
-        IsCoveredNode isCoveredNode = new IsCoveredNode(player.transform, this.transform);
+        IsDirectContactNode isCoveredNode = new IsDirectContactNode(player.transform, this.transform, PlayerLayer);
         // Find cover (Selector)
 
         /*Cover level 3*/
@@ -98,8 +98,13 @@ public class Mage : AbstractEntity
 
 
         /*>>> Attact branch <<<*/
-        /*Attack level 3*/
+        /*Attack level 4*/
         RangeNode attackingRangeNode = new RangeNode(player.transform, this.transform, new GetFloatValue(() => attackRange));
+        IsDirectContactNode isPlayerCovered = new IsDirectContactNode(player.transform, this.transform, PlayerLayer);
+        Inverter isPlayerNotCovered = new Inverter(isPlayerCovered);
+
+        /*Attack level 3*/
+        // Clear spot (Sequence)
         AttackNode attackNode = new AttackNode(this, player.transform, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => restSpeed),
             new GetFloatValue(() => breakAcceleration)
@@ -176,7 +181,8 @@ public class Mage : AbstractEntity
         Selector sensesSelector = new Selector(new List<Node> { hearRangeNode, sightNode });
         Sequence chaseSequence = new Sequence(new List<Node> { sensesSelector, chaseNode });
 
-        Sequence attackSequence = new Sequence(new List<Node> { attackingRangeNode, attackNode });
+        Sequence clearSpot = new Sequence(new List<Node> { attackingRangeNode, isPlayerNotCovered });
+        Sequence attackSequence = new Sequence(new List<Node> { clearSpot, attackNode });
 
 
         /*>>> Top level decisions <<<*/
@@ -232,8 +238,8 @@ public class Mage : AbstractEntity
     /*Debuging gizmoses*/
     private void OnDrawGizmosSelected()
     {
-        //Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
         //Gizmos.color = Color.green;
         //Gizmos.DrawWireSphere(transform.position, hearRange);
         //Gizmos.color = Color.yellow;
