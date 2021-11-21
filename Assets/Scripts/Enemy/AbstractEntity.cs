@@ -22,11 +22,10 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected float criticalLowHealthThreshold;
     [SerializeField] protected float healthRestoreRate;
     [SerializeField] protected float dieAwaitTime;
-    [Range(0, 100)]
-    [SerializeField] protected int armour;
     [SerializeField] protected int damage;
     [SerializeField] protected bool blocking;
     [SerializeField] protected bool immortal = false;
+    private int blockingIndex = 0;
 
     [Header("Patroling")]
     public float restSpeed;
@@ -149,11 +148,6 @@ public abstract class AbstractEntity : MonoBehaviour
         }
     }
 
-    public void ChangeArmour(int change)
-    {
-        armour += change;
-    }
-
     public void SetBlock(bool blocking)
     {
         this.blocking = blocking;
@@ -167,6 +161,18 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetEntityState(EntityState entityState)
     {
         this.entityState = entityState;
+    }
+
+    public void AddBlocking()
+    {
+        blockingIndex = Mathf.Clamp(blockingIndex++, 0, 100);
+        blocking = blockingIndex > 0;
+    }
+
+    public void RemoveBlocking()
+    {
+        blockingIndex = Mathf.Clamp(blockingIndex--, 0, 100);
+        blocking = blockingIndex > 0;
     }
 
     /*>>> ABSTRACT <<<*/

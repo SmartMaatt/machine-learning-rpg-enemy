@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 public enum RandomMoveCoordinates
 {
-  None,
-  XY,
-  XZ,
-  YZ,
-  XYZ
+    None,
+    XY,
+    XZ,
+    YZ,
+    XYZ
 }
 
 public class ProjectileCollisionBehaviour : MonoBehaviour
@@ -45,12 +44,13 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
     private bool frameDroped;
 
     /*MP variables*/
-    private float damage;
+    private CastSpellNode castSpellNode;
 
     void GetEffectSettingsComponent(Transform tr)
     {
         var parent = tr.parent;
-        if (parent!=null) {
+        if (parent!=null)
+        {
             effectSettings = parent.GetComponentInChildren<EffectSettings>();
             if (effectSettings == null)
             GetEffectSettingsComponent(parent.transform);
@@ -70,7 +70,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
         isInitializedOnStart = true;
 
         /*MP part*/
-        damage = gameObject.transform.parent.GetComponent<EffectSettings>().damage;
+       castSpellNode = transform.parent.GetComponent<SpellInfo>().castSpellNode;
     }
 
     void OnEnable()
@@ -110,14 +110,16 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
             randomTargetOffsetXZVector = new Vector3(rand.x, 0, rand.y);
         }
         else randomTargetOffsetXZVector = Vector3.zero;
-        if (!effectSettings.UseMoveVector) {
+        if (!effectSettings.UseMoveVector)
+        {
             forwardDirection = tRoot.position + (tTarget.position + randomTargetOffsetXZVector - tRoot.position).normalized * effectSettings.MoveDistance;
             GetTargetHit();
         }
         else
             forwardDirection = tRoot.position + effectSettings.MoveVector * effectSettings.MoveDistance;
 
-        if (IsLookAt) {
+        if (IsLookAt)
+        {
             if(!effectSettings.UseMoveVector) tRoot.LookAt(tTarget);
             else tRoot.LookAt(forwardDirection);
         }
@@ -126,147 +128,165 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
 
     private void Update()
     {
-    if (!frameDroped) {
-        frameDroped = true;
-        return;
-    }
-    if ((!effectSettings.UseMoveVector && tTarget==null || onCollision) && frameDroped)
-        return;
+        if (!frameDroped)
+        {
+            frameDroped = true;
+            return;
+        }
 
-    Vector3 endPoint;
-    if (!effectSettings.UseMoveVector)
-        endPoint = effectSettings.IsHomingMove ? tTarget.position : forwardDirection;
-    else
-        endPoint = forwardDirection;
-    //GetDistance
-    var distance = Vector3.Distance(tRoot.position, endPoint);
-    var distanceNextFrame = effectSettings.MoveSpeed * Time.deltaTime;
-    if (distanceNextFrame > distance)
-        distanceNextFrame = distance;
-    if (distance <= effectSettings.ColliderRadius) {
-        hit = new RaycastHit();
-        CollisionEnter();
-    }
+        if ((!effectSettings.UseMoveVector && tTarget==null || onCollision) && frameDroped)
+            return;
 
-    var direction = (endPoint - tRoot.position).normalized;
-    RaycastHit raycastHit;
-    if (Physics.Raycast(tRoot.position, direction, out raycastHit, distanceNextFrame + effectSettings.ColliderRadius, effectSettings.LayerMask)) {
-        hit = raycastHit;
-        endPoint = raycastHit.point - direction * effectSettings.ColliderRadius;
-        CollisionEnter();
-    }
+        Vector3 endPoint;
+        if (!effectSettings.UseMoveVector)
+            endPoint = effectSettings.IsHomingMove ? tTarget.position : forwardDirection;
+        else
+            endPoint = forwardDirection;
 
-    if (IsCenterLightPosition && GoLight!=null)
-        tLight.position = (startPosition + tRoot.position) / 2;
+        //GetDistance
+        var distance = Vector3.Distance(tRoot.position, endPoint);
+        var distanceNextFrame = effectSettings.MoveSpeed * Time.deltaTime;
+        if (distanceNextFrame > distance)
+            distanceNextFrame = distance;
+        if (distance <= effectSettings.ColliderRadius)
+        {
+            hit = new RaycastHit();
+            CollisionEnter();
+        }
 
-    //GetRandomDistance
-    var delta = new Vector3();
-    if (RandomMoveCoordinates!=RandomMoveCoordinates.None) {
-        UpdateSmootRandomhPos();
-        delta = smootRandomPos - oldSmootRandomPos;
-    }
+        var direction = (endPoint - tRoot.position).normalized;
+        RaycastHit raycastHit;
+        if (Physics.Raycast(tRoot.position, direction, out raycastHit, distanceNextFrame + effectSettings.ColliderRadius, effectSettings.LayerMask))
+        {
+            hit = raycastHit;
+            endPoint = raycastHit.point - direction * effectSettings.ColliderRadius;
+            CollisionEnter();
+        }
 
-    float accelerationY = 1;
-    if (Acceleration.length > 0) {
-        var time = (Time.time - startTime) / AcceleraionTime;
-        accelerationY = Acceleration.Evaluate(time);
-    }
+        if (IsCenterLightPosition && GoLight!=null)
+            tLight.position = (startPosition + tRoot.position) / 2;
 
-    var moveDistance = Vector3.MoveTowards(tRoot.position, endPoint, effectSettings.MoveSpeed * Time.deltaTime * accelerationY);
-    var moveDistanceRandom = moveDistance + delta;
-    if (IsLookAt && effectSettings.IsHomingMove)
-        tRoot.LookAt(moveDistanceRandom);
+        //GetRandomDistance
+        var delta = new Vector3();
+        if (RandomMoveCoordinates!=RandomMoveCoordinates.None)
+        {
+            UpdateSmootRandomhPos();
+            delta = smootRandomPos - oldSmootRandomPos;
+        }
 
-    if (IsLocalSpaceRandomMove && IsRootMove)
-    {
-        tRoot.position = moveDistance;
-        t.localPosition += delta;
-    }
-    else tRoot.position = moveDistanceRandom;
-    oldSmootRandomPos = smootRandomPos;
+        float accelerationY = 1;
+        if (Acceleration.length > 0)
+        {
+            var time = (Time.time - startTime) / AcceleraionTime;
+            accelerationY = Acceleration.Evaluate(time);
+        }
+
+        var moveDistance = Vector3.MoveTowards(tRoot.position, endPoint, effectSettings.MoveSpeed * Time.deltaTime * accelerationY);
+        var moveDistanceRandom = moveDistance + delta;
+        if (IsLookAt && effectSettings.IsHomingMove)
+            tRoot.LookAt(moveDistanceRandom);
+
+        if (IsLocalSpaceRandomMove && IsRootMove)
+        {
+            tRoot.position = moveDistance;
+            t.localPosition += delta;
+        }
+        else tRoot.position = moveDistanceRandom;
+            oldSmootRandomPos = smootRandomPos;
     }
 
     private void CollisionEnter()
     {
-    if (EffectOnHitObject!=null && hit.transform!=null) {
-        var hitGO = hit.transform;
-        var renderer = hitGO.GetComponentInChildren<Renderer>();
-        var effectInstance = Instantiate(EffectOnHitObject) as GameObject;
-        effectInstance.transform.parent = renderer.transform;
-        effectInstance.transform.localPosition = Vector3.zero;
-        effectInstance.GetComponent<AddMaterialOnHit>().UpdateMaterial(hit);
-    }
+        if (EffectOnHitObject!=null && hit.transform!=null)
+        {
+            var hitGO = hit.transform;
+            var renderer = hitGO.GetComponentInChildren<Renderer>();
+            var effectInstance = Instantiate(EffectOnHitObject) as GameObject;
+            effectInstance.transform.parent = renderer.transform;
+            effectInstance.transform.localPosition = Vector3.zero;
+            effectInstance.GetComponent<AddMaterialOnHit>().UpdateMaterial(hit);
+        }
 
-    if (AttachAfterCollision)
-        tRoot.parent = hit.transform;
+        if (AttachAfterCollision)
+            tRoot.parent = hit.transform;
 
-    if (SendCollisionMessage) {
-        var collInfo = new CollisionInfo {Hit = hit};
-        effectSettings.OnCollisionHandler(collInfo);
-        if (hit.transform != null) {
-            var shield = hit.transform.GetComponent<ShieldCollisionBehaviour>();
-            var enemy = hit.transform.GetComponent<AbstractEntity>();
-
-            if (shield != null)
+        if (SendCollisionMessage)
+        {
+            var collInfo = new CollisionInfo {Hit = hit};
+            effectSettings.OnCollisionHandler(collInfo);
+            if (hit.transform != null)
             {
-                shield.ShieldCollisionEnter(collInfo);
-            }
+                var shield = hit.transform.GetComponent<ShieldCollisionBehaviour>();
+                var magicShield = hit.transform.GetComponent<MagicShield>();
+                var enemy = hit.transform.GetComponent<AbstractEntity>();
 
-            if (enemy != null)
-            {
-                enemy.GetHit(damage);
+                if (shield != null)
+                {
+                    shield.ShieldCollisionEnter(collInfo);
+                }
+
+                if(magicShield != null)
+                {
+                    magicShield.CollisionWithSpell(castSpellNode);
+                }
+                else if (enemy != null)
+                {
+                    enemy.GetHit(castSpellNode.damage);
+                }
             }
         }
-    }
-    onCollision = true;
+        onCollision = true;
     }
 
     private void InitRandomVariables()
     {
-    deltaSpeed = RandomMoveSpeed * Random.Range(1, 1000 * RandomRange + 1) / 1000 - 1;
-    startTime = Time.time;
-    randomRadiusX = Random.Range(RandomMoveRadius / 20, RandomMoveRadius * 100) / 100;
-    randomRadiusY = Random.Range(RandomMoveRadius / 20, RandomMoveRadius * 100) / 100;
-    randomSpeed = Random.Range(RandomMoveSpeed / 20, RandomMoveSpeed * 100) / 100;
-    randomDirection1 = Random.Range(0, 2) > 0 ? 1 : -1;
-    randomDirection2 = Random.Range(0, 2) > 0 ? 1 : -1;
-    randomDirection3 = Random.Range(0, 2) > 0 ? 1 : -1;
+        deltaSpeed = RandomMoveSpeed * Random.Range(1, 1000 * RandomRange + 1) / 1000 - 1;
+        startTime = Time.time;
+        randomRadiusX = Random.Range(RandomMoveRadius / 20, RandomMoveRadius * 100) / 100;
+        randomRadiusY = Random.Range(RandomMoveRadius / 20, RandomMoveRadius * 100) / 100;
+        randomSpeed = Random.Range(RandomMoveSpeed / 20, RandomMoveSpeed * 100) / 100;
+        randomDirection1 = Random.Range(0, 2) > 0 ? 1 : -1;
+        randomDirection2 = Random.Range(0, 2) > 0 ? 1 : -1;
+        randomDirection3 = Random.Range(0, 2) > 0 ? 1 : -1;
     }
 
     private void GetTargetHit()
     {
-    RaycastHit raycastHit; 
-    var ray = new Ray(tRoot.position, Vector3.Normalize(tTarget.position + randomTargetOffsetXZVector - tRoot.position));
-    var coll = tTarget.GetComponentInChildren<Collider>();
-    if (coll!=null && coll.Raycast(ray, out raycastHit, effectSettings.MoveDistance)) {
-        hit = raycastHit;
-    }
+        RaycastHit raycastHit; 
+        var ray = new Ray(tRoot.position, Vector3.Normalize(tTarget.position + randomTargetOffsetXZVector - tRoot.position));
+        var coll = tTarget.GetComponentInChildren<Collider>();
+        if (coll!=null && coll.Raycast(ray, out raycastHit, effectSettings.MoveDistance))
+        {
+            hit = raycastHit;
+        }
     }
 
     private void UpdateSmootRandomhPos()
     {
-    float coord1, coord2;
-    var time = (Time.time - startTime);
+        float coord1, coord2;
+        var time = (Time.time - startTime);
 
-    var timeDegree = time * randomSpeed;
-    var delta = time * deltaSpeed;
-    if (IsDeviation) {
-        var deviation = Vector3.Distance(tRoot.position, hit.point) / effectSettings.MoveDistance;
-        coord1 = randomDirection2 * Mathf.Sin(timeDegree) * randomRadiusX * deviation;
-        coord2 = randomDirection3 * Mathf.Sin(timeDegree + (randomDirection1 * Mathf.PI / 2) * time + Mathf.Sin(delta)) * randomRadiusY * deviation;
-    }
-    else {
-        coord1 = randomDirection2 * Mathf.Sin(timeDegree) * randomRadiusX;
-        coord2 = randomDirection3 * Mathf.Sin(timeDegree + (randomDirection1 * Mathf.PI / 2) * time + Mathf.Sin(delta)) * randomRadiusY;
-    }
+        var timeDegree = time * randomSpeed;
+        var delta = time * deltaSpeed;
+        if (IsDeviation)
+        {
+            var deviation = Vector3.Distance(tRoot.position, hit.point) / effectSettings.MoveDistance;
+            coord1 = randomDirection2 * Mathf.Sin(timeDegree) * randomRadiusX * deviation;
+            coord2 = randomDirection3 * Mathf.Sin(timeDegree + (randomDirection1 * Mathf.PI / 2) * time + Mathf.Sin(delta)) * randomRadiusY * deviation;
+        }
+        else
+        {
+            coord1 = randomDirection2 * Mathf.Sin(timeDegree) * randomRadiusX;
+            coord2 = randomDirection3 * Mathf.Sin(timeDegree + (randomDirection1 * Mathf.PI / 2) * time + Mathf.Sin(delta)) * randomRadiusY;
+        }
 
-    if (RandomMoveCoordinates==RandomMoveCoordinates.XY)
-        smootRandomPos = new Vector3(coord1, coord2, 0);
-    if (RandomMoveCoordinates==RandomMoveCoordinates.XZ)
-        smootRandomPos = new Vector3(coord1, 0, coord2);
-    if (RandomMoveCoordinates==RandomMoveCoordinates.YZ)
-        smootRandomPos = new Vector3(0, coord1, coord2);
-    if (RandomMoveCoordinates==RandomMoveCoordinates.XYZ)
-        smootRandomPos = new Vector3(coord1, coord2, (coord1 + coord2) / 2 * randomDirection1);
+        if (RandomMoveCoordinates==RandomMoveCoordinates.XY)
+            smootRandomPos = new Vector3(coord1, coord2, 0);
+        if (RandomMoveCoordinates==RandomMoveCoordinates.XZ)
+            smootRandomPos = new Vector3(coord1, 0, coord2);
+        if (RandomMoveCoordinates==RandomMoveCoordinates.YZ)
+            smootRandomPos = new Vector3(0, coord1, coord2);
+        if (RandomMoveCoordinates==RandomMoveCoordinates.XYZ)
+            smootRandomPos = new Vector3(coord1, coord2, (coord1 + coord2) / 2 * randomDirection1);
     }
 }

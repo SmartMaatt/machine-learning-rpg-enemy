@@ -4,15 +4,15 @@ using UnityEngine;
 
 class EnemySpellController : SpellController
 {
-    private Mage _entity;
+    private Mage entity;
     private float maxMana;
     private float manaRestoreRate;
 
     private void Start()
     {
-        _entity = GetComponent<Mage>();
-        maxMana = _entity.maxMana;
-        manaRestoreRate = _entity.manaRestoreRate;
+        entity = GetComponent<Mage>();
+        maxMana = entity.maxMana;
+        manaRestoreRate = entity.manaRestoreRate;
 
         base.Start();
     }
@@ -24,21 +24,21 @@ class EnemySpellController : SpellController
 
     protected override float GetMaxMana()
     {
-        return _entity.maxMana;
+        return entity.maxMana;
     }
 
     protected override float GetManaRestoreRate()
     {
-        return _entity.manaRestoreRate;
+        return entity.manaRestoreRate;
     }
 
     public override void ExecuteSpell()
     {
         if (!alreadyAttacked)
         {
-            StartCoroutine(AttackDesorientation(_entity.minTimeAttackStartDelay, _entity.maxTimeAttackStartDelay));
+            StartCoroutine(AttackDesorientation(entity.minTimeAttackStartDelay, entity.maxTimeAttackStartDelay));
             alreadyAttacked = true;
-            StartCoroutine(ResetAttack(_entity.timeBetweenAttacks));
+            StartCoroutine(ResetAttack(entity.timeBetweenAttacks));
         }
         else
         {
@@ -57,6 +57,20 @@ class EnemySpellController : SpellController
         catch(UnsetSpellException err)
         {
             Debug.LogError(err);
+        }
+    }
+
+    protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
+    {
+        MagicShield currentShield = GetComponent<MagicShield>();
+        if (currentShield == null)
+        {
+            EntityMagicShield magicShieldScript = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
+            magicShieldScript.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity);
+        }
+        else
+        {
+            ChargeShieldSpell(shieldSpellNode, currentShield);
         }
     }
 }

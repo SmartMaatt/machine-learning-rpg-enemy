@@ -25,14 +25,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 91f045fd1cd874f47af16c5c5b224d17, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+        m_Scale: {x: 0.0625, y: 0.125}
+        m_Offset: {x: 0.875, y: 0.875}
     m_Floats:
     - _BumpAmt: 10
     - _ColorStrength: 1
     - _CoreStrength: 2
-    - _CutOutLightCore: 1
-    - _InvFade: 3
+    - _CutOutLightCore: 0.703
+    - _InvFade: 1.97
     - _TintStrength: 4
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -7,6 +7,8 @@ class PlayerSpellController : SpellController
     [SerializeField] private float manaRestoreRate;
     [SerializeField] private float timeBetweenAttacks;
 
+    [SerializeField] private Mage tmpEntity;
+
     private void Start()
     {
         base.Start();
@@ -19,6 +21,24 @@ class PlayerSpellController : SpellController
         {
             SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
             ExecuteSpell();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetSpellType(SpellType.CAST, (int)CastSpell.WATER);
+            ExecuteSpell();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetSpellType(SpellType.CAST, (int)CastSpell.SNOW);
+            ExecuteSpell();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.FIRE);
+            tmpEntity.Attack();
         }
     }
 
@@ -44,5 +64,10 @@ class PlayerSpellController : SpellController
         {
             Debug.LogError("Can't attack right now!!!");
         }
+    }
+
+    protected override void SetupShieldObject(ShieldSpellNode shieldSpell)
+    {
+        throw new System.NotImplementedException();
     }
 }

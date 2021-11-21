@@ -6,20 +6,21 @@ using UnityEngine;
 public abstract class SpellController : MonoBehaviour
 {
     [Header("Available spells")]
-    [SerializeField] private CastSpellNode[] avaliableCastSpells;
-    [SerializeField] private ShieldSpellNode[] avaliableShieldSpells;
-    [SerializeField] private CustomSpellNode[] avaliableCustomSpells;
+    [SerializeField] protected CastSpellNode[] avaliableCastSpells;
+    [SerializeField] protected ShieldSpellNode[] avaliableShieldSpells;
+    [SerializeField] protected CustomSpellNode[] avaliableCustomSpells;
 
     [Header("Correction vectors")]
     public Vector3 chestPositionCorrection;
     public float distanceFromInvoke;
 
     [Header("References")]
-    [SerializeField] private Transform orientation;
+    [SerializeField] protected Transform orientation;
+    [SerializeField] protected GameObject shieldParent;
 
-    private Dictionary<CastSpell, CastSpellNode> avaliableCastSpellsDict;
-    private Dictionary<ShieldSpell, ShieldSpellNode> avaliableShieldSpellsDict;
-    private Dictionary<CustomSpell, CustomSpellNode> avaliableCustomSpellsDict;
+    protected Dictionary<CastSpell, CastSpellNode> avaliableCastSpellsDict;
+    protected Dictionary<ShieldSpell, ShieldSpellNode> avaliableShieldSpellsDict;
+    protected Dictionary<CustomSpell, CustomSpellNode> avaliableCustomSpellsDict;
 
     protected bool alreadyAttacked;
     protected float mana;
@@ -43,39 +44,81 @@ public abstract class SpellController : MonoBehaviour
     }
 
     /*Spell casting*/
-    public void CastFireball()
+    public void CastBallSpell(CastSpell castSpell)
     {
         try
         {
-            CastSpellNode fireSpell = avaliableCastSpellsDict[CastSpell.FIRE];
+            CastSpellNode spellNode = avaliableCastSpellsDict[castSpell];
             Vector3 checkPosition = transform.position + chestPositionCorrection;
 
-            if (fireSpell.isAvaliable)
+            if (spellNode.isAvaliable)
             {
-                if (UseMana(fireSpell.cost))
+                if (UseMana(spellNode.cost))
                 {
-                    GameObject fireball = Instantiate(fireSpell.prefab, checkPosition + orientation.forward * distanceFromInvoke, Quaternion.identity);
-                    EffectSettings fireballSettings = fireball.GetComponent<EffectSettings>();
+                    GameObject castball = Instantiate(spellNode.prefab, checkPosition + orientation.forward * distanceFromInvoke, Quaternion.identity);
+                    EffectSettings fireballSettings = castball.GetComponent<EffectSettings>();
+                    SpellInfo ballSpellInfo = castball.GetComponent<SpellInfo>();
+
                     fireballSettings.UseMoveVector = true;
                     fireballSettings.MoveVector = orientation.forward;
-                    fireballSettings.damage = fireSpell.damage;
-                    Debug.Log(gameObject.name + " casted Fireball!");
+                    ballSpellInfo.castSpellNode = spellNode;
+
+                    Debug.Log(gameObject.name + " casted " + spellNode.name + "!");
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " can't spell Fireball! Cost: " + fireSpell.cost + ", Mana: " + GetMana());
+                    Debug.Log(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
                 }
             }
             else
             {
-                Debug.Log("Spell fireball is not avaliable right now!");
+                Debug.Log("Spell " + spellNode.name + " is not avaliable right now!");
             }
         }
         catch (KeyNotFoundException err)
         {
-            Debug.LogError("Fireball hasn't been declared in inspector!");
+            Debug.LogError("Spell hasn't been declared in inspector!");
             Debug.LogError(err);
         }
+    }
+
+    public void CastShieldSpell(ShieldSpell shieldSpell)
+    {
+        try
+        {
+            ShieldSpellNode spellNode = avaliableShieldSpellsDict[shieldSpell];
+
+            if (spellNode.isAvaliable)
+            {
+                if (UseMana(spellNode.cost))
+                {
+                    SetupShieldObject(spellNode);
+                    Debug.Log(gameObject.name + " casted " + spellNode.name + "!");
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                }
+            }
+            else
+            {
+                Debug.Log("Spell " + spellNode.name + " is not avaliable right now!");
+            }
+        }
+        catch (KeyNotFoundException err)
+        {
+            Debug.LogError("Spell hasn't been declared in inspector!");
+            Debug.LogError(err);
+        }
+    }
+
+    protected abstract void SetupShieldObject(ShieldSpellNode shieldSpell);
+
+    protected void ChargeShieldSpell(ShieldSpellNode shieldSpell, MagicShield shieldScript)
+    {
+        Debug.Log("Shield charge!");
+        shieldScript.ChangeArmour(shieldSpell.armour);
+        shieldScript.ChangeTime(shieldSpell.time);
     }
 
     private void ConvertSpellsToDicts()
@@ -152,12 +195,11 @@ public abstract class SpellController : MonoBehaviour
             switch(spellType)
             {
                 case SpellType.CAST:
-                    switch((CastSpell)spellID)
-                    {
-                        case CastSpell.FIRE:
-                            CastFireball();
-                            break;
-                    }
+                    CastBallSpell((CastSpell)spellID);
+                    break;
+
+                case SpellType.SHIELD:
+                    CastShieldSpell((ShieldSpell)spellID);
                     break;
             }
             ResetSpellType();

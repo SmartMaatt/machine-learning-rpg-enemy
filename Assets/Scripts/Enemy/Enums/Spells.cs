@@ -35,12 +35,14 @@ public abstract class SpellNode
     public bool isAvaliable;
     public float cost;
     public GameObject prefab;
+    public string name;
 }
 
 [System.Serializable]
 public class CastSpellNode : SpellNode
 {
     public float damage;
+    public int armourDamage;
     public CastSpell spell;
 }
 
@@ -48,6 +50,7 @@ public class CastSpellNode : SpellNode
 public class ShieldSpellNode : SpellNode
 {
     public float time;
+    public int armour;
     public ShieldSpell spell;
 }
 

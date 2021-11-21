@@ -11,9 +11,14 @@ public class Mage : AbstractEntity
     public float maxMana;
     public float manaRestoreRate;
 
-    [Header("Mage References")]
-    private EnemySpellController spellController;
+    [Header("Spell timings")]
+    public float maxShieldTime;
 
+    [Header("Behaviour tree time clock")]
+    public float startTreeTime;
+    public float repeatTreeTime;
+
+    private EnemySpellController spellController;
 
 
     /*Unity methods*/
@@ -23,7 +28,7 @@ public class Mage : AbstractEntity
         spellController = GetComponent<EnemySpellController>();
 
         ConstructBehaviourTree();
-        InvokeRepeating("EvaluateBehaviourTree", 0.3f, 0.3f);
+        InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);
     }
 
     private void Update()
