@@ -219,6 +219,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
                 var shield = hit.transform.GetComponent<ShieldCollisionBehaviour>();
                 var magicShield = hit.transform.GetComponent<MagicShield>();
                 var enemy = hit.transform.GetComponent<AbstractEntity>();
+                var player = hit.transform.GetComponent<PlayerHealth>();
 
                 if (shield != null)
                 {
@@ -232,6 +233,10 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
                 else if (enemy != null)
                 {
                     enemy.GetHit(castSpellNode.damage);
+                }
+                else if (player != null)
+                {
+                    player.ChangeHealth(-castSpellNode.damage);
                 }
             }
         }

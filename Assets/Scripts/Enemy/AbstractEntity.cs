@@ -126,7 +126,7 @@ public abstract class AbstractEntity : MonoBehaviour
 
     public void SetPlayer()
     {
-        player = FindObjectsOfType<PlayerMovement>()[0].transform.GetChild(0).gameObject;
+        player = FindObjectsOfType<PlayerMovement>()[0].transform.gameObject;
     }
 
     public void SetPlayer(GameObject player)

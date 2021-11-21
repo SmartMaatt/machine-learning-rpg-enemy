@@ -112,7 +112,7 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
-    protected abstract void SetupShieldObject(ShieldSpellNode shieldSpell);
+    protected abstract void SetupShieldObject(ShieldSpellNode shieldSpellNode);
 
     protected void ChargeShieldSpell(ShieldSpellNode shieldSpell, MagicShield shieldScript)
     {

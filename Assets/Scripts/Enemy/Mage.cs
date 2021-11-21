@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(EnemySpellController))]
+[RequireComponent(typeof(EntitySpellController))]
 public class Mage : AbstractEntity
 {
     /*Mage params*/
@@ -18,14 +18,14 @@ public class Mage : AbstractEntity
     public float startTreeTime;
     public float repeatTreeTime;
 
-    private EnemySpellController spellController;
+    private EntitySpellController spellController;
 
 
     /*Unity methods*/
     protected override void Awake()
     {
         base.Awake();
-        spellController = GetComponent<EnemySpellController>();
+        spellController = GetComponent<EntitySpellController>();
 
         ConstructBehaviourTree();
         InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);

@@ -7,38 +7,104 @@ class PlayerSpellController : SpellController
     [SerializeField] private float manaRestoreRate;
     [SerializeField] private float timeBetweenAttacks;
 
+    [Header("Player Shield")]
+    [SerializeField] private float maxShieldTime;
+
+    [Header("Player references")]
     [SerializeField] private Mage tmpEntity;
+
+    private PlayerHealth playerHealth;
+    private bool isPlayer = true;
 
     private void Start()
     {
+        playerHealth = GetComponent<PlayerHealth>();
         base.Start();
     }
 
     private void Update()
     {
         base.Update();
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
-            ExecuteSpell();
+            isPlayer = !isPlayer;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if(isPlayer)
         {
-            SetSpellType(SpellType.CAST, (int)CastSpell.WATER);
-            ExecuteSpell();
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
+                ExecuteSpell();
+            }
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SetSpellType(SpellType.CAST, (int)CastSpell.SNOW);
-            ExecuteSpell();
-        }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SetSpellType(SpellType.CAST, (int)CastSpell.WATER);
+                ExecuteSpell();
+            }
 
-        if(Input.GetKeyDown(KeyCode.Alpha4))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SetSpellType(SpellType.CAST, (int)CastSpell.SNOW);
+                ExecuteSpell();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SetSpellType(SpellType.SHIELD, (int)ShieldSpell.FIRE);
+                ExecuteSpell();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SetSpellType(SpellType.SHIELD, (int)ShieldSpell.WATER);
+                ExecuteSpell();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SetSpellType(SpellType.SHIELD, (int)ShieldSpell.SNOW);
+                ExecuteSpell();
+            }
+        }
+        else
         {
-            tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.FIRE);
-            tmpEntity.Attack();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.WATER);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.SNOW);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.FIRE);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.WATER);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.SNOW);
+                tmpEntity.Attack();
+            }
         }
     }
 
@@ -66,8 +132,25 @@ class PlayerSpellController : SpellController
         }
     }
 
-    protected override void SetupShieldObject(ShieldSpellNode shieldSpell)
+    protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
-        throw new System.NotImplementedException();
+        MagicShield currentShield = GetComponent<MagicShield>();
+        if (currentShield == null)
+        {
+            PlayerMagicShield magicShieldScript = gameObject.AddComponent<PlayerMagicShield>() as PlayerMagicShield;
+            magicShieldScript.SetupShield(shieldSpellNode.time, maxShieldTime, shieldSpellNode, shieldParent, playerHealth);
+        }
+        else
+        {
+            ShieldSpellNode currentShieldSpellNode = currentShield.GetShieldSpellNode();
+            if (currentShieldSpellNode.spell == shieldSpellNode.spell)
+            {
+                ChargeShieldSpell(shieldSpellNode, currentShield);
+            }
+            else
+            {
+                Debug.LogError("Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+            }
+        }
     }
 }

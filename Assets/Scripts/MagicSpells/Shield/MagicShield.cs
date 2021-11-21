@@ -68,9 +68,13 @@ public abstract class MagicShield : MonoBehaviour
 
     public void EndShield()
     {
-        Debug.Log("Ja spierdalam");
         Destroy(shieldObject);
         Destroy(this);
+    }
+
+    public ShieldSpellNode GetShieldSpellNode()
+    {
+        return shieldSpellNode;
     }
 
     public abstract void CollisionWithSpell(CastSpellNode attackSpell);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class EnemySpellController : SpellController
+class EntitySpellController : SpellController
 {
     private Mage entity;
     private float maxMana;
@@ -70,7 +70,15 @@ class EnemySpellController : SpellController
         }
         else
         {
-            ChargeShieldSpell(shieldSpellNode, currentShield);
+            ShieldSpellNode currentShieldSpellNode = currentShield.GetShieldSpellNode();
+            if(currentShieldSpellNode.spell == shieldSpellNode.spell)
+            {
+                ChargeShieldSpell(shieldSpellNode, currentShield);
+            }
+            else
+            {
+                Debug.LogError("Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+            }
         }
     }
 }

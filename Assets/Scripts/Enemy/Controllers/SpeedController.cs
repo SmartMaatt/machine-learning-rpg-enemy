@@ -101,6 +101,6 @@ public class SpeedController : MonoBehaviour
 
         Vector3 lookRotation = flatPointToRotate - flatOwnPosition;
         if (lookRotation != Vector3.zero)
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), rotateAcceleration * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), rotateAcceleration);
     }
 }
