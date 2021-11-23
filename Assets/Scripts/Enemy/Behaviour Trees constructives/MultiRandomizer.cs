@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class Randomizer : Node
+class MultiRandomizer : Node
 {
     private System.Random rand;
     private List<RandomizerNode> nodes;
@@ -11,7 +11,7 @@ class Randomizer : Node
     private Node currentNode;
     private int currentTicks;
 
-    public Randomizer(List<RandomizerNode> nodes, int maxNumberOfTicks)
+    public MultiRandomizer(List<RandomizerNode> nodes, int maxNumberOfTicks)
     {
         rand = new System.Random();
         this.nodes = nodes;

@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4143380806910198747}
   - component: {fileID: 4143380806917892339}
   - component: {fileID: 4143380806917892351}
-  - component: {fileID: 4143380806917471867}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -128,22 +127,6 @@ MonoBehaviour:
   IsBump: 0
   IsHeight: 0
   IsCutOut: 0
---- !u!54 &4143380806917471867
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4143380806912400665}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!1 &6839127767096482536
 GameObject:
   m_ObjectHideFlags: 0
@@ -4954,6 +4937,7 @@ MonoBehaviour:
     name: 
     damage: 0
     armourDamage: 0
+    pushForce: 0
     spell: 0
   shieldSpellNode:
     isAvaliable: 0

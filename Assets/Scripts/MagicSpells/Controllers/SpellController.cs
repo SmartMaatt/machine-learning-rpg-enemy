@@ -8,7 +8,7 @@ public abstract class SpellController : MonoBehaviour
     [Header("Available spells")]
     [SerializeField] protected CastSpellNode[] avaliableCastSpells;
     [SerializeField] protected ShieldSpellNode[] avaliableShieldSpells;
-    [SerializeField] protected CustomSpellNode[] avaliableCustomSpells;
+    [SerializeField] protected HealSpellNode healSpellNode;
 
     [Header("Correction vectors")]
     public Vector3 chestPositionCorrection;
@@ -20,7 +20,6 @@ public abstract class SpellController : MonoBehaviour
 
     protected Dictionary<CastSpell, CastSpellNode> avaliableCastSpellsDict;
     protected Dictionary<ShieldSpell, ShieldSpellNode> avaliableShieldSpellsDict;
-    protected Dictionary<CustomSpell, CustomSpellNode> avaliableCustomSpellsDict;
 
     protected bool alreadyAttacked;
     protected float mana;
@@ -85,6 +84,9 @@ public abstract class SpellController : MonoBehaviour
 
     protected abstract void RunCastSpellAnimation(float time, Transform castSpell);
 
+
+
+    /*Shield casting*/
     public void CastShieldSpell(ShieldSpell shieldSpell)
     {
         try
@@ -124,6 +126,48 @@ public abstract class SpellController : MonoBehaviour
         shieldScript.ChangeTime(shieldSpell.time);
     }
 
+
+
+    /*Heal casting*/
+    public void CastHealSpell()
+    {
+        try
+        {
+            if (healSpellNode.isAvaliable)
+            {
+                if (UseMana(healSpellNode.cost))
+                {
+                    SetupHealObject(healSpellNode);
+                    Debug.Log(gameObject.name + " casted " + healSpellNode.name + "!");
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " can't spell " + healSpellNode.name + "! Cost: " + healSpellNode.cost + ", Mana: " + GetMana());
+                }
+            }
+            else
+            {
+                Debug.Log("Spell " + healSpellNode.name + " is not avaliable right now!");
+            }
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogError("Spell hasn't been declared in inspector!");
+            Debug.LogError(err);
+        }
+    }
+
+    protected abstract void SetupHealObject(HealSpellNode healSpellNode);
+
+    protected void ChargeHealSpell(HealSpellNode healSpell, HealSpell healScript)
+    {
+        Debug.Log("Heal charge!");
+        healScript.ChangeTime(healSpell.time);
+    }
+
+
+
+
     private void ConvertSpellsToDicts()
     {
         avaliableCastSpellsDict = new Dictionary<CastSpell, CastSpellNode>();
@@ -136,12 +180,6 @@ public abstract class SpellController : MonoBehaviour
         foreach (ShieldSpellNode node in avaliableShieldSpells)
         {
             avaliableShieldSpellsDict.Add(node.spell, node);
-        }
-
-        avaliableCustomSpellsDict = new Dictionary<CustomSpell, CustomSpellNode>();
-        foreach (CustomSpellNode node in avaliableCustomSpells)
-        {
-            avaliableCustomSpellsDict.Add(node.spell, node);
         }
     }
 
@@ -203,6 +241,13 @@ public abstract class SpellController : MonoBehaviour
 
                 case SpellType.SHIELD:
                     CastShieldSpell((ShieldSpell)spellID);
+                    break;
+
+                case SpellType.CUSTOM:
+                    if((CustomSpell)spellID == CustomSpell.HEAL)
+                    {
+                        CastHealSpell();
+                    }
                     break;
             }
             ResetSpellType();

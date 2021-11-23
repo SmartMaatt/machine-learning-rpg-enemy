@@ -45,6 +45,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
 
     /*MP variables*/
     private CastSpellNode castSpellNode;
+    private Vector3 fireballMoveVector;
 
     void GetEffectSettingsComponent(Transform tr)
     {
@@ -70,7 +71,8 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
         isInitializedOnStart = true;
 
         /*MP part*/
-       castSpellNode = transform.parent.GetComponent<SpellInfo>().castSpellNode;
+        castSpellNode = transform.parent.GetComponent<SpellInfo>().castSpellNode;
+        fireballMoveVector = transform.parent.GetComponent<EffectSettings>().MoveVector;
     }
 
     void OnEnable()
@@ -218,8 +220,9 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
             {
                 var shield = hit.transform.GetComponent<ShieldCollisionBehaviour>();
                 var magicShield = hit.transform.GetComponent<MagicShield>();
+                var healSpell = hit.transform.GetComponent<HealSpell>();
                 var enemy = hit.transform.GetComponent<AbstractEntity>();
-                var player = hit.transform.GetComponent<PlayerHealth>();
+                var player = hit.transform.GetComponent<PlayerController>();
 
                 if (shield != null)
                 {
@@ -228,15 +231,22 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
 
                 if(magicShield != null)
                 {
-                    magicShield.CollisionWithSpell(castSpellNode);
+                    magicShield.CollisionWithSpell(castSpellNode, fireballMoveVector);
                 }
                 else if (enemy != null)
                 {
                     enemy.GetHit(castSpellNode.damage);
+                    enemy.GetSpeedController().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
                 }
                 else if (player != null)
                 {
                     player.ChangeHealth(-castSpellNode.damage);
+                    player.GetPlayerMovement().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
+                }
+
+                if(healSpell != null)
+                {
+                    healSpell.CollisionWithSpell();
                 }
             }
         }

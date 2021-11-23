@@ -8,9 +8,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Movement")]
     [SerializeField] float moveSpeed = 6f;
-    float movementMultiplier = 10f;
     [SerializeField] float airMultiplier = 0.4f;
     [SerializeField] Transform orientation;
+
+    private float movementMultiplier = 10f;
+    private float pushMultiplier = 300;
 
     [Header("Keybinds")]
     [SerializeField] KeyCode jumpKey = KeyCode.Space;
@@ -50,13 +52,13 @@ public class PlayerMovement : MonoBehaviour
 
     RaycastHit slopeHit;
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
-    void Update()
+    private void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -89,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    void MyInput()
+    private void MyInput()
     {
         horizontalMovement = Input.GetAxisRaw("Horizontal");
         verticalMovement = Input.GetAxisRaw("Vertical");
@@ -97,20 +99,20 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = orientation.forward * verticalMovement + orientation.right * horizontalMovement;
     }
 
-    void Jump()
+    private void Jump()
     {
         rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
 
-    void Dash()
+    private void Dash()
     {
         rb.AddForce(moveDirection * dashForce, ForceMode.Impulse);
         dashReady = false;
         StartCoroutine(dashCooldownReloading());
     }
 
-    void ControlDrag()
+    private void ControlDrag()
     {
         if (isGrounded)
             rb.drag = groundDrag;
@@ -118,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
             rb.drag = airDrag;
     }
 
-    void ControlSpeed()
+    private void ControlSpeed()
     {
         if(Input.GetKey(sprintKey) && isGrounded)
         {
@@ -135,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
-    void MovePlayer()
+    private void MovePlayer()
     {
         if(isGrounded && !OnSlope())
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
@@ -149,5 +151,10 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashCooldown);
         dashReady = true;
+    }
+
+    public void ExplodePush(Vector3 pushDirection, float force)
+    {
+        rb.AddForce(pushDirection * force * pushMultiplier, ForceMode.Acceleration);
     }
 }

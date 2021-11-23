@@ -43,6 +43,7 @@ public class CastSpellNode : SpellNode
 {
     public float damage;
     public int armourDamage;
+    public float pushForce;
     public CastSpell spell;
 }
 
@@ -55,8 +56,9 @@ public class ShieldSpellNode : SpellNode
 }
 
 [System.Serializable]
-public class CustomSpellNode : SpellNode
+public class HealSpellNode : SpellNode
 {
-    public float healPoints;
+    public float healPointsPerSecond;
+    public float time;
     public CustomSpell spell;
 }

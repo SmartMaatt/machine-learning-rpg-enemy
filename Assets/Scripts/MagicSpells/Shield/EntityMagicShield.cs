@@ -32,16 +32,18 @@ public class EntityMagicShield : MagicShield
         ChangeArmour(shieldSpellNode.armour);
     }
 
-    public override void CollisionWithSpell(CastSpellNode attackSpell)
+    public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
     {
-        if (attackSpell.spell == currentShield)
+        if (attackSpellNode.spell == currentShield)
         {
-            entity.GetHit(attackSpell.damage / 2);
+            entity.GetHit(attackSpellNode.damage / 2);
+            entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
         }
-        else if (attackSpell.spell != currentProtection)
+        else if (attackSpellNode.spell != currentProtection)
         {
-            entity.GetHit(attackSpell.damage);
-            ChangeArmour(-attackSpell.armourDamage);
+            entity.GetHit(attackSpellNode.damage);
+            ChangeArmour(-attackSpellNode.armourDamage);
+            entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
                 entity.RemoveBlocking();

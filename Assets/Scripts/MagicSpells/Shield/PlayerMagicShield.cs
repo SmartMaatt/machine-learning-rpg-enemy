@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMagicShield : MagicShield
 {
     [Header("Entity References")]
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private PlayerController playerStats;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class PlayerMagicShield : MagicShield
         }
     }
 
-    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerHealth playerHealth)
+    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerController playerHealth)
     {
         this.shieldLastingTime = shieldLastingTime;
         this.maxShieldLastingTime = maxShieldLastingTime;
@@ -27,20 +27,22 @@ public class PlayerMagicShield : MagicShield
         this.entityModel = entityModel;
         SetupShieldObject(shieldSpellNode.prefab);
 
-        this.playerHealth = playerHealth;
+        this.playerStats = playerHealth;
         ChangeArmour(shieldSpellNode.armour);
     }
 
-    public override void CollisionWithSpell(CastSpellNode attackSpell)
+    public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
     {
-        if (attackSpell.spell == currentShield)
+        if (attackSpellNode.spell == currentShield)
         {
-            playerHealth.ChangeHealth(attackSpell.damage / 2);
+            playerStats.ChangeHealth(attackSpellNode.damage / 2);
+            playerStats.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
         }
-        else if (attackSpell.spell != currentProtection)
+        else if (attackSpellNode.spell != currentProtection)
         {
-            playerHealth.ChangeHealth(attackSpell.damage);
-            ChangeArmour(-attackSpell.armourDamage);
+            playerStats.ChangeHealth(attackSpellNode.damage);
+            ChangeArmour(-attackSpellNode.armourDamage);
+            playerStats.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
                 EndShield();

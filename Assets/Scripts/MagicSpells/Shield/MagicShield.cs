@@ -77,5 +77,5 @@ public abstract class MagicShield : MonoBehaviour
         return shieldSpellNode;
     }
 
-    public abstract void CollisionWithSpell(CastSpellNode attackSpell);
+    public abstract void CollisionWithSpell(CastSpellNode attackSpell, Vector3 ballMoveVector);
 }

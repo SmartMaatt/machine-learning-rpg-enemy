@@ -103,4 +103,24 @@ public class SpeedController : MonoBehaviour
         if (lookRotation != Vector3.zero)
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), rotateAcceleration);
     }
+
+    public void ExplodePush(Vector3 pushDirection, float force)
+    {
+        StartCoroutine(ExplodePushExecutive(pushDirection, force));
+    }
+
+    private IEnumerator ExplodePushExecutive(Vector3 pushDirection, float force)
+    {
+        float time = 0.5f;
+        Vector3 currentPosition = transform.position;
+        Vector3 pushPosition = currentPosition + (pushDirection * force);
+        float elapsedTime = 0;
+
+        while(elapsedTime < 1)
+        {
+            elapsedTime += Time.deltaTime / time;
+            transform.position = Vector3.Lerp(currentPosition, pushPosition, elapsedTime);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }

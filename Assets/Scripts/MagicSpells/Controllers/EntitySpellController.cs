@@ -62,23 +62,37 @@ class EntitySpellController : SpellController
 
     protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
-        MagicShield currentShield = GetComponent<MagicShield>();
-        if (currentShield == null)
+        MagicShield currentShieldComponent = GetComponent<MagicShield>();
+        if (currentShieldComponent == null)
         {
             EntityMagicShield magicShieldScript = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
             magicShieldScript.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity);
         }
         else
         {
-            ShieldSpellNode currentShieldSpellNode = currentShield.GetShieldSpellNode();
+            ShieldSpellNode currentShieldSpellNode = currentShieldComponent.GetShieldSpellNode();
             if(currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
-                ChargeShieldSpell(shieldSpellNode, currentShield);
+                ChargeShieldSpell(shieldSpellNode, currentShieldComponent);
             }
             else
             {
                 Debug.LogError("Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
             }
+        }
+    }
+
+    protected override void SetupHealObject(HealSpellNode healSpellNode)
+    {
+        HealSpell currentHealComponent = GetComponent<HealSpell>();
+        if (currentHealComponent == null)
+        {
+            EntityHealSpell healSpellScript = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
+            healSpellScript.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity);
+        }
+        else
+        {
+            ChargeHealSpell(healSpellNode, currentHealComponent); 
         }
     }
 

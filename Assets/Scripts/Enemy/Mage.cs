@@ -13,6 +13,7 @@ public class Mage : AbstractEntity
 
     [Header("Spell timings")]
     public float maxShieldTime;
+    public float maxHealTime;
 
     [Header("Behaviour tree time clock")]
     public float startTreeTime;
@@ -29,11 +30,6 @@ public class Mage : AbstractEntity
 
         ConstructBehaviourTree();
         InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);
-    }
-
-    private void Update()
-    {
-        ChangeHealth(Time.deltaTime * healthRestoreRate);
     }
 
 
@@ -55,6 +51,7 @@ public class Mage : AbstractEntity
             new GetFloatValue(() => accelerationChaseBonus),
             new GetFloatValue(() => acceleration)
         });
+        HealSpellExecuteNode healSpellExecuteNode = new HealSpellExecuteNode(this, new GetFloatValue(() => coverHealProbability));
 
         /*Cover level 5*/
         // Go to cover (Sequence)
@@ -168,7 +165,7 @@ public class Mage : AbstractEntity
 
 
         /*>>> Health decisions <<<*/
-        Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode });
+        Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode, healSpellExecuteNode });
         Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, jumpToSenseDecisionsSelector });
         Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
         Sequence lowHealthSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });

@@ -314,6 +314,7 @@ MonoBehaviour:
     name: Fireball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 0
   - isAvaliable: 1
     cost: 10
@@ -321,6 +322,7 @@ MonoBehaviour:
     name: Waterball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 1
   - isAvaliable: 1
     cost: 10
@@ -328,6 +330,7 @@ MonoBehaviour:
     name: Snowball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 2
   avaliableShieldSpells:
   - isAvaliable: 1
@@ -351,12 +354,13 @@ MonoBehaviour:
     time: 30
     armour: 100
     spell: 2
-  avaliableCustomSpells:
-  - isAvaliable: 1
+  healSpellNode:
+    isAvaliable: 1
     cost: 50
-    prefab: {fileID: 0}
-    name: 
-    healPoints: 50
+    prefab: {fileID: 1719145790856793785, guid: 48859f1d0cdb3c949a510e2559c11851, type: 3}
+    name: Heal Spell
+    healPointsPerSecond: 1.5
+    time: 30
     spell: 0
   chestPositionCorrection: {x: 0, y: 0.5, z: 0}
   distanceFromInvoke: 0.3
@@ -366,6 +370,7 @@ MonoBehaviour:
   manaRestoreRate: 1.5
   timeBetweenAttacks: 1
   maxShieldTime: 90
+  maxHealTime: 90
   tmpEntity: {fileID: 1195241290}
 --- !u!1001 &382769942
 PrefabInstance:
@@ -975,7 +980,7 @@ Transform:
   - {fileID: 1467343279}
   - {fileID: 57013946}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &920475383
 GameObject:
@@ -1292,9 +1297,9 @@ GameObject:
   - component: {fileID: 1195241293}
   - component: {fileID: 1195241291}
   - component: {fileID: 1195241295}
+  - component: {fileID: 1195241290}
   - component: {fileID: 1195241292}
   - component: {fileID: 1195241294}
-  - component: {fileID: 1195241290}
   - component: {fileID: 1195241296}
   - component: {fileID: 1195241298}
   - component: {fileID: 1195241297}
@@ -1335,7 +1340,7 @@ MonoBehaviour:
   health: 100
   lowHealthThreshold: 50
   criticalLowHealthThreshold: 10
-  healthRestoreRate: 1
+  coverHealProbability: 0.5
   dieAwaitTime: 5
   damage: 10
   blocking: 0
@@ -1364,6 +1369,7 @@ MonoBehaviour:
   maxMana: 200
   manaRestoreRate: 1.5
   maxShieldTime: 90
+  maxHealTime: 90
   startTreeTime: 0.05
   repeatTreeTime: 0.05
 --- !u!195 &1195241291
@@ -1436,6 +1442,7 @@ MonoBehaviour:
     name: Fireball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 0
   - isAvaliable: 1
     cost: 10
@@ -1443,6 +1450,7 @@ MonoBehaviour:
     name: Waterball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 1
   - isAvaliable: 1
     cost: 10
@@ -1450,6 +1458,7 @@ MonoBehaviour:
     name: Snowball
     damage: 15
     armourDamage: 34
+    pushForce: 3
     spell: 2
   avaliableShieldSpells:
   - isAvaliable: 1
@@ -1473,12 +1482,13 @@ MonoBehaviour:
     time: 30
     armour: 100
     spell: 2
-  avaliableCustomSpells:
-  - isAvaliable: 1
+  healSpellNode:
+    isAvaliable: 1
     cost: 50
-    prefab: {fileID: 0}
-    name: 
-    healPoints: 0
+    prefab: {fileID: 1719145790856793785, guid: ea989681367e506438e270fae19b5d91, type: 3}
+    name: Heal Spell
+    healPointsPerSecond: 1.5
+    time: 30
     spell: 0
   chestPositionCorrection: {x: 0, y: 1.5, z: 0}
   distanceFromInvoke: 0.3
@@ -2913,7 +2923,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4170909191475215245, guid: b1a73c0566d361c4a812d299c2af3b87, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4170909191475215245, guid: b1a73c0566d361c4a812d299c2af3b87, type: 3}
       propertyPath: m_LocalPosition.x
