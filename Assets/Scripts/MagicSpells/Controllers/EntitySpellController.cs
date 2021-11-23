@@ -81,4 +81,9 @@ class EntitySpellController : SpellController
             }
         }
     }
+
+    protected override void RunCastSpellAnimation(float time, Transform castSpell)
+    {
+        entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
+    }
 }

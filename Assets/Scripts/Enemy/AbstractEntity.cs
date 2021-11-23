@@ -4,11 +4,13 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(SpeedController))]
+[RequireComponent(typeof(AnimationRiggingController))]
 public abstract class AbstractEntity : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected NavMeshAgent navAgent;
     [SerializeField] protected SpeedController speedController;
+    [SerializeField] protected AnimationRiggingController animationRiggingController;
     [SerializeField] protected GameObject player;
     [SerializeField] protected Cover[] avaliableCovers;
     public LayerMask SolidGround;
@@ -65,6 +67,7 @@ public abstract class AbstractEntity : MonoBehaviour
     {
         navAgent = GetComponent<NavMeshAgent>();
         speedController = GetComponent<SpeedController>();
+        animationRiggingController = GetComponent<AnimationRiggingController>();
         avaliableCovers = FindObjectsOfType<Cover>();
         entityState = EntityState.WANDER;
         SetPlayer();
@@ -100,6 +103,11 @@ public abstract class AbstractEntity : MonoBehaviour
     public SpeedController GetSpeedController()
     {
         return speedController;
+    }
+
+    public AnimationRiggingController GetAnimationRiggingController()
+    {
+        return animationRiggingController;
     }
 
     public GameObject GetPlayer()

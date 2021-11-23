@@ -62,6 +62,7 @@ public abstract class SpellController : MonoBehaviour
                     fireballSettings.UseMoveVector = true;
                     fireballSettings.MoveVector = orientation.forward;
                     ballSpellInfo.castSpellNode = spellNode;
+                    RunCastSpellAnimation(0.4f, castball.transform);
 
                     Debug.Log(gameObject.name + " casted " + spellNode.name + "!");
                 }
@@ -81,6 +82,8 @@ public abstract class SpellController : MonoBehaviour
             Debug.LogError(err);
         }
     }
+
+    protected abstract void RunCastSpellAnimation(float time, Transform castSpell);
 
     public void CastShieldSpell(ShieldSpell shieldSpell)
     {

@@ -153,4 +153,8 @@ class PlayerSpellController : SpellController
             }
         }
     }
+
+    protected override void RunCastSpellAnimation(float time, Transform castSpell)
+    {
+    }
 }
