@@ -362,6 +362,15 @@ MonoBehaviour:
     healPointsPerSecond: 1.5
     time: 30
     spell: 0
+  areaExplosionSpellNode:
+    isAvaliable: 1
+    cost: 100
+    prefab: {fileID: 1099031359404622590, guid: 451b8f8611ab2e047bb8d63b4c7635a7, type: 3}
+    name: Area Explosion
+    damage: 40
+    radius: 15
+    pushForce: 7
+    spell: 1
   chestPositionCorrection: {x: 0, y: 0.5, z: 0}
   distanceFromInvoke: 0.3
   orientation: {fileID: 57013946}
@@ -838,12 +847,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668683237}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 1.78, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1.3918, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 1239854710}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &724165497 stripped
 Transform:
@@ -1340,7 +1349,6 @@ MonoBehaviour:
   health: 100
   lowHealthThreshold: 50
   criticalLowHealthThreshold: 10
-  coverHealProbability: 0.5
   dieAwaitTime: 5
   damage: 10
   blocking: 0
@@ -1370,6 +1378,8 @@ MonoBehaviour:
   manaRestoreRate: 1.5
   maxShieldTime: 90
   maxHealTime: 90
+  coverHealProbability: 0
+  powerAreaSpellCastProbability: 1
   startTreeTime: 0.05
   repeatTreeTime: 0.05
 --- !u!195 &1195241291
@@ -1490,6 +1500,15 @@ MonoBehaviour:
     healPointsPerSecond: 1.5
     time: 30
     spell: 0
+  areaExplosionSpellNode:
+    isAvaliable: 1
+    cost: 100
+    prefab: {fileID: 1099031359404622590, guid: 451b8f8611ab2e047bb8d63b4c7635a7, type: 3}
+    name: Area Explosion
+    damage: 40
+    radius: 15
+    pushForce: 7
+    spell: 1
   chestPositionCorrection: {x: 0, y: 1.5, z: 0}
   distanceFromInvoke: 0.3
   orientation: {fileID: 1439534485}
@@ -1803,6 +1822,8 @@ Transform:
   - {fileID: 382769943}
   - {fileID: 1230697733}
   - {fileID: 1302088251902560495}
+  - {fileID: 1746322416}
+  - {fileID: 668683241}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2357,12 +2378,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1746322412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.88, z: 0}
   m_LocalScale: {x: 1, y: 1.3918, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 1239854710}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1766208657
 GameObject:

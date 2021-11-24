@@ -15,6 +15,12 @@ public class Mage : AbstractEntity
     public float maxShieldTime;
     public float maxHealTime;
 
+    [Header("Power spells probability")]
+    [Range(0, 1)]
+    [SerializeField] protected float coverHealProbability;
+    [Range(0, 1)]
+    public float powerAreaSpellCastProbability;
+
     [Header("Behaviour tree time clock")]
     public float startTreeTime;
     public float repeatTreeTime;
@@ -77,7 +83,7 @@ public class Mage : AbstractEntity
 
         /*>>> Panic branch <<<*/
         /*Panic level 4*/
-        AreaExplosionNode areaExplosionNode = new AreaExplosionNode(this);
+        AreaExplosionExecuteNode areaExplosionNode = new AreaExplosionExecuteNode(this, new GetFloatValue(() => powerAreaSpellCastProbability));
         // <Safe jump> => Try to take cover (Selector)
 
         /*Panic level 3*/
@@ -183,7 +189,7 @@ public class Mage : AbstractEntity
 
 
         /*>>> Top level decisions <<<*/
-        Selector healthDecisionsSelector = new Selector(new List<Node> { criticHealthNode, lowHealthSequence });
+        Selector healthDecisionsSelector = new Selector(new List<Node> { criticalLowHealthSequence, lowHealthSequence });
         Selector senseDecisionsSelector = new Selector(new List<Node> { attackSequence, chaseSequence });
         Selector wanderSelector = new Selector(new List<Node> { wanderNode, goToWanderPointNode });
 

@@ -26,7 +26,8 @@ public enum ShieldSpell
 
 public enum CustomSpell
 {
-    HEAL = 0
+    HEAL = 0,
+    AREA_EXPLOSION = 1
 }
 
 [System.Serializable]
@@ -60,5 +61,14 @@ public class HealSpellNode : SpellNode
 {
     public float healPointsPerSecond;
     public float time;
+    public CustomSpell spell;
+}
+
+[System.Serializable]
+public class AreaExplosionNode : SpellNode
+{
+    public float damage;
+    public float radius;
+    public float pushForce;
     public CustomSpell spell;
 }

@@ -22,8 +22,6 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected float health;
     [SerializeField] protected float lowHealthThreshold;
     [SerializeField] protected float criticalLowHealthThreshold;
-    [Range(0,1)]
-    [SerializeField] protected float coverHealProbability;
     [SerializeField] protected float dieAwaitTime;
     [SerializeField] protected int damage;
     [SerializeField] protected bool blocking;

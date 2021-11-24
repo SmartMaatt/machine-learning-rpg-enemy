@@ -74,6 +74,12 @@ class PlayerSpellController : SpellController
                 SetSpellType(SpellType.CUSTOM, (int)CustomSpell.HEAL);
                 ExecuteSpell();
             }
+
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                SetSpellType(SpellType.CUSTOM, (int)CustomSpell.AREA_EXPLOSION);
+                ExecuteSpell();
+            }
         }
         else
         {
@@ -116,6 +122,12 @@ class PlayerSpellController : SpellController
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
                 tmpEntity.SetSpellType(SpellType.CUSTOM, (int)CustomSpell.HEAL);
+                tmpEntity.Attack();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                tmpEntity.SetSpellType(SpellType.CUSTOM, (int)CustomSpell.AREA_EXPLOSION);
                 tmpEntity.Attack();
             }
         }
@@ -183,5 +195,14 @@ class PlayerSpellController : SpellController
 
     protected override void RunCastSpellAnimation(float time, Transform castSpell)
     {
+    }
+
+    protected override void RunAreaExplosionAnimation()
+    {
+    }
+
+    protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)
+    {
+        owner.LoadPlayer(playerController);
     }
 }

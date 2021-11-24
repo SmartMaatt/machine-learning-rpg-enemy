@@ -7,4 +7,5 @@ public class SpellInfo : MonoBehaviour
     public CastSpellNode castSpellNode;
     public ShieldSpellNode shieldSpellNode;
     public HealSpellNode healSpellNode;
+    public AreaExplosionNode areaExplosionNode;
 }

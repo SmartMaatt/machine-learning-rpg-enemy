@@ -100,4 +100,13 @@ class EntitySpellController : SpellController
     {
         entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
     }
+
+    protected override void RunAreaExplosionAnimation()
+    {
+    }
+
+    protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)
+    {
+        owner.LoadEntity(entity);
+    }
 }

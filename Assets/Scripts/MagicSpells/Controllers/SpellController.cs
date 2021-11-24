@@ -9,6 +9,7 @@ public abstract class SpellController : MonoBehaviour
     [SerializeField] protected CastSpellNode[] avaliableCastSpells;
     [SerializeField] protected ShieldSpellNode[] avaliableShieldSpells;
     [SerializeField] protected HealSpellNode healSpellNode;
+    [SerializeField] protected AreaExplosionNode areaExplosionSpellNode;
 
     [Header("Correction vectors")]
     public Vector3 chestPositionCorrection;
@@ -167,6 +168,54 @@ public abstract class SpellController : MonoBehaviour
 
 
 
+    /*Spell casting*/
+    public void CastAreaExplosionSpell()
+    {
+        try
+        {
+            if (areaExplosionSpellNode.isAvaliable)
+            {
+                if (UseMana(areaExplosionSpellNode.cost))
+                {
+                    GameObject castSpell = Instantiate(areaExplosionSpellNode.prefab, transform.position + new Vector3(0f, 3f, 0f), Quaternion.identity);
+                    EffectSettings fireballSettings = castSpell.GetComponent<EffectSettings>();
+                    AreaExplosionBullet areaExplosionBullet = castSpell.GetComponent<AreaExplosionBullet>();
+                    SpellInfo ballSpellInfo = castSpell.GetComponent<SpellInfo>();
+
+                    fireballSettings.UseMoveVector = true;
+                    fireballSettings.MoveVector = new Vector3(0f, -1f, 0f);
+
+                    areaExplosionBullet.LoadParams(transform.position, areaExplosionSpellNode);
+                    LoadOwnerOfExplosion(areaExplosionBullet);
+                    areaExplosionBullet.ExecuteExplosion();
+
+                    ballSpellInfo.areaExplosionNode = areaExplosionSpellNode;
+                    RunAreaExplosionAnimation();
+
+                    Debug.Log(gameObject.name + " casted " + areaExplosionSpellNode.name + "!");
+                }
+                else
+                {
+                    Debug.Log(gameObject.name + " can't spell " + areaExplosionSpellNode.name + "! Cost: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
+                }
+            }
+            else
+            {
+                Debug.Log("Spell " + areaExplosionSpellNode.name + " is not avaliable right now!");
+            }
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogError("Spell hasn't been declared in inspector!");
+            Debug.LogError(err);
+        }
+    }
+
+    protected abstract void RunAreaExplosionAnimation();
+    protected abstract void LoadOwnerOfExplosion(AreaExplosionBullet areaExplosionBullet);
+
+
+
 
     private void ConvertSpellsToDicts()
     {
@@ -247,6 +296,10 @@ public abstract class SpellController : MonoBehaviour
                     if((CustomSpell)spellID == CustomSpell.HEAL)
                     {
                         CastHealSpell();
+                    }
+                    else if((CustomSpell)spellID == CustomSpell.AREA_EXPLOSION)
+                    {
+                        CastAreaExplosionSpell();
                     }
                     break;
             }

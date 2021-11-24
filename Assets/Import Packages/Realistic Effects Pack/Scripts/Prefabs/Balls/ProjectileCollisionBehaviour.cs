@@ -229,24 +229,27 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
                     shield.ShieldCollisionEnter(collInfo);
                 }
 
-                if(magicShield != null)
+                if (magicShield != null)
                 {
                     magicShield.CollisionWithSpell(castSpellNode, fireballMoveVector);
                 }
-                else if (enemy != null)
+                else
                 {
-                    enemy.GetHit(castSpellNode.damage);
-                    enemy.GetSpeedController().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
-                }
-                else if (player != null)
-                {
-                    player.ChangeHealth(-castSpellNode.damage);
-                    player.GetPlayerMovement().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
-                }
+                    if (enemy != null)
+                    {
+                        enemy.GetHit(castSpellNode.damage);
+                        enemy.GetSpeedController().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
+                    }
+                    else if (player != null)
+                    {
+                        player.ChangeHealth(-castSpellNode.damage);
+                        player.GetPlayerMovement().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
+                    }
 
-                if(healSpell != null)
-                {
-                    healSpell.CollisionWithSpell();
+                    if (healSpell != null)
+                    {
+                        healSpell.CollisionWithSpell();
+                    }
                 }
             }
         }
