@@ -17,6 +17,10 @@ public abstract class AbstractEntity : MonoBehaviour
     public LayerMask SolidWall;
     public LayerMask PlayerLayer;
 
+    [Header("UI configuration")]
+    [SerializeField] protected PanelType uiPanelType;
+    [SerializeField] protected string entityName;
+
     [Header("Health and armor")]
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float health;
@@ -57,10 +61,10 @@ public abstract class AbstractEntity : MonoBehaviour
     public float hearRange;
     public float attackRange;
 
-    [Space]
-    [SerializeField] protected Node decisionTreeTopNode;
-    [SerializeField] protected Vector3 currentDestination;
-    [SerializeField] protected EntityState entityState;
+    protected Node decisionTreeTopNode;
+    protected Vector3 currentDestination;
+    protected EntityState entityState;
+    protected PanelControll uiPanelController;
 
     protected virtual void Awake()
     {
@@ -68,8 +72,16 @@ public abstract class AbstractEntity : MonoBehaviour
         speedController = GetComponent<SpeedController>();
         animationRiggingController = GetComponent<AnimationRiggingController>();
         avaliableCovers = FindObjectsOfType<Cover>();
+
         entityState = EntityState.WANDER;
         SetPlayer();
+    }
+
+    protected virtual void Start()
+    {
+        uiPanelController = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
+        uiPanelController.SetupHealth(maxHealth, health);
+        uiPanelController.SetupName(entityName);
     }
 
     /*>>> General methods <<<*/
@@ -124,6 +136,15 @@ public abstract class AbstractEntity : MonoBehaviour
         return entityState;
     }
 
+    public PanelType GetUIPanelType()
+    {
+        return uiPanelType;
+    }
+
+    public PanelControll GetUIPanelControll()
+    {
+        return uiPanelController;
+    }
 
     /*>>> Setters <<<*/
     public void SetNavAgentDestination(Vector3 destination)
@@ -153,6 +174,8 @@ public abstract class AbstractEntity : MonoBehaviour
             health = 0.0f;
             Die();
         }
+
+        uiPanelController.ChangeHealth(health);
     }
 
     public void SetBlock(bool blocking)

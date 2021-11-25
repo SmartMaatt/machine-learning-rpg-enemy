@@ -6,7 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(EntitySpellController))]
 public class Mage : AbstractEntity
 {
-    /*Mage params*/
+    [Header("Mage references")]
+    [SerializeField] private EntitySpellController spellController;
+
     [Header("Mana")]
     public float maxMana;
     public float manaRestoreRate;
@@ -17,15 +19,13 @@ public class Mage : AbstractEntity
 
     [Header("Power spells probability")]
     [Range(0, 1)]
-    [SerializeField] protected float coverHealProbability;
+    public float coverHealProbability;
     [Range(0, 1)]
     public float powerAreaSpellCastProbability;
 
     [Header("Behaviour tree time clock")]
     public float startTreeTime;
     public float repeatTreeTime;
-
-    private EntitySpellController spellController;
 
 
     /*Unity methods*/
@@ -38,6 +38,10 @@ public class Mage : AbstractEntity
         InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);
     }
 
+    protected override void Start()
+    {
+        base.Start();
+    }
 
 
     /*Behaviour tree methods*/
@@ -208,6 +212,7 @@ public class Mage : AbstractEntity
     public override void Die()
     {
         Debug.Log("I've never died before!");
+        Managers.UI.RemovePanelOwner(this.gameObject, uiPanelType);
     }
 
     public override void GetHit(float damage)

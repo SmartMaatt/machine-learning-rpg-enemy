@@ -14,6 +14,10 @@ class EntitySpellController : SpellController
         maxMana = entity.maxMana;
         manaRestoreRate = entity.manaRestoreRate;
 
+        uiPanelType = entity.GetUIPanelType();
+        uiPanelController = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
+        uiPanelController.SetupMana(maxMana, maxMana);
+
         base.Start();
     }
 
@@ -109,4 +113,6 @@ class EntitySpellController : SpellController
     {
         owner.LoadEntity(entity);
     }
+
+    protected override void SetElementUIBarValue(float value) {}
 }

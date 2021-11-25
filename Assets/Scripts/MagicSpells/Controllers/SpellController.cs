@@ -29,6 +29,9 @@ public abstract class SpellController : MonoBehaviour
     protected SpellType spellType;
     protected int spellID;
 
+    protected PanelType uiPanelType;
+    protected PanelControll uiPanelController;
+
     protected virtual void Start()
     {
         ConvertSpellsToDicts();
@@ -323,6 +326,7 @@ public abstract class SpellController : MonoBehaviour
         if (newMana > 0 && newMana <= GetMaxMana())
         {
             mana = newMana;
+            uiPanelController.ChangeMana(mana);
             return true;
         }
         return false;
@@ -337,6 +341,7 @@ public abstract class SpellController : MonoBehaviour
             {
                 mana = GetMaxMana();
             }
+            uiPanelController.ChangeMana(mana);
             return true;
         }
         return false;
@@ -347,6 +352,7 @@ public abstract class SpellController : MonoBehaviour
         if ((manaToUse > 0) && (manaToUse < mana))
         {
             mana -= manaToUse;
+            uiPanelController.ChangeMana(mana);
             return true;
         }
         return false;
@@ -359,19 +365,19 @@ public abstract class SpellController : MonoBehaviour
 
     protected IEnumerator ResetAttack(float time)
     {
-        yield return new WaitForSeconds(time);
+        float elapsedTime = 0f;
+        while(elapsedTime < 1f)
+        {
+            elapsedTime += Time.deltaTime / time;
+            SetElementUIBarValue(elapsedTime);
+            yield return new WaitForEndOfFrame();
+        }
         alreadyAttacked = false;
     }
-
-    //private IEnumerator AttackDesorientation(float minTimeAttackStartDelay, float maxTimeAttackStartDelay)
-    //{
-    //    float DesorientationTime = UnityEngine.Random.Range(minTimeAttackStartDelay, maxTimeAttackStartDelay);
-    //    yield return new WaitForSeconds(DesorientationTime);
-    //    AttackDecision(spellType, spellID);
-    //}
 
     /*Abstract*/
     protected abstract float GetMaxMana();
     protected abstract float GetManaRestoreRate();
     public abstract void ExecuteSpell();
+    protected abstract void SetElementUIBarValue(float value);
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(UIManager))]
 public class Managers : MonoBehaviour
 {
-    // public static TestManager Test { get; private set; } // Example line
-
+    public static UIManager UI { get; private set; }
     public static bool allLoaded { get; private set; }
 
     private List<IGameManager> _startSequence;
@@ -13,11 +13,11 @@ public class Managers : MonoBehaviour
     private void Awake()
     {
         allLoaded = false;
-        // Test = GetComponent<TestManager>(); // Example line
+        UI = GetComponent<UIManager>();
 
         _startSequence = new List<IGameManager>();
-        
-        // _startSequence.Add(Test); // Example line
+
+         _startSequence.Add(UI);
 
         StartCoroutine(StartupManagers());
     }
