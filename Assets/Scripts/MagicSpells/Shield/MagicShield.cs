@@ -20,6 +20,7 @@ public abstract class MagicShield : MonoBehaviour
     [Header("References")]
     [SerializeField] protected GameObject entityModel;
     protected GameObject shieldObject;
+    protected PanelControll uiPanelController;
 
     protected void SetupShieldObject(GameObject shield)
     {
@@ -32,6 +33,7 @@ public abstract class MagicShield : MonoBehaviour
     {
         shieldLastingTime += change;
         shieldLastingTime = Mathf.Clamp(shieldLastingTime, 0f, maxShieldLastingTime);
+        uiPanelController.SetShieldClock(shieldLastingTime);
     }
 
     public void ChangeArmour(int change)
@@ -68,6 +70,9 @@ public abstract class MagicShield : MonoBehaviour
 
     public void EndShield()
     {
+        uiPanelController.ResetShield();
+        uiPanelController.ResetShieldClock();
+
         Destroy(shieldObject);
         Destroy(this);
     }

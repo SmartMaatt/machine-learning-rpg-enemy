@@ -14,6 +14,7 @@ public abstract class HealSpell : MonoBehaviour
     [Header("References")]
     [SerializeField] protected GameObject entityModel;
     protected GameObject healObject;
+    protected PanelControll uiPanelController;
 
     protected void SetupShieldObject(GameObject heal)
     {
@@ -26,6 +27,7 @@ public abstract class HealSpell : MonoBehaviour
     {
         healLastingTime += change;
         healLastingTime = Mathf.Clamp(healLastingTime, 0f, maxHealLastingTime);
+        uiPanelController.SetHealClock(healLastingTime);
     }
 
     protected bool CheckIfTimeIsUp()
@@ -35,6 +37,9 @@ public abstract class HealSpell : MonoBehaviour
 
     public void EndHeal()
     {
+        uiPanelController.ResetHeal();
+        uiPanelController.ResetHealClock();
+
         Destroy(healObject);
         Destroy(this);
     }

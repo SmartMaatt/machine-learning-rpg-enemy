@@ -46,7 +46,7 @@ class EntitySpellController : SpellController
         }
         else
         {
-            Debug.LogError("Can't attack right now!!!");
+            LogMessage("Can't attack right now!!!");
         }
     }
 
@@ -70,7 +70,7 @@ class EntitySpellController : SpellController
         if (currentShieldComponent == null)
         {
             EntityMagicShield magicShieldScript = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
-            magicShieldScript.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity);
+            magicShieldScript.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity, uiPanelController);
         }
         else
         {
@@ -81,7 +81,7 @@ class EntitySpellController : SpellController
             }
             else
             {
-                Debug.LogError("Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+                LogMessage(gameObject.name + " Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
             }
         }
     }
@@ -92,7 +92,7 @@ class EntitySpellController : SpellController
         if (currentHealComponent == null)
         {
             EntityHealSpell healSpellScript = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
-            healSpellScript.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity);
+            healSpellScript.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity, uiPanelController);
         }
         else
         {
@@ -115,4 +115,9 @@ class EntitySpellController : SpellController
     }
 
     protected override void SetElementUIBarValue(float value) {}
+
+    protected override void LogMessage(string msg)
+    {
+        Debug.Log(msg);
+    }
 }

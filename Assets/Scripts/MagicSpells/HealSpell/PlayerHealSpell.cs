@@ -17,7 +17,7 @@ public class PlayerHealSpell : HealSpell
         }
     }
 
-    public void SetupShield(float healLastingTime, float maxHealLastingTime, HealSpellNode healSpellNode, GameObject entityModel, PlayerController playerHealth)
+    public void SetupShield(float healLastingTime, float maxHealLastingTime, HealSpellNode healSpellNode, GameObject entityModel, PlayerController playerHealth, PanelControll uiPanelController)
     {
         this.healLastingTime = healLastingTime;
         this.maxHealLastingTime = maxHealLastingTime;
@@ -28,6 +28,9 @@ public class PlayerHealSpell : HealSpell
         SetupShieldObject(healSpellNode.prefab);
 
         this.playerStats = playerHealth;
+
+        this.uiPanelController = uiPanelController;
+        uiPanelController.SetHeal("OK");
     }
 
     public override void CollisionWithSpell()

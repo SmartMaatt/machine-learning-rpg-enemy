@@ -16,7 +16,7 @@ public class PlayerMagicShield : MagicShield
         }
     }
 
-    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerController playerHealth)
+    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerController playerHealth, PanelControll uiPanelController)
     {
         this.shieldLastingTime = shieldLastingTime;
         this.maxShieldLastingTime = maxShieldLastingTime;
@@ -29,6 +29,9 @@ public class PlayerMagicShield : MagicShield
 
         this.playerStats = playerHealth;
         ChangeArmour(shieldSpellNode.armour);
+
+        this.uiPanelController = uiPanelController;
+        uiPanelController.SetShield(armour);
     }
 
     public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
@@ -42,6 +45,8 @@ public class PlayerMagicShield : MagicShield
         {
             playerStats.ChangeHealth(attackSpellNode.damage);
             ChangeArmour(-attackSpellNode.armourDamage);
+            uiPanelController.SetShield(armour);
+
             playerStats.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {

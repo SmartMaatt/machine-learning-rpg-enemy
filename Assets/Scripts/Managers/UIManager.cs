@@ -26,6 +26,10 @@ public class UIManager : MonoBehaviour, IGameManager
     [SerializeField] private Sprite water;
     [SerializeField] private Sprite snow;
 
+    [Header("PopUp display panel")]
+    [SerializeField] private PopUpMessager popUpMessager;
+
+
     public void Startup()
     {
         Debug.Log("Starting UI manager");
@@ -129,6 +133,11 @@ public class UIManager : MonoBehaviour, IGameManager
             elementBar.gameObject.SetActive(false);
             elementBarOwner = null;
         }
+    }
+
+    public void DisplayPopUpMessage(string msg)
+    {
+        popUpMessager.DisplayMessage(msg);
     }
 }
 

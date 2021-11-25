@@ -66,17 +66,15 @@ public abstract class SpellController : MonoBehaviour
                     fireballSettings.MoveVector = orientation.forward;
                     ballSpellInfo.castSpellNode = spellNode;
                     RunCastSpellAnimation(0.4f, castball.transform);
-
-                    Debug.Log(gameObject.name + " casted " + spellNode.name + "!");
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
                 }
             }
             else
             {
-                Debug.Log("Spell " + spellNode.name + " is not avaliable right now!");
+                LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
             }
         }
         catch (KeyNotFoundException err)
@@ -102,16 +100,15 @@ public abstract class SpellController : MonoBehaviour
                 if (UseMana(spellNode.cost))
                 {
                     SetupShieldObject(spellNode);
-                    Debug.Log(gameObject.name + " casted " + spellNode.name + "!");
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
                 }
             }
             else
             {
-                Debug.Log("Spell " + spellNode.name + " is not avaliable right now!");
+                LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
             }
         }
         catch (KeyNotFoundException err)
@@ -142,16 +139,15 @@ public abstract class SpellController : MonoBehaviour
                 if (UseMana(healSpellNode.cost))
                 {
                     SetupHealObject(healSpellNode);
-                    Debug.Log(gameObject.name + " casted " + healSpellNode.name + "!");
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " can't spell " + healSpellNode.name + "! Cost: " + healSpellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " can't spell " + healSpellNode.name + "! Cost: " + healSpellNode.cost + ", Mana: " + GetMana());
                 }
             }
             else
             {
-                Debug.Log("Spell " + healSpellNode.name + " is not avaliable right now!");
+                LogMessage("Spell " + healSpellNode.name + " is not avaliable right now!");
             }
         }
         catch (NullReferenceException err)
@@ -194,17 +190,15 @@ public abstract class SpellController : MonoBehaviour
 
                     ballSpellInfo.areaExplosionNode = areaExplosionSpellNode;
                     RunAreaExplosionAnimation();
-
-                    Debug.Log(gameObject.name + " casted " + areaExplosionSpellNode.name + "!");
                 }
                 else
                 {
-                    Debug.Log(gameObject.name + " can't spell " + areaExplosionSpellNode.name + "! Cost: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " can't spell " + areaExplosionSpellNode.name + "! Cost: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
                 }
             }
             else
             {
-                Debug.Log("Spell " + areaExplosionSpellNode.name + " is not avaliable right now!");
+                LogMessage("Spell " + areaExplosionSpellNode.name + " is not avaliable right now!");
             }
         }
         catch (NullReferenceException err)
@@ -380,4 +374,5 @@ public abstract class SpellController : MonoBehaviour
     protected abstract float GetManaRestoreRate();
     public abstract void ExecuteSpell();
     protected abstract void SetElementUIBarValue(float value);
+    protected abstract void LogMessage(string msg);
 }
