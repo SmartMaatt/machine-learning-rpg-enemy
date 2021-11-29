@@ -13,6 +13,7 @@ public class EntityHealSpell : HealSpell
         entity.ChangeHealth(Time.deltaTime * healSpellNode.healPointsPerSecond);
         if(CheckIfTimeIsUp())
         {
+            entity.SetHealing(false);
             EndHeal();
         }
     }
@@ -28,9 +29,16 @@ public class EntityHealSpell : HealSpell
         SetupShieldObject(healSpellNode.prefab);
 
         this.entity = entity;
+        entity.SetHealing(true);
 
         this.uiPanelController = uiPanelController;
         uiPanelController.SetHeal("OK");
+    }
+
+    public override void EndHeal()
+    {
+        entity.SetHealing(false);
+        base.EndHeal();
     }
 
     public override void CollisionWithSpell()

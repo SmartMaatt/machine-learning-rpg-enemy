@@ -28,11 +28,17 @@ public class EntityMagicShield : MagicShield
         SetupShieldObject(shieldSpellNode.prefab);
 
         this.entity = entity;
-        entity.AddBlocking();
+        entity.SetBlocking(true);
         ChangeArmour(shieldSpellNode.armour);
 
         this.uiPanelController = uiPanelController;
         uiPanelController.SetShield(armour);
+    }
+
+    public override void EndShield()
+    {
+        entity.SetBlocking(false);
+        base.EndShield();
     }
 
     public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
@@ -51,7 +57,6 @@ public class EntityMagicShield : MagicShield
             entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
-                entity.RemoveBlocking();
                 EndShield();
             }
         }

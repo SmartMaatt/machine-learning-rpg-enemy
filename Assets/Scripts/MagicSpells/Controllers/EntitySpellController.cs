@@ -38,10 +38,10 @@ class EntitySpellController : SpellController
 
     public override void ExecuteSpell()
     {
-        if (!alreadyAttacked)
+        if (canAttack)
         {
             StartCoroutine(AttackDesorientation(entity.minTimeAttackStartDelay, entity.maxTimeAttackStartDelay));
-            alreadyAttacked = true;
+            canAttack = false;
             StartCoroutine(ResetAttack(entity.timeBetweenAttacks));
         }
         else

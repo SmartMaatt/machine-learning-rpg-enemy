@@ -23,7 +23,7 @@ class PlayerSpellController : SpellController
     {
         playerController = GetComponent<PlayerController>();
 
-        uiPanelType = playerController.uiPanelType;
+        uiPanelType = playerController.GetPanelType();
         uiPanelController = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
         uiPanelController.SetupMana(maxMana, maxMana);
 
@@ -180,10 +180,10 @@ class PlayerSpellController : SpellController
 
     public override void ExecuteSpell()
     {
-        if (!alreadyAttacked)
+        if (canAttack)
         {
             UseSpellType();
-            alreadyAttacked = true;
+            canAttack = false;
             StartCoroutine(ResetAttack(timeBetweenAttacks));
         }
         else

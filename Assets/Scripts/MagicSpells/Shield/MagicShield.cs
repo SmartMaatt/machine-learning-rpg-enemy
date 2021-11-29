@@ -68,7 +68,7 @@ public abstract class MagicShield : MonoBehaviour
         }
     }
 
-    public void EndShield()
+    public virtual void EndShield()
     {
         uiPanelController.ResetShield();
         uiPanelController.ResetShieldClock();
@@ -80,6 +80,16 @@ public abstract class MagicShield : MonoBehaviour
     public ShieldSpellNode GetShieldSpellNode()
     {
         return shieldSpellNode;
+    }
+
+    public ShieldSpell GetShieldType()
+    {
+        return shieldSpellNode.spell;
+    }
+
+    public float GetShieldTime()
+    {
+        return shieldLastingTime;
     }
 
     public abstract void CollisionWithSpell(CastSpellNode attackSpell, Vector3 ballMoveVector);

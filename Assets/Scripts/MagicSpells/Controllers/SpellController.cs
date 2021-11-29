@@ -22,7 +22,7 @@ public abstract class SpellController : MonoBehaviour
     protected Dictionary<CastSpell, CastSpellNode> avaliableCastSpellsDict;
     protected Dictionary<ShieldSpell, ShieldSpellNode> avaliableShieldSpellsDict;
 
-    protected bool alreadyAttacked;
+    protected bool canAttack;
     protected float mana;
 
     protected bool spellTypeSet;
@@ -37,7 +37,7 @@ public abstract class SpellController : MonoBehaviour
         ConvertSpellsToDicts();
         SetMana(GetMaxMana());
 
-        alreadyAttacked = false;
+        canAttack = true;
         spellTypeSet = false;
     }
 
@@ -366,7 +366,12 @@ public abstract class SpellController : MonoBehaviour
             SetElementUIBarValue(elapsedTime);
             yield return new WaitForEndOfFrame();
         }
-        alreadyAttacked = false;
+        canAttack = true;
+    }
+
+    public bool GetCanAttack()
+    {
+        return canAttack;
     }
 
     /*Abstract*/

@@ -35,7 +35,7 @@ public abstract class HealSpell : MonoBehaviour
         return (healLastingTime <= 0);
     }
 
-    public void EndHeal()
+    public virtual void EndHeal()
     {
         uiPanelController.ResetHeal();
         uiPanelController.ResetHealClock();
@@ -47,6 +47,11 @@ public abstract class HealSpell : MonoBehaviour
     public HealSpellNode GetHealSpellNode()
     {
         return healSpellNode;
+    }
+
+    public float GetHealTime()
+    {
+        return healLastingTime;
     }
 
     public abstract void CollisionWithSpell();

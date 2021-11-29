@@ -29,6 +29,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected float dieAwaitTime;
     [SerializeField] protected int damage;
     [SerializeField] protected bool blocking;
+    [SerializeField] protected bool healing;
     [SerializeField] protected bool immortal = false;
     private int blockingIndex = 0;
 
@@ -146,6 +147,21 @@ public abstract class AbstractEntity : MonoBehaviour
         return uiPanelController;
     }
 
+    public float GetHealth()
+    {
+        return health;
+    }
+
+    public bool IsBlocking()
+    {
+        return blocking;
+    }
+
+    public bool IsHealing()
+    {
+        return healing;
+    }
+
     /*>>> Setters <<<*/
     public void SetNavAgentDestination(Vector3 destination)
     {
@@ -178,9 +194,14 @@ public abstract class AbstractEntity : MonoBehaviour
         uiPanelController.ChangeHealth(health);
     }
 
-    public void SetBlock(bool blocking)
+    public void SetBlocking(bool blocking)
     {
         this.blocking = blocking;
+    }
+
+    public void SetHealing(bool healing)
+    {
+        this.healing = healing;
     }
 
     public void SetCurrentDestination(Vector3 currentDestination)
@@ -191,18 +212,6 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetEntityState(EntityState entityState)
     {
         this.entityState = entityState;
-    }
-
-    public void AddBlocking()
-    {
-        blockingIndex = Mathf.Clamp(blockingIndex++, 0, 100);
-        blocking = blockingIndex > 0;
-    }
-
-    public void RemoveBlocking()
-    {
-        blockingIndex = Mathf.Clamp(blockingIndex--, 0, 100);
-        blocking = blockingIndex > 0;
     }
 
     /*>>> ABSTRACT <<<*/

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMagicShield : MagicShield
 {
     [Header("Entity References")]
-    [SerializeField] private PlayerController playerStats;
+    [SerializeField] private PlayerController playerController;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class PlayerMagicShield : MagicShield
         }
     }
 
-    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerController playerHealth, PanelControll uiPanelController)
+    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, PlayerController playerController, PanelControll uiPanelController)
     {
         this.shieldLastingTime = shieldLastingTime;
         this.maxShieldLastingTime = maxShieldLastingTime;
@@ -27,27 +27,34 @@ public class PlayerMagicShield : MagicShield
         this.entityModel = entityModel;
         SetupShieldObject(shieldSpellNode.prefab);
 
-        this.playerStats = playerHealth;
+        this.playerController = playerController;
+        this.playerController.SetBlocking(true);
         ChangeArmour(shieldSpellNode.armour);
 
         this.uiPanelController = uiPanelController;
         uiPanelController.SetShield(armour);
     }
 
+    public override void EndShield()
+    {
+        playerController.SetBlocking(false);
+        base.EndShield();
+    }
+
     public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
     {
         if (attackSpellNode.spell == currentShield)
         {
-            playerStats.ChangeHealth(attackSpellNode.damage / 2);
-            playerStats.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
+            playerController.ChangeHealth(attackSpellNode.damage / 2);
+            playerController.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
         }
         else if (attackSpellNode.spell != currentProtection)
         {
-            playerStats.ChangeHealth(attackSpellNode.damage);
+            playerController.ChangeHealth(attackSpellNode.damage);
             ChangeArmour(-attackSpellNode.armourDamage);
             uiPanelController.SetShield(armour);
 
-            playerStats.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
+            playerController.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
                 EndShield();

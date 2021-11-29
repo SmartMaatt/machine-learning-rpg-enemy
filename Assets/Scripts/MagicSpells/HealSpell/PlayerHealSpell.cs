@@ -5,19 +5,19 @@ using UnityEngine;
 public class PlayerHealSpell : HealSpell
 {
     [Header("Entity References")]
-    [SerializeField] private PlayerController playerStats;
+    [SerializeField] private PlayerController playerController;
 
     private void Update()
     {
         ChangeTime(-Time.deltaTime);
-        playerStats.ChangeHealth(Time.deltaTime * healSpellNode.healPointsPerSecond);
+        playerController.ChangeHealth(Time.deltaTime * healSpellNode.healPointsPerSecond);
         if(CheckIfTimeIsUp())
         {
             EndHeal();
         }
     }
 
-    public void SetupShield(float healLastingTime, float maxHealLastingTime, HealSpellNode healSpellNode, GameObject entityModel, PlayerController playerHealth, PanelControll uiPanelController)
+    public void SetupShield(float healLastingTime, float maxHealLastingTime, HealSpellNode healSpellNode, GameObject entityModel, PlayerController playerController, PanelControll uiPanelController)
     {
         this.healLastingTime = healLastingTime;
         this.maxHealLastingTime = maxHealLastingTime;
@@ -27,10 +27,17 @@ public class PlayerHealSpell : HealSpell
         this.entityModel = entityModel;
         SetupShieldObject(healSpellNode.prefab);
 
-        this.playerStats = playerHealth;
+        this.playerController = playerController;
+        playerController.SetHealing(true);
 
         this.uiPanelController = uiPanelController;
         uiPanelController.SetHeal("OK");
+    }
+
+    public override void EndHeal()
+    {
+        playerController.SetHealing(false);
+        base.EndHeal();
     }
 
     public override void CollisionWithSpell()

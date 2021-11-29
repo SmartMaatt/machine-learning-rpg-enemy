@@ -5,12 +5,16 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Health")]
-    public float health;
-    public float maxHealth;
+    [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
+
+    [Header("Spell states")]
+    [SerializeField] private bool blocking;
+    [SerializeField] private bool healing;
 
     [Header("UI configuration")]
-    public PanelType uiPanelType;
-    public string playerName;
+    [SerializeField] private PanelType uiPanelType;
+    [SerializeField] private string playerName;
 
     private PlayerMovement playerMovement;
     private PlayerSpellController playerSpellController;
@@ -35,6 +39,56 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Die()
+    {
+        Debug.Log("I've never died before!");
+        Managers.UI.RemovePanelOwner(this.gameObject, uiPanelType);
+    }
+
+
+    /*Getters*/
+    public float GetPlayerHealth()
+    {
+        return health;
+    }
+
+    public float GetPlayerMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public bool GetBlocking()
+    {
+        return blocking;
+    }
+
+    public bool GetHealing()
+    {
+        return healing;
+    }
+
+    public string GetPlayerName()
+    {
+        return playerName;
+    }
+
+    public PlayerMovement GetPlayerMovement()
+    {
+        return playerMovement;
+    }
+    
+    public PanelType GetPanelType()
+    {
+        return uiPanelType;
+    }
+
+    public PanelControll GetPanelControll()
+    {
+        return uiPanel;
+    }
+
+
+    /*Setters*/
     public void ChangeHealth(float hurt)
     {
         health += hurt;
@@ -42,19 +96,13 @@ public class PlayerController : MonoBehaviour
         uiPanel.ChangeHealth(health);
     }
 
-    private void Die()
+    public void SetBlocking(bool blocking)
     {
-        Debug.Log("I've never died before!");
-        Managers.UI.RemovePanelOwner(this.gameObject, uiPanelType);
+        this.blocking = blocking;
     }
 
-    public PlayerMovement GetPlayerMovement()
+    public void SetHealing(bool healing)
     {
-        return playerMovement;
-    }
-
-    public PanelControll GetPanelControll()
-    {
-        return uiPanel;
+        this.healing = healing;
     }
 }
