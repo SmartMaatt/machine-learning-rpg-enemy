@@ -75,7 +75,6 @@ public abstract class AbstractEntity : MonoBehaviour
         avaliableCovers = FindObjectsOfType<Cover>();
 
         entityState = EntityState.WANDER;
-        SetPlayer();
     }
 
     protected virtual void Start()
@@ -191,6 +190,12 @@ public abstract class AbstractEntity : MonoBehaviour
             Die();
         }
 
+        uiPanelController.ChangeHealth(health);
+    }
+
+    public void RefilHealth()
+    {
+        health = maxHealth;
         uiPanelController.ChangeHealth(health);
     }
 

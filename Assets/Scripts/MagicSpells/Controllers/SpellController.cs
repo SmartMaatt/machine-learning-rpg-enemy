@@ -357,6 +357,12 @@ public abstract class SpellController : MonoBehaviour
         AddMana(Time.deltaTime * GetManaRestoreRate());
     }
 
+    public void RefilMana()
+    {
+        mana = GetMaxMana();
+        uiPanelController.ChangeMana(mana);
+    }
+
     protected IEnumerator ResetAttack(float time)
     {
         float elapsedTime = 0f;

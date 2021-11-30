@@ -33,14 +33,15 @@ public class Mage : AbstractEntity
     {
         base.Awake();
         spellController = GetComponent<EntitySpellController>();
-
-        ConstructBehaviourTree();
-        InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);
     }
 
     protected override void Start()
     {
         base.Start();
+        Managers.Level.ValidateLevelEntities(gameObject);
+
+        ConstructBehaviourTree();
+        InvokeRepeating("EvaluateBehaviourTree", startTreeTime, repeatTreeTime);
     }
 
 
@@ -241,6 +242,12 @@ public class Mage : AbstractEntity
         }
     }
 
+
+    /*Getters*/
+    public EntitySpellController GetSpellController()
+    {
+        return spellController;
+    }
 
 
     /*Debuging gizmoses*/

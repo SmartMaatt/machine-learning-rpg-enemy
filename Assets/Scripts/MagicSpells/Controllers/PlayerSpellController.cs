@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-class PlayerSpellController : SpellController
+public class PlayerSpellController : SpellController
 {
     [Header("Player Mana")]
     [SerializeField] private float maxMana;
@@ -12,12 +12,15 @@ class PlayerSpellController : SpellController
     [SerializeField] private float maxHealTime;
 
     [Header("Player references")]
-    [SerializeField] private Mage tmpEntity;
+    public Mage tmpEntity;
 
     private PlayerController playerController;
 
     private CastSpell currentSpell;
     private ElementBar elementBar;
+
+    private PlayerMagicShield currentShield;
+    private PlayerHealSpell currentHealSpell;
 
     private void Start()
     {
@@ -29,6 +32,8 @@ class PlayerSpellController : SpellController
 
         elementBar = Managers.UI.SetupElementBar(this.gameObject);
         elementBar.SetupBarValues(1f, 0f, currentSpell);
+
+        tmpEntity = FindObjectOfType<Mage>();
 
         base.Start();
     }
@@ -194,11 +199,10 @@ class PlayerSpellController : SpellController
 
     protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
-        MagicShield currentShield = GetComponent<MagicShield>();
         if (currentShield == null)
         {
-            PlayerMagicShield magicShieldScript = gameObject.AddComponent<PlayerMagicShield>() as PlayerMagicShield;
-            magicShieldScript.SetupShield(shieldSpellNode.time, maxShieldTime, shieldSpellNode, shieldParent, playerController, uiPanelController);
+            currentShield = gameObject.AddComponent<PlayerMagicShield>() as PlayerMagicShield;
+            currentShield.SetupShield(shieldSpellNode.time, maxShieldTime, shieldSpellNode, shieldParent, playerController, uiPanelController);
         }
         else
         {
@@ -216,15 +220,14 @@ class PlayerSpellController : SpellController
 
     protected override void SetupHealObject(HealSpellNode healSpellNode)
     {
-        HealSpell currentHealComponent = GetComponent<HealSpell>();
-        if (currentHealComponent == null)
+        if (currentHealSpell == null)
         {
-            PlayerHealSpell healSpellScript = gameObject.AddComponent<PlayerHealSpell>() as PlayerHealSpell;
-            healSpellScript.SetupShield(healSpellNode.time, maxHealTime, healSpellNode, shieldParent, playerController, uiPanelController);
+            currentHealSpell = gameObject.AddComponent<PlayerHealSpell>() as PlayerHealSpell;
+            currentHealSpell.SetupShield(healSpellNode.time, maxHealTime, healSpellNode, shieldParent, playerController, uiPanelController);
         }
         else
         {
-            ChargeHealSpell(healSpellNode, currentHealComponent);
+            ChargeHealSpell(healSpellNode, currentHealSpell);
         }
     }
 
@@ -250,5 +253,17 @@ class PlayerSpellController : SpellController
     {
         Managers.UI.DisplayPopUpMessage(msg);
         Debug.Log(msg);
+    }
+
+
+    /*Getters*/
+    public PlayerMagicShield GetCurrentShield()
+    {
+        return currentShield;
+    }
+
+    public PlayerHealSpell GetCurrentHealSpell()
+    {
+        return currentHealSpell;
     }
 }

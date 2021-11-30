@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-class EntitySpellController : SpellController
+public class EntitySpellController : SpellController
 {
     private Mage entity;
     private float maxMana;
     private float manaRestoreRate;
+
+    private EntityMagicShield currentShield;
+    private EntityHealSpell currentHealSpell;
 
     private void Start()
     {
@@ -66,18 +69,17 @@ class EntitySpellController : SpellController
 
     protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
-        MagicShield currentShieldComponent = GetComponent<MagicShield>();
-        if (currentShieldComponent == null)
+        if (currentShield == null)
         {
-            EntityMagicShield magicShieldScript = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
-            magicShieldScript.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity, uiPanelController);
+            currentShield = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
+            currentShield.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity, uiPanelController);
         }
         else
         {
-            ShieldSpellNode currentShieldSpellNode = currentShieldComponent.GetShieldSpellNode();
+            ShieldSpellNode currentShieldSpellNode = currentShield.GetShieldSpellNode();
             if(currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
-                ChargeShieldSpell(shieldSpellNode, currentShieldComponent);
+                ChargeShieldSpell(shieldSpellNode, currentShield);
             }
             else
             {
@@ -88,15 +90,14 @@ class EntitySpellController : SpellController
 
     protected override void SetupHealObject(HealSpellNode healSpellNode)
     {
-        HealSpell currentHealComponent = GetComponent<HealSpell>();
-        if (currentHealComponent == null)
+        if (currentHealSpell == null)
         {
-            EntityHealSpell healSpellScript = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
-            healSpellScript.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity, uiPanelController);
+            currentHealSpell = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
+            currentHealSpell.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity, uiPanelController);
         }
         else
         {
-            ChargeHealSpell(healSpellNode, currentHealComponent); 
+            ChargeHealSpell(healSpellNode, currentHealSpell); 
         }
     }
 
@@ -119,5 +120,17 @@ class EntitySpellController : SpellController
     protected override void LogMessage(string msg)
     {
         Debug.Log(msg);
+    }
+
+
+    /*Getters*/
+    public EntityMagicShield GetCurrentShield()
+    {
+        return currentShield;
+    }
+
+    public EntityHealSpell GetCurrentHealSpell()
+    {
+        return currentHealSpell;
     }
 }

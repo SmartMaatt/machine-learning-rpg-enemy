@@ -26,8 +26,8 @@ public class AnimationRiggingController : MonoBehaviour
 
     private void Start()
     {
-        player = FindObjectsOfType<PlayerMovement>()[0].transform;
         entity = GetComponent<AbstractEntity>();
+        player = entity.GetPlayer().transform;
     }
 
     private void Update()

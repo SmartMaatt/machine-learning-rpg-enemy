@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerSpellController = GetComponent<PlayerSpellController>();
 
+        Managers.Level.ValidateLevelEntities(gameObject);
+
         uiPanel = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
         uiPanel.SetupHealth(maxHealth, health);
         uiPanel.SetupName(playerName);
@@ -76,6 +78,11 @@ public class PlayerController : MonoBehaviour
     {
         return playerMovement;
     }
+
+    public PlayerSpellController GetSpellController()
+    {
+        return playerSpellController;
+    }
     
     public PanelType GetPanelType()
     {
@@ -93,6 +100,12 @@ public class PlayerController : MonoBehaviour
     {
         health += hurt;
         health = Mathf.Clamp(health, 0f, maxHealth);
+        uiPanel.ChangeHealth(health);
+    }
+
+    public void ReloadHealth()
+    {
+        health = maxHealth;
         uiPanel.ChangeHealth(health);
     }
 

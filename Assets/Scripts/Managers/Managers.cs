@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(UIManager))]
+[RequireComponent(typeof(LevelManager))]
 public class Managers : MonoBehaviour
 {
     public static UIManager UI { get; private set; }
+    public static LevelManager Level { get; private set; }
     public static bool allLoaded { get; private set; }
 
     private List<IGameManager> _startSequence;
@@ -14,10 +16,12 @@ public class Managers : MonoBehaviour
     {
         allLoaded = false;
         UI = GetComponent<UIManager>();
+        Level = GetComponent<LevelManager>();
 
         _startSequence = new List<IGameManager>();
 
-         _startSequence.Add(UI);
+        _startSequence.Add(UI);
+        _startSequence.Add(Level);
 
         StartCoroutine(StartupManagers());
     }
