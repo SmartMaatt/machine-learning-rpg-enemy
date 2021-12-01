@@ -11,21 +11,18 @@ using System;
 public class RLMagicAgent : Agent
 {
     [Header("Self observations references")]
-    [SerializeField] AbstractEntity entity;
-    [SerializeField] SpellController spellController;
-    [SerializeField] MagicShield magicShield;
-    [SerializeField] HealSpell healSpell;
+    [SerializeField] protected Mage entity;
+    [SerializeField] protected SpellController spellController;
+    [SerializeField] protected MagicShield magicShield;
+    [SerializeField] protected HealSpell healSpell;
 
-    public override void OnEpisodeBegin()
+    protected virtual void Start()
     {
-        entity = GetComponent<AbstractEntity>();
+        entity = GetComponent<Mage>();
         spellController = GetComponent<SpellController>();
-
-        //transform.localPosition = new Vector3(Random.Range(-2f, +2f), 1, Random.Range(-2f, +2f));
-        //targetTransform.localPosition = new Vector3(Random.Range(-2f, +2f), 1, Random.Range(-2f, +2f));
     }
 
-    public override void CollectObservations(VectorSensor sensor)
+    public virtual void CollectObservations(VectorSensor sensor)
     {
         // Self observations
         sensor.AddObservation(entity.GetHealth());
@@ -33,6 +30,7 @@ public class RLMagicAgent : Agent
         ShieldObservations(sensor);
         HealObservations(sensor);
         sensor.AddObservation(spellController.GetCanAttack());
+        sensor.AddObservation(entity.IsAttacking());
     }
 
     private void ShieldObservations(VectorSensor sensor)
@@ -71,37 +69,17 @@ public class RLMagicAgent : Agent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        float moveX = actions.ContinuousActions[0];
-        float moveZ = actions.ContinuousActions[1];
-
-        float moveSpeed = 1f;
-        transform.localPosition += new Vector3(moveX, 0, moveZ) * Time.deltaTime * moveSpeed;
+        if(entity.IsAttacking())
+        {
+            entity.SetSpellType((SpellType)actions.DiscreteActions[0], actions.DiscreteActions[1]);
+            entity.Attack();
+        }
     }
 
-    /*For testing purposes*/
     public override void Heuristic(in ActionBuffers actionsOut)
     {
         //ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
         //continuousActions[0] = Input.GetAxisRaw("Horizontal");
         //continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    float rewardScore = 0f;
-    //    if (other.TryGetComponent<Reward>(out Reward reward))
-    //    {
-    //        rewardScore = +1f;
-    //        SetReward(rewardScore);
-    //        floorMeshRenderer.material = green;
-    //        EndEpisode();
-    //    }
-    //    else if (other.TryGetComponent<Border>(out Border border))
-    //    {
-    //        rewardScore = -1f;
-    //        SetReward(rewardScore);
-    //        floorMeshRenderer.material = red;
-    //        EndEpisode();
-    //    }
-    //}
 }

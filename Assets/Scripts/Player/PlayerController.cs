@@ -59,12 +59,12 @@ public class PlayerController : MonoBehaviour
         return maxHealth;
     }
 
-    public bool GetBlocking()
+    public bool IsBlocking()
     {
         return blocking;
     }
 
-    public bool GetHealing()
+    public bool IsHealing()
     {
         return healing;
     }

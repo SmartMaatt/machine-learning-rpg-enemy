@@ -482,8 +482,9 @@ GameObject:
   - component: {fileID: 1215319797700901734}
   - component: {fileID: 1215319797700901732}
   - component: {fileID: 1215319797700901735}
-  - component: {fileID: 1215319797700901733}
   - component: {fileID: 1215319797700901730}
+  - component: {fileID: 880137210361552424}
+  - component: {fileID: 7153354849878536334}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -593,7 +594,7 @@ MonoBehaviour:
   obstacleRange: 1
   accelerationChaseBonus: 8
   breakAcceleration: 12
-  timeBetweenAttacks: 1
+  timeBetweenAttacks: 2
   minTimeAttackStartDelay: 0
   maxTimeAttackStartDelay: 0.2
   sightRange: 30
@@ -758,26 +759,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 1215319798187048437}
     m_Active: 1
   m_Effectors: []
---- !u!114 &1215319797700901733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215319797700901759}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 650517b6f3502a949bca1c15e7abe157, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  entity: {fileID: 0}
-  spellController: {fileID: 0}
-  magicShield: {fileID: 0}
-  healSpell: {fileID: 0}
 --- !u!114 &1215319797700901730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -791,19 +772,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 1
+    VectorObservationSize: 12
     NumStackedVectorObservations: 1
-    VectorActionSize: 01000000
+    m_ActionSpec:
+      m_NumContinuousActions: 0
+      BranchSizes: 0300000003000000
+    VectorActionSize: 0300000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
+    hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: My Behavior
+  m_BehaviorName: enemyAI
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
+--- !u!114 &880137210361552424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215319797700901759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d48a424a53445b24cb30842beb2d87a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  entity: {fileID: 0}
+  spellController: {fileID: 0}
+  magicShield: {fileID: 0}
+  healSpell: {fileID: 0}
+  player: {fileID: 0}
+  playerController: {fileID: 0}
+  playerSpellController: {fileID: 0}
+  playerMagicShield: {fileID: 0}
+  playerHealSpell: {fileID: 0}
+--- !u!114 &7153354849878536334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1215319797700901759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 5
+  TakeActionsBetweenDecisions: 1
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

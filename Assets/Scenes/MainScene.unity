@@ -2654,6 +2654,8 @@ MonoBehaviour:
   spawnPointMaxHeight: 30
   jackPrefab: {fileID: 1215319797700901759, guid: cc8d4a6607269b641a376ee9bfd4949c, type: 3}
   playerPrefab: {fileID: 698861808308881314, guid: 4ef469438fdba6d4193e193ca4ea5c71, type: 3}
+  jack: {fileID: 0}
+  jackController: {fileID: 0}
 --- !u!114 &6100896539172983967
 MonoBehaviour:
   m_ObjectHideFlags: 0

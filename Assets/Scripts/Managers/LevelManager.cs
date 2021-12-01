@@ -22,8 +22,8 @@ public class LevelManager : MonoBehaviour, IGameManager
     [SerializeField] private GameObject jackPrefab;
     [SerializeField] private GameObject playerPrefab;
 
-    private GameObject jack;
-    private Mage jackController;
+    [SerializeField] private GameObject jack;
+    [SerializeField] private Mage jackController;
 
     private GameObject player;
     private PlayerController playerController;
@@ -59,16 +59,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
         jackController = jack.GetComponent<Mage>();
         jackController.SetPlayer(player);
-        jack = jackController.gameObject;
-    }
 
-    private void StartTrainingLevelSetup()
-    {
-        jackController = jack.GetComponent<Mage>();
-        playerController = player.GetComponent<PlayerController>();
-
-        jackController.SetPlayer(player);
-        playerController.GetSpellController().tmpEntity = jackController;
+        //jack.AddComponent<RLMagicAgentPlayerTraining>();
     }
 
     public void TrainingLevelReload()

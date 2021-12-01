@@ -161,6 +161,11 @@ public abstract class AbstractEntity : MonoBehaviour
         return healing;
     }
 
+    public bool IsAttacking()
+    {
+        return entityState == EntityState.ATTACK;
+    }
+
     /*>>> Setters <<<*/
     public void SetNavAgentDestination(Vector3 destination)
     {
