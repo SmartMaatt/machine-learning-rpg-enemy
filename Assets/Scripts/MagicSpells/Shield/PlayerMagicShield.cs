@@ -41,12 +41,20 @@ public class PlayerMagicShield : MagicShield
         base.EndShield();
     }
 
-    public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
+    public override void CollisionWithSpell(SpellInfo spellInfo, Vector3 ballMoveVector)
     {
+        CastSpellNode attackSpellNode = spellInfo.castSpellNode;
+
         if (attackSpellNode.spell == currentShield)
         {
             playerController.ChangeHealth(attackSpellNode.damage / 2);
             playerController.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
+
+            //RL rewarding
+            if (spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useSpellSameAsShield);
+            }
         }
         else if (attackSpellNode.spell != currentProtection)
         {
@@ -54,10 +62,24 @@ public class PlayerMagicShield : MagicShield
             ChangeArmour(-attackSpellNode.armourDamage);
             uiPanelController.SetShield(armour);
 
+            //RL rewarding
+            if (spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useStrongSpell);
+            }
+
             playerController.GetPlayerMovement().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
                 EndShield();
+            }
+        }
+        else if (attackSpellNode.spell == currentProtection)
+        {
+            //RL rewarding
+            if (spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useWeekSpell);
             }
         }
     }

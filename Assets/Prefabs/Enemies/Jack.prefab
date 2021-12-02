@@ -483,10 +483,9 @@ GameObject:
   - component: {fileID: 1215319797700901732}
   - component: {fileID: 1215319797700901735}
   - component: {fileID: 1215319797700901730}
-  - component: {fileID: 880137210361552424}
-  - component: {fileID: 7153354849878536334}
+  - component: {fileID: 2993779647095931517}
   m_Layer: 6
-  m_Name: Enemy
+  m_Name: Jack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -560,6 +559,7 @@ MonoBehaviour:
   navAgent: {fileID: 1215319797700901757}
   speedController: {fileID: 1215319797700901754}
   animationRiggingController: {fileID: 1215319797700901734}
+  rlAgent: {fileID: 0}
   player: {fileID: 0}
   avaliableCovers: []
   SolidGround:
@@ -602,6 +602,7 @@ MonoBehaviour:
   hearRange: 20
   attackRange: 10
   spellController: {fileID: 0}
+  rlParameters: {fileID: 0}
   maxMana: 200
   manaRestoreRate: 1.5
   maxShieldTime: 90
@@ -772,7 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 12
+    VectorObservationSize: 13
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -789,7 +790,7 @@ MonoBehaviour:
   m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
---- !u!114 &880137210361552424
+--- !u!114 &2993779647095931517
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -798,36 +799,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1215319797700901759}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d48a424a53445b24cb30842beb2d87a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5e00bb36f03f596438fcfd9b30ce90d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agentParameters:
-    maxStep: 0
-  hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  entity: {fileID: 0}
-  spellController: {fileID: 0}
-  magicShield: {fileID: 0}
-  healSpell: {fileID: 0}
-  player: {fileID: 0}
-  playerController: {fileID: 0}
-  playerSpellController: {fileID: 0}
-  playerMagicShield: {fileID: 0}
-  playerHealSpell: {fileID: 0}
---- !u!114 &7153354849878536334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1215319797700901759}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DecisionPeriod: 5
-  TakeActionsBetweenDecisions: 1
+  everyFrameReward: -0.001
+  winEpisode: 10
+  loseEpisode: -10
+  getHurt: -0.05
+  missShoot: -0.05
+  successShoot: 0.1
+  tryShootWhenNoMana: -0.1
+  useWeekSpell: -0.1
+  useSpellSameAsShield: 0.05
+  useStrongSpell: 0.25
+  getHitByWeekSpell: 0.25
+  getHitBySpellSameAsShield: 0.1
+  getHitByStrongSpell: -0.1
+  rechargeWrongShield: -0.1
+  rechargeCurrentShield: 0.1
+  healWhenHealthUserLow: 0.2
+  destroyHealSpell: 0.2
+  areaSpellWhenHealthUnderCriticalLow: 0.2
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

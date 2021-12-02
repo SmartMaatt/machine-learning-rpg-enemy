@@ -44,7 +44,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
     private bool frameDroped;
 
     /*MP variables*/
-    private CastSpellNode castSpellNode;
+    private SpellInfo spellInfo;
     private Vector3 fireballMoveVector;
 
     void GetEffectSettingsComponent(Transform tr)
@@ -71,7 +71,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
         isInitializedOnStart = true;
 
         /*MP part*/
-        castSpellNode = transform.parent.GetComponent<SpellInfo>().castSpellNode;
+        spellInfo = transform.parent.GetComponent<SpellInfo>();
         fireballMoveVector = transform.parent.GetComponent<EffectSettings>().MoveVector;
     }
 
@@ -212,6 +212,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
         if (AttachAfterCollision)
             tRoot.parent = hit.transform;
 
+        bool shootMissed = true;
         if (SendCollisionMessage)
         {
             var collInfo = new CollisionInfo {Hit = hit};
@@ -223,37 +224,70 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
                 var healSpell = hit.transform.GetComponent<HealSpell>();
                 var enemy = hit.transform.GetComponent<AbstractEntity>();
                 var player = hit.transform.GetComponent<PlayerController>();
+                CastSpellNode castSpellNode = spellInfo.castSpellNode;
 
                 if (shield != null)
                 {
                     shield.ShieldCollisionEnter(collInfo);
+
+                    shootMissed = false;
+                    if (spellInfo.IsAI())
+                    {
+                        spellInfo.AddRLReward(spellInfo.rlParams.successShoot);
+                    }
                 }
 
                 if (magicShield != null)
                 {
-                    magicShield.CollisionWithSpell(castSpellNode, fireballMoveVector);
+                    magicShield.CollisionWithSpell(spellInfo, fireballMoveVector);
+
+                    shootMissed = false;
+                    SuccessShootReward();
                 }
                 else
                 {
                     if (enemy != null)
                     {
-                        enemy.GetHit(castSpellNode.damage);
+                        enemy.GetMagicHit(castSpellNode.damage, (int)castSpellNode.spell);
                         enemy.GetSpeedController().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
+
+                        shootMissed = false;
+                        SuccessShootReward();
                     }
                     else if (player != null)
                     {
                         player.ChangeHealth(-castSpellNode.damage);
                         player.GetPlayerMovement().ExplodePush(fireballMoveVector, castSpellNode.pushForce);
+
+                        shootMissed = false;
+                        SuccessShootReward();
                     }
 
                     if (healSpell != null)
                     {
-                        healSpell.CollisionWithSpell();
+                        healSpell.CollisionWithSpell(spellInfo);
+
+                        shootMissed = false;
+                        SuccessShootReward();
                     }
                 }
             }
         }
         onCollision = true;
+
+        if (spellInfo.IsAI() &&shootMissed)
+        {
+            Debug.Log("Shoot missed!");
+            spellInfo.AddRLReward(spellInfo.rlParams.missShoot);
+        }
+    }
+
+    private void SuccessShootReward()
+    {
+        if (spellInfo.IsAI())
+        {
+            spellInfo.AddRLReward(spellInfo.rlParams.successShoot);
+        }
     }
 
     private void InitRandomVariables()

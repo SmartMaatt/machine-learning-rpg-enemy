@@ -60,7 +60,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         jackController = jack.GetComponent<Mage>();
         jackController.SetPlayer(player);
 
-        //jack.AddComponent<RLMagicAgentPlayerTraining>();
+        jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
+        jack.AddComponent<Unity.MLAgents.DecisionRequester>();
     }
 
     public void TrainingLevelReload()
@@ -86,6 +87,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             Debug.Log(ex.Message);
         }
+        jackController.GetSpellController().ResetLastHittedSpellID();
 
         // Player reload
         player.transform.position = SpawnPointRandomLocation();
@@ -107,6 +109,24 @@ public class LevelManager : MonoBehaviour, IGameManager
         catch (NullReferenceException ex)
         {
             Debug.Log(ex.Message);
+        }
+    }
+
+    public void EndEpisode(GameObject dead)
+    {
+        if (levelType == GameLevelType.TRAINING)
+        {
+            if (dead == player)
+            {
+                jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
+                jackController.GetRLAgent().EndEpisode();
+            }
+
+            if (dead == jack)
+            {
+                jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+                jackController.GetRLAgent().EndEpisode();
+            }
         }
     }
 

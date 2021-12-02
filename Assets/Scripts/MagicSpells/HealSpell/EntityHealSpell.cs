@@ -41,8 +41,13 @@ public class EntityHealSpell : HealSpell
         base.EndHeal();
     }
 
-    public override void CollisionWithSpell()
+    public override void CollisionWithSpell(SpellInfo spellInfo)
     {
+        if (spellInfo.IsAI())
+        {
+            spellInfo.AddRLReward(spellInfo.rlParams.destroyHealSpell);
+        }
+
         EndHeal();
     }
 }

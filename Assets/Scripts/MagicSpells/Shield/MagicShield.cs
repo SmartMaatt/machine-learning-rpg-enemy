@@ -92,5 +92,5 @@ public abstract class MagicShield : MonoBehaviour
         return shieldLastingTime;
     }
 
-    public abstract void CollisionWithSpell(CastSpellNode attackSpell, Vector3 ballMoveVector);
+    public abstract void CollisionWithSpell(SpellInfo spellInfo, Vector3 ballMoveVector);
 }

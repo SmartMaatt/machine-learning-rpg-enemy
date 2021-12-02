@@ -231,13 +231,17 @@ public class PlayerSpellController : SpellController
         }
     }
 
-    protected override void RunCastSpellAnimation(float time, Transform castSpell)
-    {
-    }
 
-    protected override void RunAreaExplosionAnimation()
+    /*Spell casting*/
+    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
     {
+        spellInfo.castSpellNode = spellNode;
+        spellInfo.SetupSpellInfoOwner(null);
     }
+    protected override void RunCastSpellAnimation(float time, Transform castSpell) {}
+
+
+    protected override void AreaExplosionAdditionalConfiguration() {}
 
     protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)
     {

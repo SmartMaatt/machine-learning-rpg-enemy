@@ -6,9 +6,8 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using System;
 
-[RequireComponent(typeof(AbstractEntity))]
 [RequireComponent(typeof(SpellController))]
-public class RLMagicAgent : Agent
+public class RLMagicAgent : RLAgent
 {
     [Header("Self observations references")]
     [SerializeField] protected Mage entity;
@@ -22,14 +21,22 @@ public class RLMagicAgent : Agent
         spellController = GetComponent<SpellController>();
     }
 
+    protected virtual void Update()
+    {
+        AddReward(entity.GetMageRLParameters().everyFrameReward);
+    }
+
     public virtual void CollectObservations(VectorSensor sensor)
     {
         // Self observations
         sensor.AddObservation(entity.GetHealth());
         sensor.AddObservation(spellController.GetMana());
+
         ShieldObservations(sensor);
         HealObservations(sensor);
+
         sensor.AddObservation(spellController.GetCanAttack());
+        sensor.AddObservation(spellController.GetLastHittedSpellID());
         sensor.AddObservation(entity.IsAttacking());
     }
 
@@ -71,8 +78,14 @@ public class RLMagicAgent : Agent
     {
         if(entity.IsAttacking())
         {
-            entity.SetSpellType((SpellType)actions.DiscreteActions[0], actions.DiscreteActions[1]);
-            entity.Attack();
+            int spellType = actions.DiscreteActions[0];
+            int spellElement = actions.DiscreteActions[1];
+
+            if(!(spellType == 2 && spellElement == 2))
+            {
+                entity.SetSpellType((SpellType)spellType, spellElement);
+                entity.Attack();
+            }
         }
     }
 

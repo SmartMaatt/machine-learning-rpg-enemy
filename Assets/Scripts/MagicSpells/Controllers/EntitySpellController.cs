@@ -50,6 +50,7 @@ public class EntitySpellController : SpellController
         else
         {
             LogMessage("Can't attack right now!!!");
+            entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoMana);
         }
     }
 
@@ -80,10 +81,12 @@ public class EntitySpellController : SpellController
             if(currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
                 ChargeShieldSpell(shieldSpellNode, currentShield);
+                entity.AddRLReward(entity.GetMageRLParameters().rechargeCurrentShield);
             }
             else
             {
                 LogMessage(gameObject.name + " Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+                entity.AddRLReward(entity.GetMageRLParameters().rechargeWrongShield);
             }
         }
     }
@@ -99,6 +102,19 @@ public class EntitySpellController : SpellController
         {
             ChargeHealSpell(healSpellNode, currentHealSpell); 
         }
+
+        if(entity.IsHealthLow())
+        {
+            entity.AddRLReward(entity.GetMageRLParameters().healWhenHealthUserLow);
+        }
+    }
+
+
+    /*Spell casting*/
+    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
+    {
+        spellInfo.castSpellNode = spellNode;
+        spellInfo.SetupSpellInfoOwner(entity);
     }
 
     protected override void RunCastSpellAnimation(float time, Transform castSpell)
@@ -106,8 +122,14 @@ public class EntitySpellController : SpellController
         entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
     }
 
-    protected override void RunAreaExplosionAnimation()
+
+
+    protected override void AreaExplosionAdditionalConfiguration()
     {
+        if(entity.IsHealthCriticalLow())
+        {
+            entity.AddRLReward(entity.GetMageRLParameters().areaSpellWhenHealthUnderCriticalLow);
+        }
     }
 
     protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)

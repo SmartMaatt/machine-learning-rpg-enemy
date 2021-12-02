@@ -29,6 +29,8 @@ public abstract class SpellController : MonoBehaviour
     protected SpellType spellType;
     protected int spellID;
 
+    protected int lastHittedSpellID;
+
     protected PanelType uiPanelType;
     protected PanelControll uiPanelController;
 
@@ -39,6 +41,8 @@ public abstract class SpellController : MonoBehaviour
 
         canAttack = true;
         spellTypeSet = false;
+
+        lastHittedSpellID = -1;
     }
 
     protected virtual void Update()
@@ -64,7 +68,8 @@ public abstract class SpellController : MonoBehaviour
 
                     fireballSettings.UseMoveVector = true;
                     fireballSettings.MoveVector = orientation.forward;
-                    ballSpellInfo.castSpellNode = spellNode;
+
+                    SetupCastballSpellInfo(ballSpellInfo, spellNode);
                     RunCastSpellAnimation(0.4f, castball.transform);
                 }
                 else
@@ -84,6 +89,7 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
+    protected abstract void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode);
     protected abstract void RunCastSpellAnimation(float time, Transform castSpell);
 
 
@@ -189,7 +195,7 @@ public abstract class SpellController : MonoBehaviour
                     areaExplosionBullet.ExecuteExplosion();
 
                     ballSpellInfo.areaExplosionNode = areaExplosionSpellNode;
-                    RunAreaExplosionAnimation();
+                    AreaExplosionAdditionalConfiguration();
                 }
                 else
                 {
@@ -208,9 +214,8 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
-    protected abstract void RunAreaExplosionAnimation();
     protected abstract void LoadOwnerOfExplosion(AreaExplosionBullet areaExplosionBullet);
-
+    protected abstract void AreaExplosionAdditionalConfiguration();
 
 
 
@@ -308,6 +313,26 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
+    public bool GetCanAttack()
+    {
+        return canAttack;
+    }
+
+    public void SetLastHittedSpellID(int spellID)
+    {
+        lastHittedSpellID = (int)spellID;
+    }
+
+    public int GetLastHittedSpellID()
+    {
+        return lastHittedSpellID;
+    }
+
+    public void ResetLastHittedSpellID()
+    {
+        lastHittedSpellID = -1;
+    }
+
 
     /*Mana mehtods*/
     public float GetMana()
@@ -373,11 +398,6 @@ public abstract class SpellController : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         canAttack = true;
-    }
-
-    public bool GetCanAttack()
-    {
-        return canAttack;
     }
 
     /*Abstract*/

@@ -52925,9 +52925,9 @@ MonoBehaviour:
   IsHomingMove: 0
   MoveDistance: 20
   IsVisible: 1
-  InstanceBehaviour: 0
+  InstanceBehaviour: 2
   DeactivateTimeDelay: 4
-  DestroyTimeDelay: 10
+  DestroyTimeDelay: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -52980,6 +52980,17 @@ MonoBehaviour:
     healPointsPerSecond: 0
     time: 0
     spell: 0
+  areaExplosionNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    damage: 0
+    radius: 0
+    pushForce: 0
+    spell: 0
+  owner: {fileID: 0}
+  rlParams: {fileID: 0}
 --- !u!136 &527742694009322395
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EntityMagicShield : MagicShield
 {
     [Header("Entity References")]
-    [SerializeField] private AbstractEntity entity;
+    [SerializeField] private Mage entity;
 
     private void Update()
     {
@@ -16,7 +16,7 @@ public class EntityMagicShield : MagicShield
         }
     }
 
-    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, AbstractEntity entity, PanelControll uiPanelController)
+    public void SetupShield(float shieldLastingTime, float maxShieldLastingTime, ShieldSpellNode shieldSpellNode, GameObject entityModel, Mage entity, PanelControll uiPanelController)
     {
         this.shieldLastingTime = shieldLastingTime;
         this.maxShieldLastingTime = maxShieldLastingTime;
@@ -41,23 +41,48 @@ public class EntityMagicShield : MagicShield
         base.EndShield();
     }
 
-    public override void CollisionWithSpell(CastSpellNode attackSpellNode, Vector3 ballMoveVector)
+    public override void CollisionWithSpell(SpellInfo spellInfo, Vector3 ballMoveVector)
     {
+        CastSpellNode attackSpellNode = spellInfo.castSpellNode;
+
         if (attackSpellNode.spell == currentShield)
         {
-            entity.GetHit(attackSpellNode.damage / 2);
+            entity.GetMagicHit(attackSpellNode.damage / 2, (int)attackSpellNode.spell);
             entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
+
+            //RL rewarding
+            entity.AddRLReward(entity.GetMageRLParameters().getHitBySpellSameAsShield);
+            if(spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useSpellSameAsShield);
+            }
         }
         else if (attackSpellNode.spell != currentProtection)
         {
-            entity.GetHit(attackSpellNode.damage);
+            entity.GetMagicHit(attackSpellNode.damage, (int)attackSpellNode.spell);
             ChangeArmour(-attackSpellNode.armourDamage);
             uiPanelController.SetShield(armour);
+
+            //RL rewarding
+            entity.AddRLReward(entity.GetMageRLParameters().getHitByStrongSpell);
+            if(spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useStrongSpell);
+            }
 
             entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce);
             if (armour == 0)
             {
                 EndShield();
+            }
+        }
+        else if (attackSpellNode.spell == currentProtection)
+        {
+            //RL rewarding
+            entity.AddRLReward(entity.GetMageRLParameters().getHitByWeekSpell);
+            if (spellInfo.IsAI())
+            {
+                spellInfo.AddRLReward(spellInfo.rlParams.useWeekSpell);
             }
         }
     }

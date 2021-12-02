@@ -9710,13 +9710,13 @@ MonoBehaviour:
   UseMoveVector: 1
   Target: {fileID: 0}
   MoveVector: {x: 0, y: 0, z: 1}
-  MoveSpeed: 10
+  MoveSpeed: 25
   IsHomingMove: 0
   MoveDistance: 40
   IsVisible: 1
   InstanceBehaviour: 1
   DeactivateTimeDelay: 4
-  DestroyTimeDelay: 40
+  DestroyTimeDelay: 10
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -9732,6 +9732,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb0a1c9c53568248b7b23a6fc82ed3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castSpellNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    damage: 0
+    armourDamage: 0
+    pushForce: 0
+    spell: 0
+  shieldSpellNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    time: 0
+    armour: 0
+    spell: 0
+  healSpellNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    healPointsPerSecond: 0
+    time: 0
+    spell: 0
+  areaExplosionNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    damage: 0
+    radius: 0
+    pushForce: 0
+    spell: 0
+  owner: {fileID: 0}
+  rlParams: {fileID: 0}
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 0

@@ -2627,6 +2627,7 @@ GameObject:
   - component: {fileID: 6100896539172983967}
   - component: {fileID: 782177214066060565}
   - component: {fileID: 5565482253974347803}
+  - component: {fileID: 5565482253974347804}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2656,6 +2657,35 @@ MonoBehaviour:
   playerPrefab: {fileID: 698861808308881314, guid: 4ef469438fdba6d4193e193ca4ea5c71, type: 3}
   jack: {fileID: 0}
   jackController: {fileID: 0}
+--- !u!114 &5565482253974347804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5565482253974347802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f24aeff3c93fe4a9454ca46d2195b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mageEveryFrameReward: -0.001
+  mageWinEpisode: 10
+  mageLoseEpisode: -10
+  mageMissShoot: -0.05
+  mageSuccessShoot: 0.1
+  mageGetHurt: -0.05
+  mageTryShootWhenNoMana: -0.1
+  mageUseWeekSpell: -0.1
+  mageUseSpellSameAsShield: 0.05
+  mageUseStrongSpell: 0.25
+  mageGetHitByWeekSpell: 0.25
+  mageGetHitBySpellSameAsShield: 0.1
+  mageGetHitByStrongSpell: -0.1
+  mageRechargeWrongShield: -0.1
+  mageRechargeCurrentShield: 0.1
+  mageHealWhenHealthUserLow: 0.2
+  mageAreaSpellWhenHealthUnderCriticalLow: 0.2
 --- !u!114 &6100896539172983967
 MonoBehaviour:
   m_ObjectHideFlags: 0

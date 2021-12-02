@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,6 +12,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected NavMeshAgent navAgent;
     [SerializeField] protected SpeedController speedController;
     [SerializeField] protected AnimationRiggingController animationRiggingController;
+    [SerializeField] protected RLAgent rlAgent; 
     [SerializeField] protected GameObject player;
     [SerializeField] protected Cover[] avaliableCovers;
     public LayerMask SolidGround;
@@ -121,6 +123,11 @@ public abstract class AbstractEntity : MonoBehaviour
         return animationRiggingController;
     }
 
+    public RLAgent GetRLAgent()
+    {
+        return rlAgent;
+    }
+
     public GameObject GetPlayer()
     {
         return player;
@@ -166,10 +173,50 @@ public abstract class AbstractEntity : MonoBehaviour
         return entityState == EntityState.ATTACK;
     }
 
+    public bool IsHealthLow()
+    {
+        return health < lowHealthThreshold;
+    }
+
+    public bool IsHealthCriticalLow()
+    {
+        return health < criticalLowHealthThreshold;
+    }
+
     /*>>> Setters <<<*/
+    public void SetRLAgent(RLAgent rlAgent)
+    {
+        this.rlAgent = rlAgent;
+    }
+
     public void SetNavAgentDestination(Vector3 destination)
     {
         navAgent.SetDestination(destination);
+    }
+
+    public void AddRLReward(float reward)
+    {
+        Debug.Log("AddRlReward:" + reward);
+        try
+        {
+            rlAgent.AddReward(reward);
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogError(err.Message);
+        }
+    }
+
+    public void SetRLReward(float reward)
+    {
+        try
+        {
+            rlAgent.SetReward(reward);
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogError(err.Message);
+        }
     }
 
     public void SetPlayer()
@@ -228,5 +275,6 @@ public abstract class AbstractEntity : MonoBehaviour
     protected abstract void ConstructBehaviourTree();
     public abstract void Die();
     public abstract void GetHit(float damage);
+    public abstract void GetMagicHit(float damage, int spellType);
     public abstract void Attack();
 }

@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EntitySpellController))]
+[RequireComponent(typeof(MageRLParameters))]
 public class Mage : AbstractEntity
 {
     [Header("Mage references")]
     [SerializeField] private EntitySpellController spellController;
+    [SerializeField] private MageRLParameters rlParameters;
 
     [Header("Mana")]
     public float maxMana;
@@ -27,12 +29,13 @@ public class Mage : AbstractEntity
     public float startTreeTime;
     public float repeatTreeTime;
 
-
+  
     /*Unity methods*/
     protected override void Awake()
     {
         base.Awake();
         spellController = GetComponent<EntitySpellController>();
+        rlParameters = GetComponent<MageRLParameters>();
     }
 
     protected override void Start()
@@ -213,16 +216,24 @@ public class Mage : AbstractEntity
     public override void Die()
     {
         Debug.Log("I've never died before!");
-        Managers.UI.RemovePanelOwner(this.gameObject, uiPanelType);
+        Managers.Level.EndEpisode(gameObject);
     }
 
     public override void GetHit(float damage)
     {
         ChangeHealth(-damage);
-        Debug.Log("Health: " + health);
+        AddRLReward(rlParameters.getHurt);
+        Debug.Log("[Phisical hit] Health: " + health);
     }
 
-    
+    public override void GetMagicHit(float damage, int spellID)
+    {
+        ChangeHealth(-damage);
+        AddRLReward(rlParameters.getHurt);
+        spellController.SetLastHittedSpellID(spellID);
+        Debug.Log("[Magic hit] Health: " + health);
+    }
+
 
     /*Attack methods*/
     public override void Attack()
@@ -247,6 +258,11 @@ public class Mage : AbstractEntity
     public EntitySpellController GetSpellController()
     {
         return spellController;
+    }
+
+    public MageRLParameters GetMageRLParameters()
+    {
+        return rlParameters;
     }
 
 

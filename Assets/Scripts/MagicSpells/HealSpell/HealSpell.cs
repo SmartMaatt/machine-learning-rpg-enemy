@@ -54,5 +54,5 @@ public abstract class HealSpell : MonoBehaviour
         return healLastingTime;
     }
 
-    public abstract void CollisionWithSpell();
+    public abstract void CollisionWithSpell(SpellInfo spellInfo);
 }

@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PanelType uiPanelType;
     [SerializeField] private string playerName;
 
+    [Header("References")]
+    [SerializeField] private GameObject enemy;
+
     private PlayerMovement playerMovement;
     private PlayerSpellController playerSpellController;
     private PanelControll uiPanel;
@@ -35,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(health < 0)
+        if(health <= 0)
         {
             Die();
         }
@@ -44,7 +47,7 @@ public class PlayerController : MonoBehaviour
     private void Die()
     {
         Debug.Log("I've never died before!");
-        Managers.UI.RemovePanelOwner(this.gameObject, uiPanelType);
+        Managers.Level.EndEpisode(gameObject);
     }
 
 
