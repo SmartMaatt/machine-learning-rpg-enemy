@@ -76,16 +76,21 @@ public class RLMagicAgent : RLAgent
 
     public override void OnActionReceived(ActionBuffers actions)
     {
-        if(entity.IsAttacking())
-        {
-            int spellType = actions.DiscreteActions[0];
-            int spellElement = actions.DiscreteActions[1];
+        int spellType = actions.DiscreteActions[0];
+        int spellElement = actions.DiscreteActions[1];
 
-            if(!(spellType == 2 && spellElement == 2))
+        if(spellType == 0)
+        {
+            if (!entity.IsAttacking())
             {
-                entity.SetSpellType((SpellType)spellType, spellElement);
-                entity.Attack();
+                AddReward(entity.GetMageRLParameters().useSpellsWhenNotInAttackMode);
             }
+        }
+
+        if (!(spellType == 2 && spellElement == 2))
+        {
+            entity.SetSpellType((SpellType)spellType, spellElement);
+            entity.Attack();
         }
     }
 

@@ -419,7 +419,7 @@ MonoBehaviour:
   shieldParent: {fileID: 698861808838423328}
   maxMana: 200
   manaRestoreRate: 1.5
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 1.5
   maxShieldTime: 90
   maxHealTime: 90
   tmpEntity: {fileID: 0}
@@ -441,6 +441,7 @@ MonoBehaviour:
   healing: 0
   uiPanelType: 1
   playerName: Matiq
+  enemy: {fileID: 0}
 --- !u!1 &698861809153540561
 GameObject:
   m_ObjectHideFlags: 0

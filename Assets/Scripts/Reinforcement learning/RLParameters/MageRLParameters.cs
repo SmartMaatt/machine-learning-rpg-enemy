@@ -11,6 +11,7 @@ public class MageRLParameters : AbstractEntityRLParameters
     public float useWeekSpell;
     public float useSpellSameAsShield;
     public float useStrongSpell;
+    public float useSpellsWhenNotInAttackMode;
 
     [Header("Mage Rewards - Self shield")]
     public float getHitByWeekSpell;

@@ -16,4 +16,5 @@ public class NonePanelControll : PanelControll
     public override void SetupHealth(float maxValue, float value) { }
     public override void SetupMana(float maxValue, float value) { }
     public override void SetupName(string name) { }
+    public override void SetupScore(int score) { }
 }

@@ -485,7 +485,7 @@ GameObject:
   - component: {fileID: 1215319797700901730}
   - component: {fileID: 2993779647095931517}
   m_Layer: 6
-  m_Name: Jack
+  m_Name: Madox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   uiPanelType: 2
-  entityName: Jack Madox
+  entityName: Madox
   maxHealth: 100
   health: 100
   lowHealthThreshold: 50
@@ -2369,7 +2369,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 83044c5cce54dba418a0ed92b6132026, type: 2}
+  - {fileID: 2100000, guid: 017698da43741e049be374af2c0dffd0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

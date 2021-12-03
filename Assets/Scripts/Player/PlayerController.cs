@@ -92,7 +92,7 @@ public class PlayerController : MonoBehaviour
         return uiPanelType;
     }
 
-    public PanelControll GetPanelControll()
+    public PanelControll GetUIPanelControll()
     {
         return uiPanel;
     }

@@ -36,6 +36,11 @@ public class RealPanelControll : PanelControll
         nameText.text = name;
     }
 
+    public override void SetupScore(int score)
+    {
+        scoreText.text = "Score: " + score;
+    }
+
     public override void SetShield(float value)
     {
         shield.text = ((int)value).ToString();

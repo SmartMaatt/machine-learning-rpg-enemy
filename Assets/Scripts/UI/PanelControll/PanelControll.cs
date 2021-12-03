@@ -5,6 +5,7 @@ public abstract class PanelControll : MonoBehaviour
 {
     [Header("Main elements")]
     [SerializeField] protected TMP_Text nameText;
+    [SerializeField] protected TMP_Text scoreText;
     [SerializeField] protected ValueBar manaBar;
     [SerializeField] protected ValueBar healthBar;
 
@@ -21,6 +22,7 @@ public abstract class PanelControll : MonoBehaviour
     public abstract void SetupHealth(float maxValue, float value);
     public abstract void ChangeHealth(float newValue);
     public abstract void SetupName(string name);
+    public abstract void SetupScore(int score);
 
     public abstract void SetShield(float value);
     public abstract void ResetShield();

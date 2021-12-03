@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour, IGameManager
     [Header("PopUp display panel")]
     [SerializeField] private PopUpMessager popUpMessager;
 
+    [Header("Generation label")]
+    [SerializeField] private TMP_Text generationLabel;
+
 
     public void Startup()
     {
@@ -138,5 +141,10 @@ public class UIManager : MonoBehaviour, IGameManager
     public void DisplayPopUpMessage(string msg)
     {
         popUpMessager.DisplayMessage(msg);
+    }
+
+    public void SetupGenerationLabel(int value)
+    {
+        generationLabel.text = "Generation: " + value;
     }
 }

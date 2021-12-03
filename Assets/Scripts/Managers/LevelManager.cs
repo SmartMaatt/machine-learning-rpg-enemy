@@ -22,11 +22,14 @@ public class LevelManager : MonoBehaviour, IGameManager
     [SerializeField] private GameObject jackPrefab;
     [SerializeField] private GameObject playerPrefab;
 
-    [SerializeField] private GameObject jack;
-    [SerializeField] private Mage jackController;
+    private GameObject jack;
+    private Mage jackController;
+    private int jackScore;
 
     private GameObject player;
     private PlayerController playerController;
+    private int playerScore;
+
 
     public void Startup()
     {
@@ -55,10 +58,12 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
         playerController = player.GetComponent<PlayerController>();
+        playerScore = 0;
 
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
         jackController = jack.GetComponent<Mage>();
         jackController.SetPlayer(player);
+        jackScore = 0;
 
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
         jack.AddComponent<Unity.MLAgents.DecisionRequester>();
@@ -110,6 +115,10 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             Debug.Log(ex.Message);
         }
+
+        // Managers.UI.SetupGenerationLabel(jackController.GetRLAgent().CompletedEpisodes);
+        jackController.GetUIPanelControll().SetupScore(jackScore);
+        playerController.GetUIPanelControll().SetupScore(playerScore);
     }
 
     public void EndEpisode(GameObject dead)
@@ -118,12 +127,14 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             if (dead == player)
             {
+                jackScore++;
                 jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
                 jackController.GetRLAgent().EndEpisode();
             }
 
             if (dead == jack)
             {
+                playerScore++;
                 jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
                 jackController.GetRLAgent().EndEpisode();
             }
