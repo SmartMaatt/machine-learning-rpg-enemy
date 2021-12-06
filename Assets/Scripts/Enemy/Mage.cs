@@ -58,7 +58,7 @@ public class Mage : AbstractEntity
     {
         /*>>> Cover branch <<<*/
         /*Cover level 6*/
-        IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(this, avaliableCovers, player.transform, this.transform, new GetFloatValue(() => sightConeRange));
+        IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(this, avaliableCovers, enemy.transform, this.transform, new GetFloatValue(() => sightConeRange));
         GoToDestinationPoint goToCoverNode = new GoToDestinationPoint(this, new GetFloatValue[] {
             new GetFloatValue(() => runSpeed),
             new GetFloatValue(() => restSpeed),
@@ -72,7 +72,7 @@ public class Mage : AbstractEntity
         // <Safe jump> => Sense decisions (Selector)
 
         /*Cover level 4*/
-        IsDirectContactNode isCoveredNode = new IsDirectContactNode(player.transform, this.transform, PlayerLayer);
+        IsDirectContactNode isCoveredNode = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
         // Find cover (Selector)
 
         /*Cover level 3*/
@@ -110,13 +110,13 @@ public class Mage : AbstractEntity
 
         /*>>> Attact branch <<<*/
         /*Attack level 4*/
-        RangeNode attackingRangeNode = new RangeNode(player.transform, this.transform, new GetFloatValue(() => attackRange));
-        IsDirectContactNode isPlayerCovered = new IsDirectContactNode(player.transform, this.transform, PlayerLayer);
+        RangeNode attackingRangeNode = new RangeNode(enemy.transform, this.transform, new GetFloatValue(() => attackRange));
+        IsDirectContactNode isPlayerCovered = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
         Inverter isPlayerNotCovered = new Inverter(isPlayerCovered);
 
         /*Attack level 3*/
         // Clear spot (Sequence)
-        AttackNode attackNode = new AttackNode(this, player.transform, this.transform, new GetFloatValue[] {
+        AttackNode attackNode = new AttackNode(this, enemy.transform, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => restSpeed),
             new GetFloatValue(() => breakAcceleration)
         });
@@ -130,15 +130,15 @@ public class Mage : AbstractEntity
 
         /*>>> Chanse branch <<<*/
         /*Chase level 4*/
-        RangeNode hearRangeNode = new RangeNode(player.transform, this.transform, new GetFloatValue(() => hearRange));
-        SightNode sightNode = new SightNode(player.transform, this.transform, new GetFloatValue[] {
+        RangeNode hearRangeNode = new RangeNode(enemy.transform, this.transform, new GetFloatValue(() => hearRange));
+        SightNode sightNode = new SightNode(enemy.transform, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => sightRange),
             new GetFloatValue(() => sightConeRange)
         });
 
         /*Chase level 3*/
         // Senses (Selector)
-        ChaseNode chaseNode = new ChaseNode(this, player.transform, new GetFloatValue[] {
+        ChaseNode chaseNode = new ChaseNode(this, enemy.transform, new GetFloatValue[] {
             new GetFloatValue(() => runSpeed),
             new GetFloatValue(() => restSpeed),
             new GetFloatValue(() => accelerationChaseBonus),

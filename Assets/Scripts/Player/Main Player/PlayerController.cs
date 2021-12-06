@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PanelType uiPanelType;
     [SerializeField] private string playerName;
 
+    [Header("Other")]
+    [SerializeField] float headPosition;
+
     [Header("References")]
     [SerializeField] private GameObject enemy;
 
@@ -60,6 +63,11 @@ public class PlayerController : MonoBehaviour
     public float GetPlayerMaxHealth()
     {
         return maxHealth;
+    }
+
+    public float GetHeadPosition()
+    {
+        return headPosition;
     }
 
     public bool IsBlocking()

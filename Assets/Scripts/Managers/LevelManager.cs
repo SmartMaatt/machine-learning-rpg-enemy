@@ -17,19 +17,32 @@ public class LevelManager : MonoBehaviour, IGameManager
     [Space]
     [SerializeField] private float spawnPointMinHeight;
     [SerializeField] private float spawnPointMaxHeight;
+    [Space]
+    [SerializeField] private Vector3 spectatorSpawnPoint;
+
+    [Header("Episode timing [s]")]
+    [SerializeField] private float maxEpisodeTime;
+    private float episodeTime;
 
     [Header("References")]
     [SerializeField] private GameObject jackPrefab;
+    [SerializeField] private GameObject madoxPrefab;
     [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject spectatorPlayerPrefab;
 
     private GameObject jack;
     private Mage jackController;
     private int jackScore;
 
+    private GameObject madox;
+    private Mage madoxController;
+    private int madoxScore;
+
     private GameObject player;
     private PlayerController playerController;
     private int playerScore;
 
+    private GameObject spectator;
 
     public void Startup()
     {
@@ -39,8 +52,47 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             TrainingLevelSetup();
         }
+        
+        if(levelType == GameLevelType.SELF_PLAY)
+        {
+            SelfPlayLevelSetup();
+        }
 
+        SetupEpisodeTimeBar();
         status = ManagerStatus.Started;
+    }
+
+    private void Update()
+    {
+        EpisodeTimeLimit();
+    }
+
+    public void LevelReload()
+    {
+        if (levelType == GameLevelType.TRAINING)
+        {
+            TrainingLevelReload();
+        }
+
+        if (levelType == GameLevelType.SELF_PLAY)
+        {
+            SelfPlayLevelReload();
+        }
+
+        SetupEpisodeTimeBar();
+    }
+
+    public void EndEpisode(GameObject dead)
+    {
+        if (levelType == GameLevelType.TRAINING)
+        {
+            TrainingEndEpisode(dead);
+        }
+
+        if (levelType == GameLevelType.SELF_PLAY)
+        {
+            SelfPlayEndEpisode(dead);
+        }
     }
 
     public void ValidateLevelEntities(GameObject entity)
@@ -54,6 +106,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
+
+    /*Training methods*/
     private void TrainingLevelSetup()
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
@@ -62,14 +116,109 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
         jackController = jack.GetComponent<Mage>();
-        jackController.SetPlayer(player);
+        jackController.SetEnemy(player);
         jackScore = 0;
 
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
         jack.AddComponent<Unity.MLAgents.DecisionRequester>();
     }
 
-    public void TrainingLevelReload()
+    private void TrainingLevelReload()
+    {
+        JackReload();
+        PlayerReload();
+        UIReload();
+    }
+
+    private void TrainingEndEpisode(GameObject dead)
+    {
+        if (dead == player)
+        {
+            jackScore++;
+            jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
+            jackController.GetRLAgent().EndEpisode();
+        }
+
+        if (dead == jack)
+        {
+            playerScore++;
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.GetRLAgent().EndEpisode();
+        }
+
+        if(dead == null)
+        {
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.GetRLAgent().EndEpisode();
+        }
+    }
+
+
+    /*Self play methods*/
+    private void SelfPlayLevelSetup()
+    {
+        madox = Instantiate(madoxPrefab, SpawnPointRandomLocation(), Quaternion.identity);
+        madoxController = madox.GetComponent<Mage>();
+        madoxScore = 0;
+
+        jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
+        jackController = jack.GetComponent<Mage>();
+        jackScore = 0;
+
+        jackController.SetEnemy(madox);
+        jackController.SetRLAgent(jack.AddComponent<RLMagicAgentSelfPlay>());
+        jack.AddComponent<Unity.MLAgents.DecisionRequester>();
+
+        madoxController.SetEnemy(jack);
+        madoxController.SetRLAgent(madox.AddComponent<RLMagicAgentSelfPlay>());
+        madox.AddComponent<Unity.MLAgents.DecisionRequester>();
+
+        spectator = Instantiate(spectatorPlayerPrefab, spectatorSpawnPoint, Quaternion.identity);
+    }
+
+    private void SelfPlayLevelReload()
+    {
+        JackReload();
+        MadoxReload();
+        UIReload();
+    }
+
+    private void SelfPlayEndEpisode(GameObject dead)
+    {
+        if (dead == madox)
+        {
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
+            madoxController.GetRLAgent().EndEpisode();
+
+            jackScore++;
+            jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
+            jackController.GetRLAgent().EndEpisode();
+        }
+
+        if (dead == jack)
+        {
+            madoxScore++;
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().winEpisode);
+            madoxController.GetRLAgent().EndEpisode();
+
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.GetRLAgent().EndEpisode();
+        }
+
+        if(dead == null)
+        {
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.GetRLAgent().EndEpisode();
+
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
+            madoxController.GetRLAgent().EndEpisode();
+        }
+    }
+
+
+    
+    /*Reloads*/
+    private void JackReload()
     {
         // Jack reload
         jack.transform.position = SpawnPointRandomLocation();
@@ -93,7 +242,36 @@ public class LevelManager : MonoBehaviour, IGameManager
             Debug.Log(ex.Message);
         }
         jackController.GetSpellController().ResetLastHittedSpellID();
+    }
 
+    private void MadoxReload()
+    {
+        // Madox reload
+        madox.transform.position = SpawnPointRandomLocation();
+        madoxController.RefilHealth();
+        madoxController.GetSpellController().RefilMana();
+        try
+        {
+            madoxController.GetSpellController().GetCurrentShield().EndShield();
+        }
+        catch (NullReferenceException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+
+        try
+        {
+            madoxController.GetSpellController().GetCurrentHealSpell().EndHeal();
+        }
+        catch (NullReferenceException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+        madoxController.GetSpellController().ResetLastHittedSpellID();
+    }
+
+    private void PlayerReload()
+    {
         // Player reload
         player.transform.position = SpawnPointRandomLocation();
         playerController.ReloadHealth();
@@ -115,30 +293,41 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             Debug.Log(ex.Message);
         }
-
-        // Managers.UI.SetupGenerationLabel(jackController.GetRLAgent().CompletedEpisodes);
-        jackController.GetUIPanelControll().SetupScore(jackScore);
-        playerController.GetUIPanelControll().SetupScore(playerScore);
     }
 
-    public void EndEpisode(GameObject dead)
+    private void UIReload()
     {
         if (levelType == GameLevelType.TRAINING)
         {
-            if (dead == player)
-            {
-                jackScore++;
-                jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-                jackController.GetRLAgent().EndEpisode();
-            }
-
-            if (dead == jack)
-            {
-                playerScore++;
-                jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-                jackController.GetRLAgent().EndEpisode();
-            }
+            // Managers.UI.SetupGenerationLabel(jackController.GetRLAgent().CompletedEpisodes);
+            jackController.GetUIPanelControll().SetupScore(jackScore);
+            playerController.GetUIPanelControll().SetupScore(playerScore);
         }
+
+        if (levelType == GameLevelType.SELF_PLAY)
+        {
+            // Managers.UI.SetupGenerationLabel(jackController.GetRLAgent().CompletedEpisodes);
+            jackController.GetUIPanelControll().SetupScore(jackScore);
+            madoxController.GetUIPanelControll().SetupScore(madoxScore);
+        }
+    }
+
+    private void EpisodeTimeLimit()
+    {
+        episodeTime += Time.deltaTime;
+        Managers.UI.ChangeEpisodeTimeBarValue(maxEpisodeTime - episodeTime);
+
+        if (episodeTime >= maxEpisodeTime)
+        {
+            EndEpisode(null);
+            SetupEpisodeTimeBar();
+        }
+    }
+
+    private void SetupEpisodeTimeBar()
+    {
+        episodeTime = 0f;
+        Managers.UI.SetupEpisodeTimeBar(maxEpisodeTime, maxEpisodeTime);
     }
 
     private Vector3 SpawnPointRandomLocation()
@@ -146,5 +335,10 @@ public class LevelManager : MonoBehaviour, IGameManager
         float xValue = UnityEngine.Random.Range(spawnPointMinWidth, spawnPointMaxWidth);
         float zValue = UnityEngine.Random.Range(spawnPointMinHeight, spawnPointMaxHeight);
         return spawnPoint + new Vector3(xValue, 0f, zValue);
+    }
+
+    public GameLevelType GetLevelType()
+    {
+        return levelType;
     }
 }

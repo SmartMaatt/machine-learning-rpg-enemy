@@ -13,7 +13,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected SpeedController speedController;
     [SerializeField] protected AnimationRiggingController animationRiggingController;
     [SerializeField] protected RLAgent rlAgent; 
-    [SerializeField] protected GameObject player;
+    [SerializeField] protected GameObject enemy;
     [SerializeField] protected Cover[] avaliableCovers;
     public LayerMask SolidGround;
     public LayerMask SolidWall;
@@ -52,6 +52,7 @@ public abstract class AbstractEntity : MonoBehaviour
     public float accelerationChaseBonus;
 
     [Header("Attacking")]
+    public float headPosition;
     public float breakAcceleration;
     public float timeBetweenAttacks;
     public float minTimeAttackStartDelay;
@@ -69,6 +70,9 @@ public abstract class AbstractEntity : MonoBehaviour
     protected EntityState entityState;
     protected PanelControll uiPanelController;
 
+    protected PlayerController playerEnemyController;
+    protected AbstractEntity entityEnemyController;
+
     protected virtual void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -84,6 +88,9 @@ public abstract class AbstractEntity : MonoBehaviour
         uiPanelController = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
         uiPanelController.SetupHealth(maxHealth, health);
         uiPanelController.SetupName(entityName);
+
+        playerEnemyController = enemy.GetComponent<PlayerController>();
+        entityEnemyController = enemy.GetComponent<AbstractEntity>();
     }
 
     /*>>> General methods <<<*/
@@ -128,9 +135,24 @@ public abstract class AbstractEntity : MonoBehaviour
         return rlAgent;
     }
 
-    public GameObject GetPlayer()
+    public GameObject GetEnemy()
     {
-        return player;
+        return enemy;
+    }
+
+    public float GetEnemyHeadPosition()
+    { 
+        if(playerEnemyController != null)
+        {
+           return playerEnemyController.GetHeadPosition();
+        }
+
+        if(entityEnemyController != null)
+        {
+            return entityEnemyController.headPosition;
+        }
+
+        return 0f;
     }
 
     public Vector3 GetCurrentDestination()
@@ -219,14 +241,14 @@ public abstract class AbstractEntity : MonoBehaviour
         }
     }
 
-    public void SetPlayer()
+    public void SetPlayerAsEnemy()
     {
-        player = FindObjectsOfType<PlayerMovement>()[0].transform.gameObject;
+        enemy = FindObjectsOfType<PlayerMovement>()[0].transform.gameObject;
     }
 
-    public void SetPlayer(GameObject player)
+    public void SetEnemy(GameObject player)
     {
-        this.player = player;
+        this.enemy = player;
     }
 
     public void ChangeHealth(float value)

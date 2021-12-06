@@ -464,7 +464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entity: {fileID: 1215319797700901756}
-  playerHead: {x: 0, y: 0.5, z: 0}
+  playerHead: {x: 0, y: 1.7, z: 0}
 --- !u!1 &1215319797700901759
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +560,7 @@ MonoBehaviour:
   speedController: {fileID: 1215319797700901754}
   animationRiggingController: {fileID: 1215319797700901734}
   rlAgent: {fileID: 0}
-  player: {fileID: 0}
+  enemy: {fileID: 0}
   avaliableCovers: []
   SolidGround:
     serializedVersion: 2
@@ -572,7 +572,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   uiPanelType: 2
-  entityName: Jack Madox
+  entityName: Jack
   maxHealth: 100
   health: 100
   lowHealthThreshold: 50
@@ -593,6 +593,7 @@ MonoBehaviour:
   runSpeed: 6
   obstacleRange: 1
   accelerationChaseBonus: 8
+  headPosition: 1.5
   breakAcceleration: 50
   timeBetweenAttacks: 1.5
   minTimeAttackStartDelay: 0
@@ -715,7 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e32c8f63018ce0428ae1388b3113a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHeadPosition: 0.5
+  enemyHeadPosition: 0
   headTarget: {fileID: 1215319797978581970}
   headAimComponent: {fileID: 1215319796930775331}
   chestAimComponent: {fileID: 1215319798503901342}

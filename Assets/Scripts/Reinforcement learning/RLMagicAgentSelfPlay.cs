@@ -3,35 +3,35 @@ using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 
-public class RLMagicAgentPlayerTraining : RLMagicAgent
+public class RLMagicAgentSelfPlay : RLMagicAgent
 {
-    [Header("Player observations references")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private SpellController playerSpellController;
+    [Header("Enemy observations references")]
+    [SerializeField] private GameObject enemy;
+    [SerializeField] protected Mage enemyController;
+    [SerializeField] protected SpellController enemySpellController;
     [SerializeField] private MagicShield playerMagicShield;
     [SerializeField] private HealSpell playerHealSpell;
 
     protected override void Start()
     {
         base.Start();
-        player = entity.GetEnemy();
-        playerController = player.GetComponent<PlayerController>();
-        playerSpellController = playerController.GetSpellController();
+        enemy = entity.GetEnemy();
+        enemyController = enemy.GetComponent<Mage>();
+        enemySpellController = enemyController.GetSpellController();
     }
 
     public override void CollectObservations(VectorSensor sensor)
     {
         base.CollectObservations(sensor);
-        sensor.AddObservation(playerController.GetPlayerHealth());
-        sensor.AddObservation(playerController.GetSpellController().GetMana());
+        sensor.AddObservation(enemyController.GetHealth());
+        sensor.AddObservation(enemyController.GetSpellController().GetMana());
         PlayerShieldObservations(sensor);
         PlayerHealObservations(sensor);
     }
 
     private void PlayerShieldObservations(VectorSensor sensor)
     {
-        if (playerController.IsBlocking() == false)
+        if (enemyController.IsBlocking() == false)
         {
             sensor.AddObservation(0);   //Shield type
             sensor.AddObservation(0f);  //Shield time
@@ -40,7 +40,7 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
         {
             if (playerMagicShield == null)
             {
-                playerMagicShield = player.GetComponent<MagicShield>();
+                playerMagicShield = enemy.GetComponent<MagicShield>();
             }
             sensor.AddObservation((int)playerMagicShield.GetShieldType());  //Shield type
             sensor.AddObservation(playerMagicShield.GetShieldTime());       //Shield time
@@ -49,7 +49,7 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
 
     private void PlayerHealObservations(VectorSensor sensor)
     {
-        if (playerController.IsHealing() == false)
+        if (enemyController.IsHealing() == false)
         {
             sensor.AddObservation(0f); //Heal time
         }

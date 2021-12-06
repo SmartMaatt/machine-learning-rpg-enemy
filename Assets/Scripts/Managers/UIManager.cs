@@ -29,6 +29,9 @@ public class UIManager : MonoBehaviour, IGameManager
     [Header("PopUp display panel")]
     [SerializeField] private PopUpMessager popUpMessager;
 
+    [Header("Episode time")]
+    [SerializeField] private ValueBar episodeTimeBar;
+
     [Header("Generation label")]
     [SerializeField] private TMP_Text generationLabel;
 
@@ -146,5 +149,15 @@ public class UIManager : MonoBehaviour, IGameManager
     public void SetupGenerationLabel(int value)
     {
         generationLabel.text = "Generation: " + value;
+    }
+
+    public void SetupEpisodeTimeBar(float maxValue, float value)
+    {
+        episodeTimeBar.SetupBar(maxValue, value);
+    }
+
+    public void ChangeEpisodeTimeBarValue(float newValue)
+    {
+        episodeTimeBar.ChangeValue(newValue);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class AnimationRiggingController : MonoBehaviour
 {
     [Header("Head rigging")]
-    [SerializeField] private float playerHeadPosition;
+    [SerializeField] private float enemyHeadPosition;
     [SerializeField] private GameObject headTarget;
     [SerializeField] private MultiAimConstraint headAimComponent;
     [SerializeField] private MultiAimConstraint chestAimComponent;
@@ -27,7 +27,8 @@ public class AnimationRiggingController : MonoBehaviour
     private void Start()
     {
         entity = GetComponent<AbstractEntity>();
-        player = entity.GetPlayer().transform;
+        player = entity.GetEnemy().transform;
+        enemyHeadPosition = entity.GetEnemyHeadPosition();
     }
 
     private void Update()
@@ -41,7 +42,7 @@ public class AnimationRiggingController : MonoBehaviour
         if (currentEntityState == EntityState.ATTACK || currentEntityState == EntityState.CHASE)
         {
             ChangeWeightOfHead(1f, 0.3f);
-            ChangeTargetToPlayer(playerHeadPosition);
+            ChangeTargetToPlayer(enemyHeadPosition);
         }
         else
         {

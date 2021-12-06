@@ -441,6 +441,7 @@ MonoBehaviour:
   healing: 0
   uiPanelType: 1
   playerName: Matiq
+  headPosition: 0.5
   enemy: {fileID: 0}
 --- !u!1 &698861809153540561
 GameObject:

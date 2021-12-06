@@ -26,6 +26,11 @@ public class RLMagicAgent : RLAgent
         AddReward(entity.GetMageRLParameters().everyFrameReward);
     }
 
+    public override void OnEpisodeBegin()
+    {
+        Managers.Level.LevelReload();
+    }
+
     public virtual void CollectObservations(VectorSensor sensor)
     {
         // Self observations
@@ -79,7 +84,7 @@ public class RLMagicAgent : RLAgent
         int spellType = actions.DiscreteActions[0];
         int spellElement = actions.DiscreteActions[1];
 
-        if(spellType == 0)
+        if (spellType == 0)
         {
             if (!entity.IsAttacking())
             {
@@ -92,12 +97,5 @@ public class RLMagicAgent : RLAgent
             entity.SetSpellType((SpellType)spellType, spellElement);
             entity.Attack();
         }
-    }
-
-    public override void Heuristic(in ActionBuffers actionsOut)
-    {
-        //ActionSegment<float> continuousActions = actionsOut.ContinuousActions;
-        //continuousActions[0] = Input.GetAxisRaw("Horizontal");
-        //continuousActions[1] = Input.GetAxisRaw("Vertical");
     }
 }
