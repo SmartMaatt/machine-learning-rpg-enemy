@@ -1,0 +1,29 @@
+{
+    "enemyAI": {
+        "checkpoints": [
+            {
+                "steps": 7836,
+                "file_path": "results\\KrzychTest\\enemyAI\\enemyAI-7836.onnx",
+                "reward": -576.3082784016927,
+                "creation_time": 1638791935.4714885,
+                "auxillary_file_paths": [
+                    "results\\KrzychTest\\enemyAI\\enemyAI-7836.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 7836,
+            "file_path": "results\\KrzychTest\\enemyAI.onnx",
+            "reward": -576.3082784016927,
+            "creation_time": 1638791935.4714885,
+            "auxillary_file_paths": [
+                "results\\KrzychTest\\enemyAI\\enemyAI-7836.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.0+cu110"
+    }
+}

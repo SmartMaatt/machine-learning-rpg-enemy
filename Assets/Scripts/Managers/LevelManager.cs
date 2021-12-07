@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour, IGameManager
@@ -80,6 +78,12 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
 
         SetupEpisodeTimeBar();
+        SetupGenerationLabel();
+    }
+
+    private void SetupGenerationLabel()
+    {
+        Managers.UI.SetupGenerationLabel(Managers.RlCsv.GetEpisodeCount());
     }
 
     public void EndEpisode(GameObject dead)
@@ -136,20 +140,20 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             jackScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(true);
         }
 
         if (dead == jack)
         {
             playerScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(false);
         }
 
         if(dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(false);
         }
     }
 
@@ -188,30 +192,30 @@ public class LevelManager : MonoBehaviour, IGameManager
         if (dead == madox)
         {
             madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
-            madoxController.GetRLAgent().EndEpisode();
+            madoxController.GetRLAgent().EndRLEpisode(false);
 
             jackScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(true);
         }
 
         if (dead == jack)
         {
             madoxScore++;
             madoxController.AddRLReward(madoxController.GetMageRLParameters().winEpisode);
-            madoxController.GetRLAgent().EndEpisode();
+            madoxController.GetRLAgent().EndRLEpisode(true);
 
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(false);
         }
 
         if(dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndEpisode();
+            jackController.GetRLAgent().EndRLEpisode(false);
 
             madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
-            madoxController.GetRLAgent().EndEpisode();
+            madoxController.GetRLAgent().EndRLEpisode(false);
         }
     }
 
@@ -340,5 +344,21 @@ public class LevelManager : MonoBehaviour, IGameManager
     public GameLevelType GetLevelType()
     {
         return levelType;
+    }
+
+    public string GetLevelTypeName()
+    {
+        if(levelType == GameLevelType.TRAINING)
+        {
+            return "Training";
+        }
+        else if(levelType == GameLevelType.SELF_PLAY)
+        {
+            return "Self play";
+        }
+        else
+        {
+            return "Play";
+        }
     }
 }

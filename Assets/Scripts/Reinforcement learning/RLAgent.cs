@@ -1,10 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Unity.MLAgents;
-using Unity.MLAgents.Actuators;
-using Unity.MLAgents.Sensors;
-using System;
 
 [RequireComponent(typeof(AbstractEntity))]
-public class RLAgent : Agent {}
+public abstract class RLAgent : Agent
+{
+    protected float currentReward = 0f;
+
+    public void AddRLReward(float value)
+    {
+        AddReward(value);
+        currentReward += value;
+    }
+
+    public void EndRLEpisode(bool won)
+    {
+        GenerateCSVData(won);
+        currentReward = 0f;
+        EndEpisode();
+    }
+
+    public abstract void GenerateCSVData(bool won);
+}

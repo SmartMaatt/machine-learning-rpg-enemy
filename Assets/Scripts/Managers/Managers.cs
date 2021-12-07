@@ -4,8 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(LevelManager))]
+[RequireComponent(typeof(RlCsvManager))]
 public class Managers : MonoBehaviour
 {
+    public static RlCsvManager RlCsv { get; private set; }
     public static UIManager UI { get; private set; }
     public static LevelManager Level { get; private set; }
     public static bool allLoaded { get; private set; }
@@ -15,11 +17,13 @@ public class Managers : MonoBehaviour
     private void Awake()
     {
         allLoaded = false;
+        RlCsv = GetComponent<RlCsvManager>();
         UI = GetComponent<UIManager>();
         Level = GetComponent<LevelManager>();
 
         _startSequence = new List<IGameManager>();
 
+        _startSequence.Add(RlCsv);
         _startSequence.Add(UI);
         _startSequence.Add(Level);
 

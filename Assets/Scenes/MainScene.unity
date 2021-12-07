@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &161852915
 RectTransform:
   m_ObjectHideFlags: 0
@@ -157,8 +157,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 40}
+  m_AnchoredPosition: {x: -109, y: -28}
+  m_SizeDelta: {x: 100, y: 10}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &161852916
 MonoBehaviour:
@@ -189,8 +189,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1930,7 +1930,7 @@ MonoBehaviour:
   snow: {fileID: 21300000, guid: 1b90bada9d8bb174ea3062b93965fc29, type: 3}
   popUpMessager: {fileID: 1512578929}
   episodeTimeBar: {fileID: 4541644927860219164}
-  generationLabel: {fileID: 0}
+  generationLabel: {fileID: 161852916}
 --- !u!65 &1302088251902560488
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2781,6 +2781,7 @@ GameObject:
   - component: {fileID: 6100896539172983967}
   - component: {fileID: 782177214066060565}
   - component: {fileID: 5565482253974347803}
+  - component: {fileID: 5565482253974347804}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -2806,11 +2807,28 @@ MonoBehaviour:
   spawnPointMaxWidth: 15
   spawnPointMinHeight: -15
   spawnPointMaxHeight: 15
-  maxEpisodeTime: 90
+  spectatorSpawnPoint: {x: 0, y: 10, z: 0}
+  maxEpisodeTime: 300
   jackPrefab: {fileID: 1215319797700901759, guid: cc8d4a6607269b641a376ee9bfd4949c, type: 3}
   madoxPrefab: {fileID: 1215319797700901759, guid: fce798b1d12cbf34ab36b4ccd9376481, type: 3}
   playerPrefab: {fileID: 698861808308881314, guid: 4ef469438fdba6d4193e193ca4ea5c71, type: 3}
   spectatorPlayerPrefab: {fileID: 6782078039514733705, guid: 6cd8084949e52734a80aaf34a6226392, type: 3}
+--- !u!114 &5565482253974347804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5565482253974347802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ee27f5c638483418d5ed07a0954ef4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: test.csv
+  fileDirectoryPath: 
+  persistentDataPath: 1
+  columnsCount: 5
 --- !u!1001 &5737107988807333958
 PrefabInstance:
   m_ObjectHideFlags: 0

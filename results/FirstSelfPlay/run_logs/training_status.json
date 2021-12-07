@@ -2,31 +2,31 @@
     "enemyAI": {
         "checkpoints": [
             {
-                "steps": 32090,
-                "file_path": "results\\FirstSelfPlay\\enemyAI\\enemyAI-32090.onnx",
-                "reward": -261.77697400485766,
-                "creation_time": 1638743696.723197,
+                "steps": 435570,
+                "file_path": "results\\FirstSelfPlay\\enemyAI\\enemyAI-435570.onnx",
+                "reward": -27.41666356722514,
+                "creation_time": 1638791687.4775307,
                 "auxillary_file_paths": [
-                    "results\\FirstSelfPlay\\enemyAI\\enemyAI-32090.pt"
+                    "results\\FirstSelfPlay\\enemyAI\\enemyAI-435570.pt"
                 ]
             },
             {
-                "steps": 415516,
-                "file_path": "results\\FirstSelfPlay\\enemyAI\\enemyAI-415516.onnx",
-                "reward": -21.718248069286346,
-                "creation_time": 1638748163.2838986,
+                "steps": 454600,
+                "file_path": "results\\FirstSelfPlay\\enemyAI\\enemyAI-454600.onnx",
+                "reward": -34.24166683355967,
+                "creation_time": 1638836292.4453332,
                 "auxillary_file_paths": [
-                    "results\\FirstSelfPlay\\enemyAI\\enemyAI-415516.pt"
+                    "results\\FirstSelfPlay\\enemyAI\\enemyAI-454600.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 415516,
+            "steps": 454600,
             "file_path": "results\\FirstSelfPlay\\enemyAI.onnx",
-            "reward": -21.718248069286346,
-            "creation_time": 1638748163.2838986,
+            "reward": -34.24166683355967,
+            "creation_time": 1638836292.4453332,
             "auxillary_file_paths": [
-                "results\\FirstSelfPlay\\enemyAI\\enemyAI-415516.pt"
+                "results\\FirstSelfPlay\\enemyAI\\enemyAI-454600.pt"
             ]
         }
     },

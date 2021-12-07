@@ -180,6 +180,11 @@ public abstract class AbstractEntity : MonoBehaviour
         return health;
     }
 
+    public string GetEntityName()
+    {
+        return entityName;
+    }
+
     public bool IsBlocking()
     {
         return blocking;
@@ -221,7 +226,7 @@ public abstract class AbstractEntity : MonoBehaviour
         Debug.Log("AddRlReward:" + reward);
         try
         {
-            rlAgent.AddReward(reward);
+            rlAgent.AddRLReward(reward);
         }
         catch (NullReferenceException err)
         {

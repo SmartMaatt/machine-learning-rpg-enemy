@@ -23,7 +23,7 @@ public class RLMagicAgent : RLAgent
 
     protected virtual void Update()
     {
-        AddReward(entity.GetMageRLParameters().everyFrameReward);
+        AddRLReward(entity.GetMageRLParameters().everyFrameReward);
     }
 
     public override void OnEpisodeBegin()
@@ -88,7 +88,7 @@ public class RLMagicAgent : RLAgent
         {
             if (!entity.IsAttacking())
             {
-                AddReward(entity.GetMageRLParameters().useSpellsWhenNotInAttackMode);
+                AddRLReward(entity.GetMageRLParameters().useSpellsWhenNotInAttackMode);
             }
         }
 
@@ -97,5 +97,20 @@ public class RLMagicAgent : RLAgent
             entity.SetSpellType((SpellType)spellType, spellElement);
             entity.Attack();
         }
+    }
+
+    public override void GenerateCSVData(bool won)
+    {
+        Managers.RlCsv.AddEpisodeData(
+                new string[6]
+                {
+                    Managers.RlCsv.GetEpisodeCount().ToString(),
+                    DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                    currentReward.ToString(),
+                    entity.GetEntityName(),
+                    Managers.Level.GetLevelTypeName(),
+                    won.ToString()
+                }
+            );
     }
 }

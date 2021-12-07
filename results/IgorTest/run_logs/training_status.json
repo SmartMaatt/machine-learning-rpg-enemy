@@ -1,0 +1,29 @@
+{
+    "enemyAI": {
+        "checkpoints": [
+            {
+                "steps": 3082,
+                "file_path": "results\\IgorTest\\enemyAI\\enemyAI-3082.onnx",
+                "reward": -439.63262430826825,
+                "creation_time": 1638835734.5069294,
+                "auxillary_file_paths": [
+                    "results\\IgorTest\\enemyAI\\enemyAI-3082.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 3082,
+            "file_path": "results\\IgorTest\\enemyAI.onnx",
+            "reward": -439.63262430826825,
+            "creation_time": 1638835734.5069294,
+            "auxillary_file_paths": [
+                "results\\IgorTest\\enemyAI\\enemyAI-3082.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.0+cu110"
+    }
+}

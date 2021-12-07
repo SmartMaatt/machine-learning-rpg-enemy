@@ -813,7 +813,7 @@ MonoBehaviour:
   useWeekSpell: -0.1
   useSpellSameAsShield: 0.05
   useStrongSpell: 0.25
-  useSpellsWhenNotInAttackMode: 0
+  useSpellsWhenNotInAttackMode: -0.2
   getHitByWeekSpell: 0.25
   getHitBySpellSameAsShield: 0.1
   getHitByStrongSpell: -0.1
