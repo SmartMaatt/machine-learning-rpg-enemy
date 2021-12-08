@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour, IGameManager
 
     private NonePanelControll nonePanel;
 
+    [Header("UI")]
+    [SerializeField] private GameObject UIObject;
+
     [Header("Left panel")]
     [SerializeField] private GameObject leftPanelOwner;
     [SerializeField] private RealPanelControll leftPanel;
@@ -35,6 +38,8 @@ public class UIManager : MonoBehaviour, IGameManager
     [Header("Generation label")]
     [SerializeField] private TMP_Text generationLabel;
 
+    [Header("LockScrean")]
+    [SerializeField] private LockScrean lockScrean;
 
     public void Startup()
     {
@@ -45,7 +50,9 @@ public class UIManager : MonoBehaviour, IGameManager
         rightPanel.gameObject.SetActive(false);
 
         elementBar.SetupBarSprites(fire, water, snow);
-        elementBar.gameObject.SetActive(false); 
+        elementBar.gameObject.SetActive(false);
+
+        SetupLockScrean();
 
         status = ManagerStatus.Started;
     }
@@ -146,6 +153,12 @@ public class UIManager : MonoBehaviour, IGameManager
         popUpMessager.DisplayMessage(msg);
     }
 
+    public void DisplayPopUpMessageWithTime(string msg, float time)
+    {
+        popUpMessager.SetTimeOfDisplay(time);
+        popUpMessager.DisplayMessage(msg);
+    }
+
     public void SetupGenerationLabel(int value)
     {
         generationLabel.text = "Generation: " + value;
@@ -159,5 +172,26 @@ public class UIManager : MonoBehaviour, IGameManager
     public void ChangeEpisodeTimeBarValue(float newValue)
     {
         episodeTimeBar.ChangeValue(newValue);
+    }
+
+    public void SetLockScreanReason(string reason)
+    {
+        lockScrean.SetReason(reason);
+    }
+
+    public void SetLockScreanActive(bool active)
+    {
+        lockScrean.gameObject.SetActive(active);
+    }
+
+    public void SetupLockScrean()
+    {
+        bool lockState = Managers.App.IsAppLocked();
+        SetLockScreanActive(Managers.App.IsAppLocked());
+
+        if(lockState)
+        {
+            SetLockScreanReason(Managers.App.GetLockageReason());
+        }
     }
 }

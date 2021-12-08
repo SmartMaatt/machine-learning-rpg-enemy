@@ -33,7 +33,6 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected bool blocking;
     [SerializeField] protected bool healing;
     [SerializeField] protected bool immortal = false;
-    private int blockingIndex = 0;
 
     [Header("Patroling")]
     public float restSpeed;
@@ -65,6 +64,15 @@ public abstract class AbstractEntity : MonoBehaviour
     public float hearRange;
     public float attackRange;
 
+    // For dynamic change of state by RL
+    protected float defaultLowHealthThreshold;
+    protected float defaultCriticalLowHealthThreshold;
+    protected float defaultWalkSpeed;
+    protected float defaultRunSpeed;
+    protected float defaultSightRange;
+    protected float defaultHearRange;
+    protected float defaultAttackRange;
+
     protected Node decisionTreeTopNode;
     protected Vector3 currentDestination;
     protected EntityState entityState;
@@ -79,6 +87,7 @@ public abstract class AbstractEntity : MonoBehaviour
         speedController = GetComponent<SpeedController>();
         animationRiggingController = GetComponent<AnimationRiggingController>();
         avaliableCovers = FindObjectsOfType<Cover>();
+        SetDefaultValuesState();
 
         entityState = EntityState.WANDER;
     }
@@ -185,6 +194,20 @@ public abstract class AbstractEntity : MonoBehaviour
         return entityName;
     }
 
+    public int[] GetValuesByRL()
+    {
+        return new int[]
+        {
+            (int)lowHealthThreshold,
+            (int)criticalLowHealthThreshold,
+            (int)walkSpeed,
+            (int)runSpeed,
+            (int)sightRange,
+            (int)hearRange,
+            (int)attackRange
+        };
+    }
+
     public bool IsBlocking()
     {
         return blocking;
@@ -219,6 +242,40 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetNavAgentDestination(Vector3 destination)
     {
         navAgent.SetDestination(destination);
+    }
+
+    public void SetDefaultValuesState()
+    {
+        defaultLowHealthThreshold = lowHealthThreshold;
+        defaultCriticalLowHealthThreshold = criticalLowHealthThreshold;
+        defaultWalkSpeed = walkSpeed;
+        defaultRunSpeed = runSpeed;
+        defaultSightRange = sightRange;
+        defaultHearRange = hearRange;
+        defaultAttackRange = attackRange;
+    }
+
+    public void SetValuesByRL(int[] newValues)
+    {
+        for(int i=0; i<newValues.Length; i++)
+        {
+            newValues[i] -= 2;
+        }
+
+        try
+        {
+            lowHealthThreshold = defaultLowHealthThreshold + (defaultLowHealthThreshold * newValues[0] / 10);
+            criticalLowHealthThreshold = defaultCriticalLowHealthThreshold + (defaultCriticalLowHealthThreshold * newValues[1] / 10);
+            walkSpeed = defaultWalkSpeed + newValues[2] + 2;
+            runSpeed = defaultRunSpeed + newValues[3] + 2;
+            sightRange = defaultSightRange + newValues[4];
+            hearRange = defaultHearRange + newValues[5];
+            attackRange = defaultAttackRange + newValues[6];
+        }
+        catch (ArgumentOutOfRangeException err)
+        {
+            Debug.LogError(err.Message);
+        }
     }
 
     public void AddRLReward(float reward)

@@ -47,7 +47,7 @@ public class RLMagicAgent : RLAgent
 
     private void ShieldObservations(VectorSensor sensor)
     {
-        if(entity.IsBlocking() == false)
+        if (entity.IsBlocking() == false)
         {
             sensor.AddObservation(0);   //Shield type
             sensor.AddObservation(0f);  //Shield time
@@ -84,6 +84,23 @@ public class RLMagicAgent : RLAgent
         int spellType = actions.DiscreteActions[0];
         int spellElement = actions.DiscreteActions[1];
 
+        if (!executedFirstAction)
+        {
+            entity.SetValuesByRL(
+            new int[]
+                {
+                    actions.DiscreteActions[2],
+                    actions.DiscreteActions[3],
+                    actions.DiscreteActions[4],
+                    actions.DiscreteActions[5],
+                    actions.DiscreteActions[6],
+                    actions.DiscreteActions[7],
+                    actions.DiscreteActions[8]
+                }
+            );
+            executedFirstAction = true;
+        }
+
         if (spellType == 0)
         {
             if (!entity.IsAttacking())
@@ -99,17 +116,26 @@ public class RLMagicAgent : RLAgent
         }
     }
 
-    public override void GenerateCSVData(bool won)
+    public override void GenerateCSVData(string endEpisodeStatus)
     {
+        int[] RLValuesFromEntity = entity.GetValuesByRL();
+
         Managers.RlCsv.AddEpisodeData(
-                new string[6]
+                new string[13]
                 {
                     Managers.RlCsv.GetEpisodeCount().ToString(),
                     DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
                     currentReward.ToString(),
                     entity.GetEntityName(),
                     Managers.Level.GetLevelTypeName(),
-                    won.ToString()
+                    endEpisodeStatus,
+                    RLValuesFromEntity[0].ToString(),
+                    RLValuesFromEntity[1].ToString(),
+                    RLValuesFromEntity[2].ToString(),
+                    RLValuesFromEntity[3].ToString(),
+                    RLValuesFromEntity[4].ToString(),
+                    RLValuesFromEntity[5].ToString(),
+                    RLValuesFromEntity[6].ToString()
                 }
             );
     }

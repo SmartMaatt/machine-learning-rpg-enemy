@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     public ManagerStatus status { get; private set; }
 
     [SerializeField] private GameLevelType levelType;
+    public bool getLevelTypeFromAppManager;
 
     [Header("Spawn point")]
     [SerializeField] private Vector3 spawnPoint;
@@ -27,6 +28,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     [SerializeField] private GameObject madoxPrefab;
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject spectatorPlayerPrefab;
+    [SerializeField] private GameObject cameraPrefab;
 
     private GameObject jack;
     private Mage jackController;
@@ -41,10 +43,21 @@ public class LevelManager : MonoBehaviour, IGameManager
     private int playerScore;
 
     private GameObject spectator;
+    private GameObject cameraObj;
 
     public void Startup()
     {
         Debug.Log("Starting Level manager");
+
+        if(getLevelTypeFromAppManager)
+        {
+            levelType = Managers.App.GetLevelType();
+        }
+
+        if(levelType == GameLevelType.LOCKED)
+        {
+            LockedLevelSetup();
+        }
 
         if(levelType == GameLevelType.TRAINING)
         {
@@ -110,6 +123,11 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
+    /*Locked methods*/
+    private void LockedLevelSetup()
+    {
+        cameraObj = Instantiate(cameraPrefab, SpawnPointRandomLocation(), Quaternion.identity);
+    }
 
     /*Training methods*/
     private void TrainingLevelSetup()
@@ -140,20 +158,20 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             jackScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-            jackController.GetRLAgent().EndRLEpisode(true);
+            jackController.GetRLAgent().EndRLEpisode("Win");
         }
 
         if (dead == jack)
         {
             playerScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndRLEpisode(false);
+            jackController.GetRLAgent().EndRLEpisode("Fail");
         }
 
         if(dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndRLEpisode(false);
+            jackController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
@@ -192,30 +210,30 @@ public class LevelManager : MonoBehaviour, IGameManager
         if (dead == madox)
         {
             madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
-            madoxController.GetRLAgent().EndRLEpisode(false);
+            madoxController.GetRLAgent().EndRLEpisode("Fail");
 
             jackScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-            jackController.GetRLAgent().EndRLEpisode(true);
+            jackController.GetRLAgent().EndRLEpisode("Win");
         }
 
         if (dead == jack)
         {
             madoxScore++;
             madoxController.AddRLReward(madoxController.GetMageRLParameters().winEpisode);
-            madoxController.GetRLAgent().EndRLEpisode(true);
+            madoxController.GetRLAgent().EndRLEpisode("Win");
 
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndRLEpisode(false);
+            jackController.GetRLAgent().EndRLEpisode("Fail");
         }
 
         if(dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
-            jackController.GetRLAgent().EndRLEpisode(false);
+            jackController.GetRLAgent().EndRLEpisode("Draw");
 
             madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
-            madoxController.GetRLAgent().EndRLEpisode(false);
+            madoxController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
@@ -348,7 +366,11 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public string GetLevelTypeName()
     {
-        if(levelType == GameLevelType.TRAINING)
+        if(levelType == GameLevelType.LOCKED)
+        {
+            return "Locked";
+        }
+        else if (levelType == GameLevelType.TRAINING)
         {
             return "Training";
         }

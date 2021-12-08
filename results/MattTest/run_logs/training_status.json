@@ -1,0 +1,38 @@
+{
+    "enemyAI": {
+        "checkpoints": [
+            {
+                "steps": 499372,
+                "file_path": "results\\MattTest\\enemyAI\\enemyAI-499372.onnx",
+                "reward": null,
+                "creation_time": 1638920619.7460933,
+                "auxillary_file_paths": [
+                    "results\\MattTest\\enemyAI\\enemyAI-499372.pt"
+                ]
+            },
+            {
+                "steps": 683558,
+                "file_path": "results\\MattTest\\enemyAI\\enemyAI-683558.onnx",
+                "reward": -13.586499959230423,
+                "creation_time": 1638922449.033677,
+                "auxillary_file_paths": [
+                    "results\\MattTest\\enemyAI\\enemyAI-683558.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 683558,
+            "file_path": "results\\MattTest\\enemyAI.onnx",
+            "reward": -13.586499959230423,
+            "creation_time": 1638922449.033677,
+            "auxillary_file_paths": [
+                "results\\MattTest\\enemyAI\\enemyAI-683558.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.27.0",
+        "torch_version": "1.7.0+cu110"
+    }
+}

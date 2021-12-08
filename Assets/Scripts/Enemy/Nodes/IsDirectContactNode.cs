@@ -18,7 +18,7 @@ public class IsDirectContactNode : Node
         Ray ray = new Ray(originTransform.position, targetTransform.position - originTransform.position);
         RaycastHit hit;
 
-        if (Physics.SphereCast(ray, 0.75f, out hit))
+        if (Physics.SphereCast(ray, 1f, out hit))
         {
             if (hit.collider.transform != targetTransform)
             {

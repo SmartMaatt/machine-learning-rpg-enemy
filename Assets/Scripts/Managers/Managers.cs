@@ -5,41 +5,45 @@ using UnityEngine;
 [RequireComponent(typeof(UIManager))]
 [RequireComponent(typeof(LevelManager))]
 [RequireComponent(typeof(RlCsvManager))]
+[RequireComponent(typeof(ApplicationManager))]
 public class Managers : MonoBehaviour
 {
+    public static ApplicationManager App { get; private set; }
     public static RlCsvManager RlCsv { get; private set; }
     public static UIManager UI { get; private set; }
     public static LevelManager Level { get; private set; }
     public static bool allLoaded { get; private set; }
 
-    private List<IGameManager> _startSequence;
+    private List<IGameManager> startSequence;
 
     private void Awake()
     {
         allLoaded = false;
+        App = GetComponent<ApplicationManager>();
         RlCsv = GetComponent<RlCsvManager>();
         UI = GetComponent<UIManager>();
         Level = GetComponent<LevelManager>();
 
-        _startSequence = new List<IGameManager>();
+        startSequence = new List<IGameManager>();
 
-        _startSequence.Add(RlCsv);
-        _startSequence.Add(UI);
-        _startSequence.Add(Level);
+        startSequence.Add(App);
+        startSequence.Add(RlCsv);
+        startSequence.Add(UI);
+        startSequence.Add(Level);
 
         StartCoroutine(StartupManagers());
     }
 
     private IEnumerator StartupManagers()
     {
-        foreach (IGameManager manager in _startSequence)
+        foreach (IGameManager manager in startSequence)
         {
             manager.Startup();
         }
 
         yield return null;
 
-        int numModels = _startSequence.Count;
+        int numModels = startSequence.Count;
         int numReady = 0;
 
         while (numReady < numModels)
@@ -47,7 +51,7 @@ public class Managers : MonoBehaviour
             int lastReady = numReady;
             numReady = 0;
 
-            foreach(IGameManager manager in _startSequence)
+            foreach(IGameManager manager in startSequence)
             {
                 if (manager.status == ManagerStatus.Started)
                     numReady++;

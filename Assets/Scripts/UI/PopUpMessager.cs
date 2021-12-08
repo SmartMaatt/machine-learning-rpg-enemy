@@ -36,6 +36,11 @@ public class PopUpMessager : MonoBehaviour
         message.gameObject.SetActive(state);
     }
 
+    public void SetTimeOfDisplay(float time)
+    {
+        timeOfDisplay = time;
+    }
+
     private void SetupMessage(string msg)
     {
         message.text = msg;

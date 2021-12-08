@@ -255,7 +255,7 @@ public class PlayerSpellController : SpellController
 
     protected override void LogMessage(string msg)
     {
-        Managers.UI.DisplayPopUpMessage(msg);
+        Managers.UI.DisplayPopUpMessageWithTime(msg, 4f);
         Debug.Log(msg);
     }
 

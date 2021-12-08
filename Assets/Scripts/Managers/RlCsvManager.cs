@@ -9,30 +9,49 @@ public class RlCsvManager : MonoBehaviour, IGameManager
 
     [Header("Configuration folder")]
     public string fileName;
-    public string fileDirectoryPath;
+    public string fileDirectoryName;
+    [Space]
     public bool persistentDataPath;
+    public bool getPathFromAppManagerSession;
+
+    private string fullFileDirectoryPath;
     private string fullFilePath;
 
-    [Header("CSV configuration")]
-    public int columnsCount = 6;
-
     private List<string[]> learningData = new List<string[]>();
-    private string[] learningDataCSVHeader = { "#", "Time", "RL points", "Agent name", "Learning type", "Won Episode" };
+    private string[] learningDataCSVHeader = {
+                                                "#",
+                                                "Time",
+                                                "RL points",
+                                                "Agent name",
+                                                "Learning type",
+                                                "Won Episode",
+                                                "Low health threshold",
+                                                "Critical low health threshold",
+                                                "Walk speed",
+                                                "Run speed",
+                                                "Sight range",
+                                                "Hear range",
+                                                "Attack range"
+                                            };
 
     /*Startup*/
     public void Startup()
     {
         Debug.Log("Starting RL CSV manager");
 
+        if (getPathFromAppManagerSession)
+        {
+            fileDirectoryName = Managers.App.GetSessionName();
+        }
+
         GenerateFullPath();
-        ReadCSV();
+
+        if (!Managers.App.IsAppLocked())
+        {
+            ReadCSV();
+        }
 
         status = ManagerStatus.Started;
-    }
-
-    private void OnApplicationQuit()
-    {
-        WriteCSV();
     }
 
     public void WriteEmptyRLCSV()
@@ -66,13 +85,10 @@ public class RlCsvManager : MonoBehaviour, IGameManager
     public void ReadCSV()
     {
         //No csv directory
-        if (!Directory.Exists(fileDirectoryPath))
+        if (!Directory.Exists(fullFileDirectoryPath))
         {
-            Debug.LogWarning("No directory: " + fileDirectoryPath);
-            if(!string.IsNullOrEmpty(fileDirectoryPath))
-            {
-                DirectoryManager.CreateDirectory(fileDirectoryPath);
-            }
+            Debug.LogWarning("No directory: " + fullFileDirectoryPath);
+            DirectoryManager.CreateDirectory(fullFileDirectoryPath);
         }
 
         //No csv file
@@ -96,18 +112,21 @@ public class RlCsvManager : MonoBehaviour, IGameManager
     {
         if (persistentDataPath)
         {
-            if(string.IsNullOrEmpty(fileDirectoryPath))
+            if (string.IsNullOrEmpty(fileDirectoryName))
             {
                 fullFilePath = Application.persistentDataPath + "/" + fileName;
+                fullFileDirectoryPath = Application.persistentDataPath;
             }
             else
             {
-                fullFilePath = Application.persistentDataPath + "/" + fileDirectoryPath + "/" + fileName;
+                fullFilePath = Application.persistentDataPath + "/" + fileDirectoryName + "/" + fileName;
+                fullFileDirectoryPath = Application.persistentDataPath + "/" + fileDirectoryName;
             }
         }
         else
         {
-            fullFilePath = fileDirectoryPath + "/" + fileName;
+            fullFilePath = fileDirectoryName + "/" + fileName;
+            fullFileDirectoryPath = fileDirectoryName;
         }
     }
 
