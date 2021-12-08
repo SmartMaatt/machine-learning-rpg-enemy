@@ -2,31 +2,31 @@
     "enemyAI": {
         "checkpoints": [
             {
-                "steps": 499372,
-                "file_path": "results\\MattTest\\enemyAI\\enemyAI-499372.onnx",
+                "steps": 691608,
+                "file_path": "results\\MattTest\\enemyAI\\enemyAI-691608.onnx",
                 "reward": null,
-                "creation_time": 1638920619.7460933,
+                "creation_time": 1638962530.336934,
                 "auxillary_file_paths": [
-                    "results\\MattTest\\enemyAI\\enemyAI-499372.pt"
+                    "results\\MattTest\\enemyAI\\enemyAI-691608.pt"
                 ]
             },
             {
-                "steps": 683558,
-                "file_path": "results\\MattTest\\enemyAI\\enemyAI-683558.onnx",
-                "reward": -13.586499959230423,
-                "creation_time": 1638922449.033677,
+                "steps": 965706,
+                "file_path": "results\\MattTest\\enemyAI\\enemyAI-965706.onnx",
+                "reward": -12.973999857902527,
+                "creation_time": 1638967618.2696025,
                 "auxillary_file_paths": [
-                    "results\\MattTest\\enemyAI\\enemyAI-683558.pt"
+                    "results\\MattTest\\enemyAI\\enemyAI-965706.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 683558,
+            "steps": 965706,
             "file_path": "results\\MattTest\\enemyAI.onnx",
-            "reward": -13.586499959230423,
-            "creation_time": 1638922449.033677,
+            "reward": -12.973999857902527,
+            "creation_time": 1638967618.2696025,
             "auxillary_file_paths": [
-                "results\\MattTest\\enemyAI\\enemyAI-683558.pt"
+                "results\\MattTest\\enemyAI\\enemyAI-965706.pt"
             ]
         }
     },

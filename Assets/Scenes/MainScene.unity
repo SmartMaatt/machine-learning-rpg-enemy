@@ -3200,6 +3200,7 @@ MonoBehaviour:
   spawnPointMinHeight: -15
   spawnPointMaxHeight: 15
   spectatorSpawnPoint: {x: 0, y: 10, z: 0}
+  brainTemplate: {fileID: 5022602860645237092, guid: 8c3c1cbf930cfb645b638e793ea26262, type: 3}
   maxEpisodeTime: 300
   jackPrefab: {fileID: 1215319797700901759, guid: cc8d4a6607269b641a376ee9bfd4949c, type: 3}
   madoxPrefab: {fileID: 1215319797700901759, guid: fce798b1d12cbf34ab36b4ccd9376481, type: 3}
@@ -3219,8 +3220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: data.csv
-  fileDirectoryName: 
-  persistentDataPath: 1
+  fileDirectoryPath: 
+  persistentDataPath: 0
   getPathFromAppManagerSession: 1
 --- !u!114 &5565482253974347805
 MonoBehaviour:
@@ -3234,10 +3235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c4889b54a08cf4088cd23891596e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 1
-  sessionName: MattTest
+  levelType: 2
+  behaviourName: enemyAI
+  mlBrainDirectoryPath: results/MattTest
+  mlBrainSessionName: MattTest
   mlBrainName: enemyAI
-  appLocked: 0
   lockageReason: 
   timeWaitingForBrain: 30
 --- !u!1001 &5737107988807333958

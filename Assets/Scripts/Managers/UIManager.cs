@@ -52,9 +52,14 @@ public class UIManager : MonoBehaviour, IGameManager
         elementBar.SetupBarSprites(fire, water, snow);
         elementBar.gameObject.SetActive(false);
 
-        SetupLockScrean();
-
         status = ManagerStatus.Started;
+    }
+
+    public void LockApp(string reason)
+    {
+        SetLockScreanActive(true);
+        SetLockScreanReason(reason);
+        enabled = false;
     }
 
     public PanelControll SetupUIPanelController(GameObject owner, PanelType type)
@@ -182,16 +187,5 @@ public class UIManager : MonoBehaviour, IGameManager
     public void SetLockScreanActive(bool active)
     {
         lockScrean.gameObject.SetActive(active);
-    }
-
-    public void SetupLockScrean()
-    {
-        bool lockState = Managers.App.IsAppLocked();
-        SetLockScreanActive(Managers.App.IsAppLocked());
-
-        if(lockState)
-        {
-            SetLockScreanReason(Managers.App.GetLockageReason());
-        }
     }
 }

@@ -9,7 +9,7 @@ public class RlCsvManager : MonoBehaviour, IGameManager
 
     [Header("Configuration folder")]
     public string fileName;
-    public string fileDirectoryName;
+    public string fileDirectoryPath;
     [Space]
     public bool persistentDataPath;
     public bool getPathFromAppManagerSession;
@@ -41,17 +41,18 @@ public class RlCsvManager : MonoBehaviour, IGameManager
 
         if (getPathFromAppManagerSession)
         {
-            fileDirectoryName = Managers.App.GetSessionName();
+            fileDirectoryPath = Managers.App.GetBrainDirectoryPath();
         }
 
         GenerateFullPath();
-
-        if (!Managers.App.IsAppLocked())
-        {
-            ReadCSV();
-        }
+        ReadCSV();
 
         status = ManagerStatus.Started;
+    }
+
+    public void LockApp(string reason)
+    {
+        enabled = false;
     }
 
     public void WriteEmptyRLCSV()
@@ -98,13 +99,20 @@ public class RlCsvManager : MonoBehaviour, IGameManager
             WriteEmptyRLCSV();
         }
 
-        using (StreamReader sr = new StreamReader(fullFilePath))
+        try
         {
-            learningData = new List<string[]>();
-            while (!sr.EndOfStream)
+            using (StreamReader sr = new StreamReader(fullFilePath))
             {
-                learningData.Add(sr.ReadLine().Split(';'));
+                learningData = new List<string[]>();
+                while (!sr.EndOfStream)
+                {
+                    learningData.Add(sr.ReadLine().Split(';'));
+                }
             }
+        }
+        catch (IOException err)
+        {
+            Managers.Self.LockApp(err.Message + "\n The machine state file cannot be opened during learning!");
         }
     }
 
@@ -112,21 +120,21 @@ public class RlCsvManager : MonoBehaviour, IGameManager
     {
         if (persistentDataPath)
         {
-            if (string.IsNullOrEmpty(fileDirectoryName))
+            if (string.IsNullOrEmpty(fileDirectoryPath))
             {
                 fullFilePath = Application.persistentDataPath + "/" + fileName;
                 fullFileDirectoryPath = Application.persistentDataPath;
             }
             else
             {
-                fullFilePath = Application.persistentDataPath + "/" + fileDirectoryName + "/" + fileName;
-                fullFileDirectoryPath = Application.persistentDataPath + "/" + fileDirectoryName;
+                fullFilePath = Application.persistentDataPath + "/" + fileDirectoryPath + "/" + fileName;
+                fullFileDirectoryPath = Application.persistentDataPath + "/" + fileDirectoryPath;
             }
         }
         else
         {
-            fullFilePath = fileDirectoryName + "/" + fileName;
-            fullFileDirectoryPath = fileDirectoryName;
+            fullFilePath = fileDirectoryPath + "/" + fileName;
+            fullFileDirectoryPath = fileDirectoryPath;
         }
     }
 

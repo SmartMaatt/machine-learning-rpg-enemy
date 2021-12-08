@@ -9,16 +9,15 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     public ManagerStatus status { get; private set; }
 
     [SerializeField] private GameLevelType levelType;
-    [SerializeField] private string sessionName;
+    [SerializeField] private string behaviourName;
+    [SerializeField] private string mlBrainDirectoryPath;
+    [SerializeField] private string mlBrainSessionName;
     [SerializeField] private string mlBrainName;
     [Space]
-    [SerializeField] private bool appLocked;
     [SerializeField] private string lockageReason;
     [Space]
     public int timeWaitingForBrain;
 
-    private string savePath;
-    private string saveDirectoryPath;
     private string brainPath;
 
 
@@ -27,58 +26,16 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     {
         Debug.Log("Starting Application manager");
 
-        savePath = Application.persistentDataPath + "/" + sessionName + "/" + mlBrainName + ".onnx";
-        saveDirectoryPath = Application.persistentDataPath + "/" + sessionName;
-        brainPath = "results/" + sessionName + "/" + mlBrainName + ".onnx";
+        brainPath = mlBrainDirectoryPath + "/" + mlBrainName + ".onnx";
 
         status = ManagerStatus.Started;
     }
 
-    private void OnApplicationQuit()
-    {
-        try
-        {
-            CreateSaveDirectory();
-            Managers.UI.DisplayPopUpMessageWithTime("Saving brain...", timeWaitingForBrain);
-            StartCoroutine(CopyMLBrainToSaveDirectory(timeWaitingForBrain));
-        }
-        catch (IOException ex)
-        {
-            LockApp(ex.Message);
-        }
-    }
-
-    private void CreateSaveDirectory()
-    {
-        if (!Directory.Exists(saveDirectoryPath))
-        {
-            Debug.LogWarning("No directory: " + saveDirectoryPath);
-            DirectoryManager.CreateDirectory(saveDirectoryPath);
-        }
-    }
-
-    private IEnumerator CopyMLBrainToSaveDirectory(int time)
-    {
-        int counter = time;
-        while (counter != 0)
-        {
-            try
-            {
-                File.Copy(brainPath, savePath);
-                break;
-            }
-            catch (IOException)
-            {
-                counter--;
-            }
-            yield return new WaitForSeconds(1f);
-        }
-    }
-
-    private void LockApp(string reason)
+    public void LockApp(string reason)
     {
         levelType = GameLevelType.LOCKED;
         lockageReason = reason;
+        enabled = false;
     }
 
     /*Getters*/
@@ -87,9 +44,24 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         return levelType;
     }
 
-    public string GetSessionName()
+    public string GetBehaviourName()
     {
-        return sessionName;
+        return behaviourName;
+    }
+
+    public string GetBrainPath()
+    {
+        return brainPath;
+    }
+
+    public string GetBrainDirectoryPath()
+    {
+        return mlBrainDirectoryPath;
+    }
+
+    public string GetBrainSessionName()
+    {
+        return mlBrainSessionName;
     }
 
     public bool IsAppLocked()

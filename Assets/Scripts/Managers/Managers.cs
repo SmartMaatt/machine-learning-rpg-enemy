@@ -8,6 +8,7 @@ using UnityEngine;
 [RequireComponent(typeof(ApplicationManager))]
 public class Managers : MonoBehaviour
 {
+    public static Managers Self { get; private set; }
     public static ApplicationManager App { get; private set; }
     public static RlCsvManager RlCsv { get; private set; }
     public static UIManager UI { get; private set; }
@@ -15,10 +16,12 @@ public class Managers : MonoBehaviour
     public static bool allLoaded { get; private set; }
 
     private List<IGameManager> startSequence;
+    private IEnumerator StartupManagersCoroutine;
 
     private void Awake()
     {
         allLoaded = false;
+        Self = this;
         App = GetComponent<ApplicationManager>();
         RlCsv = GetComponent<RlCsvManager>();
         UI = GetComponent<UIManager>();
@@ -31,7 +34,8 @@ public class Managers : MonoBehaviour
         startSequence.Add(UI);
         startSequence.Add(Level);
 
-        StartCoroutine(StartupManagers());
+        StartupManagersCoroutine = StartupManagers();
+        StartCoroutine(StartupManagersCoroutine);
     }
 
     private IEnumerator StartupManagers()
@@ -60,5 +64,15 @@ public class Managers : MonoBehaviour
             yield return null;
         }
         allLoaded = true;
+    }
+
+    public void LockApp(string reason)
+    {
+        StopCoroutine(StartupManagersCoroutine);
+
+        foreach (IGameManager manager in startSequence)
+        {
+            manager.LockApp(reason);
+        }
     }
 }

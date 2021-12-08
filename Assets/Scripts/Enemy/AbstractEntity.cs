@@ -257,20 +257,15 @@ public abstract class AbstractEntity : MonoBehaviour
 
     public void SetValuesByRL(int[] newValues)
     {
-        for(int i=0; i<newValues.Length; i++)
-        {
-            newValues[i] -= 2;
-        }
-
         try
         {
-            lowHealthThreshold = defaultLowHealthThreshold + (defaultLowHealthThreshold * newValues[0] / 10);
-            criticalLowHealthThreshold = defaultCriticalLowHealthThreshold + (defaultCriticalLowHealthThreshold * newValues[1] / 10);
+            lowHealthThreshold = defaultLowHealthThreshold + (defaultLowHealthThreshold * (newValues[0] - 2) / 10);
+            criticalLowHealthThreshold = defaultCriticalLowHealthThreshold + (defaultCriticalLowHealthThreshold * (newValues[1] - 2) / 10);
             walkSpeed = defaultWalkSpeed + newValues[2] + 2;
             runSpeed = defaultRunSpeed + newValues[3] + 2;
-            sightRange = defaultSightRange + newValues[4];
-            hearRange = defaultHearRange + newValues[5];
-            attackRange = defaultAttackRange + newValues[6];
+            sightRange = defaultSightRange + (newValues[4] * 2);
+            hearRange = defaultHearRange + (newValues[5] * 2);
+            attackRange = defaultAttackRange + (newValues[6] * 2);
         }
         catch (ArgumentOutOfRangeException err)
         {

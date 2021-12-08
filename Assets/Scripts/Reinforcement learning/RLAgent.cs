@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using Unity.MLAgents;
+using Unity.Barracuda;
+using Unity.MLAgents.Policies;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(AbstractEntity))]
 public abstract class RLAgent : Agent
