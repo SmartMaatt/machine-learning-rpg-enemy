@@ -278,7 +278,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
         jack.AddComponent<DecisionRequester>();
 
-        BrainModelReader brainModelReader = new BrainModelReader();
+        BrainModelOverrider brainModelReader = new BrainModelOverrider();
         brainModelReader.OverrideModel(jack.GetComponent<Agent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
 
         BehaviorParameters bf = jack.GetComponent<BehaviorParameters>();

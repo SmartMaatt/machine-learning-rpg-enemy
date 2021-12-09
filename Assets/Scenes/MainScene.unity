@@ -3235,10 +3235,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99c4889b54a08cf4088cd23891596e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 2
+  levelType: 0
+  configPath: level.conf
   behaviourName: enemyAI
-  mlBrainDirectoryPath: results/MattTest
-  mlBrainSessionName: MattTest
+  mlBrainDirectoryPath: 
+  mlBrainSessionName: 
   mlBrainName: enemyAI
   lockageReason: 
   timeWaitingForBrain: 30

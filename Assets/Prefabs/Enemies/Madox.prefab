@@ -787,8 +787,8 @@ MonoBehaviour:
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: enemyAI
-  TeamId: 0
-  m_UseChildSensors: 0
+  TeamId: 1
+  m_UseChildSensors: 1
   m_UseChildActuators: 1
   m_ObservableAttributeHandling: 0
 --- !u!114 &2993779647095931517
@@ -803,25 +803,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e00bb36f03f596438fcfd9b30ce90d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  everyFrameReward: -0.001
-  winEpisode: 10
-  loseEpisode: -10
-  getHurt: -0.05
-  missShoot: -0.05
-  successShoot: 0.1
-  tryShootWhenNoMana: -0.1
-  useWeekSpell: -0.1
-  useSpellSameAsShield: 0.05
-  useStrongSpell: 0.25
-  useSpellsWhenNotInAttackMode: -0.2
-  getHitByWeekSpell: 0.25
-  getHitBySpellSameAsShield: 0.1
-  getHitByStrongSpell: -0.1
-  rechargeWrongShield: -0.1
-  rechargeCurrentShield: 0.1
-  healWhenHealthUserLow: 0.2
-  destroyHealSpell: 0.2
-  areaSpellWhenHealthUnderCriticalLow: 0.2
+  everyFrameReward: -0.003
+  winEpisode: 150
+  loseEpisode: -150
+  getHurt: -0.1
+  missShoot: -0.1
+  successShoot: 0.2
+  tryShootWhenNoMana: -0.2
+  useWeekSpell: -0.2
+  useSpellSameAsShield: 0.1
+  useStrongSpell: 0.5
+  useSpellsWhenNotInAttackMode: -0.4
+  getHitByWeekSpell: 0.5
+  getHitBySpellSameAsShield: 0.2
+  getHitByStrongSpell: -0.2
+  rechargeWrongShield: -0.2
+  rechargeCurrentShield: 0.2
+  healWhenHealthUserLow: 0.4
+  destroyHealSpell: 0.4
+  areaSpellWhenHealthUnderCriticalLow: 0.4
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

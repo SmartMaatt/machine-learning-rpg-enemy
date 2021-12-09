@@ -7,7 +7,7 @@ using Unity.Barracuda.ONNX;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 
-public class BrainModelReader
+public class BrainModelOverrider
 {
     public void OverrideModel(Agent m_Agent, string assetPath, string assetName, bool isOnnx)
     {
