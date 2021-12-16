@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 6782078038600135357}
-  moveSpeed: 75
+  moveSpeed: 225
   hightCheck: {fileID: 6782078038839316526}
   minHight: 2
   maxHight: 102

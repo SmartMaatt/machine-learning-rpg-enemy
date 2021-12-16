@@ -8,16 +8,22 @@ public class ApplicationManager : MonoBehaviour, IGameManager
 {
     public ManagerStatus status { get; private set; }
 
+    public bool getInfoFromConfigFile;
+
+    [Space]
     [SerializeField] private GameLevelType levelType;
     [SerializeField] private string configPath;
     [SerializeField] private string behaviourName;
     [SerializeField] private string mlBrainDirectoryPath;
     [SerializeField] private string mlBrainSessionName;
     [SerializeField] private string mlBrainName;
+
     [Space]
     [SerializeField] private string lockageReason;
+
     [Space]
     public int timeWaitingForBrain;
+    public float appTimeScale;
 
     private string brainPath;
 
@@ -27,7 +33,10 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     {
         Debug.Log("Starting Application manager");
 
-        ReadConfigFile();
+        if (getInfoFromConfigFile)
+        {
+            ReadConfigFile();
+        }
         brainPath = mlBrainDirectoryPath + "/" + mlBrainName + ".onnx";
 
         status = ManagerStatus.Started;
@@ -84,6 +93,17 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         mlBrainDirectoryPath = "results/" + configLine[1];
                         mlBrainSessionName = configLine[1];
                     }
+                    else if(configLine[0] == "TimeScale")
+                    {
+                        try
+                        {
+                            appTimeScale = float.Parse(configLine[1]);
+                        }
+                        catch (FormatException err)
+                        {
+                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a float value!");
+                        }
+                    }
                     else
                     {
                         Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nUnknown argument " + configLine[0] + "!");
@@ -132,5 +152,20 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     public string GetLockageReason()
     {
         return lockageReason;
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = appTimeScale;
+    }
+
+    public void CloseApp()
+    {
+        Application.Quit();
     }
 }

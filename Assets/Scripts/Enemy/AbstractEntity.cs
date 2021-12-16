@@ -324,6 +324,11 @@ public abstract class AbstractEntity : MonoBehaviour
         uiPanelController.ChangeHealth(health);
     }
 
+    public void InstantKill()
+    {
+        ChangeHealth(-maxHealth);
+    }
+
     public void RefilHealth()
     {
         health = maxHealth;

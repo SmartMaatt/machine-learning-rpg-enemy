@@ -21,8 +21,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     [SerializeField] private float spawnPointMaxHeight;
     [Space]
     [SerializeField] private Vector3 spectatorSpawnPoint;
-    [Space]
-    [SerializeField] private NNModel brainTemplate;
+    [SerializeField] private float yAxisLimit;
 
     [Header("Episode timing [s]")]
     [SerializeField] private float maxEpisodeTime;
@@ -45,9 +44,11 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     private GameObject player;
     private PlayerController playerController;
+    private PlayerLook playerLook;
     private int playerScore;
 
     private GameObject spectator;
+    private SpectatorMoveCamera spectatorLook;
     private GameObject cameraObj;
 
     public void Startup()
@@ -94,6 +95,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     private void Update()
     {
         EpisodeTimeLimit();
+        WorldBorderLimit();
     }
 
     public void LevelReload()
@@ -156,6 +158,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
         playerController = player.GetComponent<PlayerController>();
+        playerLook = player.GetComponent<PlayerLook>();
         playerScore = 0;
 
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
@@ -221,6 +224,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         madox.GetComponent<BehaviorParameters>().BehaviorName = Managers.App.GetBehaviourName();
 
         spectator = Instantiate(spectatorPlayerPrefab, spectatorSpawnPoint, Quaternion.identity);
+        spectatorLook = spectator.transform.GetChild(0).GetComponent<SpectatorMoveCamera>();
     }
 
     private void SelfPlayLevelReload()
@@ -268,6 +272,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
         playerController = player.GetComponent<PlayerController>();
+        playerLook = player.GetComponent<PlayerLook>();
         playerScore = 0;
 
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
@@ -424,6 +429,19 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
+    private void WorldBorderLimit()
+    {
+        if(levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY)
+        {
+            Debug.Log(player.transform.position.y);
+            if (player.transform.position.y < yAxisLimit)
+            {
+                playerController.InstantKill();
+            }
+        }
+    }
+
+
     private void SetupEpisodeTimeBar()
     {
         episodeTime = 0f;
@@ -440,6 +458,30 @@ public class LevelManager : MonoBehaviour, IGameManager
     public GameLevelType GetLevelType()
     {
         return levelType;
+    }
+
+    public void LockPlayerLook(bool locked)
+    {
+        try
+        {
+            playerLook.enabled = !locked;
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogWarning(err.Message);
+        }
+    }
+
+    public void LockSpectatorLook(bool locked)
+    {
+        try
+        {
+            spectatorLook.enabled = !locked;
+        }
+        catch (NullReferenceException err)
+        {
+            Debug.LogWarning(err.Message);
+        }
     }
 
     public string GetLevelTypeName()

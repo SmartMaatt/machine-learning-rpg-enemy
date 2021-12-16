@@ -41,6 +41,9 @@ public class UIManager : MonoBehaviour, IGameManager
     [Header("LockScrean")]
     [SerializeField] private LockScrean lockScrean;
 
+    [Header("Escape menu")]
+    [SerializeField] private GameObject escapeMenu;
+
     public void Startup()
     {
         Debug.Log("Starting UI manager");
@@ -52,7 +55,17 @@ public class UIManager : MonoBehaviour, IGameManager
         elementBar.SetupBarSprites(fire, water, snow);
         elementBar.gameObject.SetActive(false);
 
+        CloseEscapeMenu();
+
         status = ManagerStatus.Started;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ActivateEscapeMenu();
+        }
     }
 
     public void LockApp(string reason)
@@ -187,5 +200,36 @@ public class UIManager : MonoBehaviour, IGameManager
     public void SetLockScreanActive(bool active)
     {
         lockScrean.gameObject.SetActive(active);
+    }
+
+    public void ActivateEscapeMenu()
+    {
+        Managers.App.PauseGame();
+        Managers.Level.LockPlayerLook(true);
+        Managers.Level.LockSpectatorLook(true);
+        LockCursor(false);
+        escapeMenu.SetActive(true);
+    }
+
+    public void CloseEscapeMenu()
+    {
+        Managers.App.ResumeGame();
+        Managers.Level.LockPlayerLook(false);
+        Managers.Level.LockSpectatorLook(false);
+        LockCursor(true);
+        escapeMenu.SetActive(false);
+    }
+
+    public void LockCursor(bool locked)
+    {
+        Cursor.visible = !locked;
+        if(locked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

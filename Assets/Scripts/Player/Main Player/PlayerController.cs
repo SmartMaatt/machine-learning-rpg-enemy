@@ -114,6 +114,11 @@ public class PlayerController : MonoBehaviour
         uiPanel.ChangeHealth(health);
     }
 
+    public void InstantKill()
+    {
+        ChangeHealth(-maxHealth);
+    }
+
     public void ReloadHealth()
     {
         health = maxHealth;
