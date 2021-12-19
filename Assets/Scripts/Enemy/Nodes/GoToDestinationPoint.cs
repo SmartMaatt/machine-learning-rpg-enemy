@@ -7,19 +7,19 @@ public class GoToDestinationPoint : Node
     private AbstractEntity entity;
     private SpeedController speedController;
 
-    private Transform navAgentTransform;
+    private Transform originTransform;
 
     private GetFloatValue WalkSpeed;
     private GetFloatValue RestSpeed;
     private GetFloatValue AccelerationChaseBonus;
     private GetFloatValue Acceleration;
 
-    public GoToDestinationPoint(AbstractEntity entity, GetFloatValue[] delegates)
+    public GoToDestinationPoint(AbstractEntity entity, Transform origin, GetFloatValue[] delegates)
     {
         this.entity = entity;
         speedController = entity.GetSpeedController();
 
-        navAgentTransform = entity.GetNavMeshAgentTransform();
+        originTransform = origin;
 
         try
         {
@@ -41,13 +41,13 @@ public class GoToDestinationPoint : Node
     public override NodeState Evaluate()
     {
         Vector3 destPoint = entity.GetCurrentDestination();
-        if (destPoint == null)
+        if (destPoint == null || destPoint == Vector3.zero)
         {
             return NodeState.FAILURE;
         }
 
         Debug.Log("Go to point: " + destPoint);
-        float distance = Vector3.Distance(destPoint, navAgentTransform.position);
+        float distance = Vector3.Distance(destPoint, originTransform.position);
 
         if (distance > 0.2f)
         {
@@ -60,7 +60,7 @@ public class GoToDestinationPoint : Node
         else
         {
             speedController.SetCurrentMaxSpeed(RestSpeed());
-            speedController.SetAcceleration(Acceleration());
+            speedController.SetAcceleration(entity.breakAcceleration);
             return NodeState.SUCCESS;
         }
     }

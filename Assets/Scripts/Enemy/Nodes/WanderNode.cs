@@ -76,7 +76,7 @@ public class WanderNode : Node
         {
             float distance = Vector3.Distance(entity.GetCurrentDestination(), originTransform.position);
 
-            if (distance < 1f)
+            if (distance < 0.2f)
             {
                 walkPointSet = false;
                 enemyReadyToPatrol = false;

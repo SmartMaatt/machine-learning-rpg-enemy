@@ -59,7 +59,7 @@ public class Mage : AbstractEntity
         /*>>> Cover branch <<<*/
         /*Cover level 6*/
         IsCoverAvaliableNode coverAvaliableNode = new IsCoverAvaliableNode(this, avaliableCovers, enemy.transform, this.transform, new GetFloatValue(() => sightConeRange));
-        GoToDestinationPoint goToCoverNode = new GoToDestinationPoint(this, new GetFloatValue[] {
+        GoToDestinationPoint goToCoverNode = new GoToDestinationPoint(this, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => runSpeed),
             new GetFloatValue(() => restSpeed),
             new GetFloatValue(() => accelerationChaseBonus),
@@ -70,9 +70,16 @@ public class Mage : AbstractEntity
         /*Cover level 5*/
         // Go to cover (Sequence)
         // <Safe jump> => Sense decisions (Selector)
+        ChangeSpeedNode restInCoverNode = new ChangeSpeedNode(this, new GetFloatValue[] {
+            new GetFloatValue(() => (restSpeed + 0.5f)),
+            new GetFloatValue(() => breakAcceleration)
+        });
+        IsInDestinationPoint gotIntoCover = new IsInDestinationPoint(this, this.transform);
+        IsDirectContactNode isCoveredNode = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
+
 
         /*Cover level 4*/
-        IsDirectContactNode isCoveredNode = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
+        // Is entity covered (Sequence)
         // Find cover (Selector)
 
         /*Cover level 3*/
@@ -162,7 +169,7 @@ public class Mage : AbstractEntity
             new GetFloatValue(() => maxRestTime),
             new GetFloatValue(() => turnMaxAngle)
         });
-        GoToDestinationPoint goToWanderPointNode = new GoToDestinationPoint(this, new GetFloatValue[] {
+        GoToDestinationPoint goToWanderPointNode = new GoToDestinationPoint(this, this.transform, new GetFloatValue[] {
             new GetFloatValue(() => walkSpeed),
             new GetFloatValue(() => restSpeed),
             new GetFloatValue(() => acceleration),
@@ -181,7 +188,8 @@ public class Mage : AbstractEntity
         /*>>> Health decisions <<<*/
         Sequence goToCoverSequence = new Sequence(new List<Node> { coverAvaliableNode, goToCoverNode, healSpellExecuteNode });
         Selector findCoverSelector = new Selector(new List<Node> { goToCoverSequence, jumpToSenseDecisionsSelector });
-        Selector tryToTakeCoverSelector = new Selector(new List<Node> { isCoveredNode, findCoverSelector });
+        Sequence isEntityCoveredSequence = new Sequence(new List<Node> { isCoveredNode, gotIntoCover, restInCoverNode });
+        Selector tryToTakeCoverSelector = new Selector(new List<Node> { isEntityCoveredSequence, findCoverSelector });
         Sequence lowHealthSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
 
         Sequence panicReactionSequence = new Sequence(new List<Node> { areaExplosionNode, jumpToTryToTakeCoverSelector });
@@ -222,6 +230,8 @@ public class Mage : AbstractEntity
     public override void GetHit(float damage)
     {
         ChangeHealth(-damage);
+
+        animationController.PlayGetHitAnimation();
         AddRLReward(rlParameters.getHurt);
         Debug.Log("[Phisical hit] Health: " + health);
     }
@@ -229,6 +239,8 @@ public class Mage : AbstractEntity
     public override void GetMagicHit(float damage, int spellID)
     {
         ChangeHealth(-damage);
+
+        animationController.PlayGetHitAnimation();
         AddRLReward(rlParameters.getHurt);
         spellController.SetLastHittedSpellID(spellID);
         Debug.Log("[Magic hit] Health: " + health);

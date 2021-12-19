@@ -38,6 +38,11 @@ public class ApplicationManager : MonoBehaviour, IGameManager
             ReadConfigFile();
         }
         brainPath = mlBrainDirectoryPath + "/" + mlBrainName + ".onnx";
+        
+        if(!File.Exists(brainPath))
+        {
+            Managers.Self.LockApp("Brain " + mlBrainName + " doesn't exist!");
+        }
 
         status = ManagerStatus.Started;
     }

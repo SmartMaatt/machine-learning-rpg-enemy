@@ -58,7 +58,7 @@ public class ChaseNode : Node
         else
         {
             speedController.SetCurrentMaxSpeed(RestSpeed());
-            speedController.SetAcceleration(Acceleration());
+            speedController.SetAcceleration(entity.breakAcceleration);
             return NodeState.SUCCESS;
         }
     }

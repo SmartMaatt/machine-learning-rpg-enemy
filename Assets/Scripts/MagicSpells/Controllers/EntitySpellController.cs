@@ -74,6 +74,7 @@ public class EntitySpellController : SpellController
         {
             currentShield = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
             currentShield.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity, uiPanelController);
+            entity.GetAnimationController().PlayBlockAnimation();
         }
         else
         {
@@ -82,6 +83,7 @@ public class EntitySpellController : SpellController
             {
                 ChargeShieldSpell(shieldSpellNode, currentShield);
                 entity.AddRLReward(entity.GetMageRLParameters().rechargeCurrentShield);
+                entity.GetAnimationController().PlayBlockAnimation();
             }
             else
             {
@@ -97,6 +99,7 @@ public class EntitySpellController : SpellController
         {
             currentHealSpell = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
             currentHealSpell.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity, uiPanelController);
+            entity.GetAnimationController().SetHealAnimation(true);
         }
         else
         {

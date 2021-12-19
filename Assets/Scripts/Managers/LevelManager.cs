@@ -433,7 +433,6 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         if(levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY)
         {
-            Debug.Log(player.transform.position.y);
             if (player.transform.position.y < yAxisLimit)
             {
                 playerController.InstantKill();

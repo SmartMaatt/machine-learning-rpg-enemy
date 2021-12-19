@@ -37,6 +37,7 @@ public class EntityHealSpell : HealSpell
 
     public override void EndHeal()
     {
+        entity.GetAnimationController().SetHealAnimation(false);
         entity.SetHealing(false);
         base.EndHeal();
     }

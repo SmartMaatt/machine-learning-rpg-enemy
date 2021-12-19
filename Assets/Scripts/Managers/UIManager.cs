@@ -66,12 +66,21 @@ public class UIManager : MonoBehaviour, IGameManager
         {
             ActivateEscapeMenu();
         }
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            ToggleCursor();
+        }
     }
 
     public void LockApp(string reason)
     {
         SetLockScreanActive(true);
         SetLockScreanReason(reason);
+
+        CloseEscapeMenu();
+        LockCursor(false);
+
         enabled = false;
     }
 
@@ -230,6 +239,20 @@ public class UIManager : MonoBehaviour, IGameManager
         else
         {
             Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    public void ToggleCursor()
+    {
+        if(Cursor.lockState == CursorLockMode.Locked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if(Cursor.lockState == CursorLockMode.None)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 }

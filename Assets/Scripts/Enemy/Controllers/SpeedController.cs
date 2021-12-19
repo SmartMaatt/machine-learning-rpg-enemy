@@ -4,24 +4,28 @@ using UnityEngine.AI;
 
 public class SpeedController : MonoBehaviour
 {
-    private AbstractEntity _entity;
-    private NavMeshAgent _navAgent;
+    private AbstractEntity entity;
+    private NavMeshAgent navAgent;
+    private AnimationController animationController;
 
-    private float _currentMoveSpeed;
-    private float _currentMaxSpeed;
-    private bool _reachedSpeedPoint;
-    private float _currentAcceleration;
+    private float currentMoveSpeed;
+    private float currentMaxSpeed;
+    private bool reachedSpeedPoint;
+    private float currentAcceleration;
+
+    private float currentWalkAnimationState;
 
     private void Start()
     {
-        _entity = GetComponent<AbstractEntity>();
-        _navAgent = _entity.GetNavMeshAgent();
+        entity = GetComponent<AbstractEntity>();
+        animationController = entity.GetAnimationController();
+        navAgent = entity.GetNavMeshAgent();
 
-        _currentMoveSpeed = _entity.restSpeed;
-        _currentMaxSpeed = _entity.restSpeed;
-        SetNavAgentSpeed(_currentMoveSpeed);
+        currentMoveSpeed = entity.restSpeed;
+        currentMaxSpeed = entity.restSpeed;
+        SetNavAgentSpeed(currentMoveSpeed);
 
-        _currentAcceleration = _entity.acceleration;
+        currentAcceleration = entity.acceleration;
     }
 
     private void Update()
@@ -30,68 +34,84 @@ public class SpeedController : MonoBehaviour
         {
             ChangeSpeed();
         }
-        RotateToPoint(_entity.GetCurrentDestination(), _entity.rotateAcceleration);
+        RotateToPoint(entity.GetCurrentDestination(), entity.rotateAcceleration);
     }
 
     private bool ReachedSpeedPoint()
     {
-        if (_currentMoveSpeed != _currentMaxSpeed)
-            return true;
-        else
-            return false;
+        return currentMoveSpeed != currentMaxSpeed;
     }
 
     private void ChangeSpeed()
     {
-        if (System.Math.Round(_currentMoveSpeed, 1) == _currentMaxSpeed)
+        if (System.Math.Round(currentMoveSpeed, 1) == currentMaxSpeed)
         {
-            _currentMoveSpeed = _currentMaxSpeed;
-            _reachedSpeedPoint = true;
+            currentMoveSpeed = currentMaxSpeed;
+            reachedSpeedPoint = true;
         }
-        else if (_currentMoveSpeed < _currentMaxSpeed)
+        else if (currentMoveSpeed < currentMaxSpeed)
         {
-            _currentMoveSpeed += Time.deltaTime * _currentAcceleration;
+            currentMoveSpeed += Time.deltaTime * currentAcceleration;
         }
-        else if (_currentMoveSpeed > _currentMaxSpeed)
+        else if (currentMoveSpeed > currentMaxSpeed)
         {
-            _currentMoveSpeed -= Time.deltaTime * _currentAcceleration;
+            currentMoveSpeed -= Time.deltaTime * currentAcceleration;
         }
 
-        SetNavAgentSpeed(_currentMoveSpeed);
+        SetNavAgentSpeed(currentMoveSpeed);
     }
 
 
     /*>>> Getters <<<*/
     public Vector3 GetNavAgentSteeringTarget()
     {
-        return _navAgent.steeringTarget;
+        return navAgent.steeringTarget;
     }
 
 
     /*>>> Setters <<<*/
     public void SetNavAgentSpeed(float speed)
     {
-        _navAgent.speed = speed;
+        navAgent.speed = speed;
     }
 
     public void SetCurrentMaxSpeed(float maxSpeed)
     {
-        _currentMaxSpeed = maxSpeed;
+        currentMaxSpeed = maxSpeed;
+        SetCurrentWalkAnimationState(maxSpeed);
     }
 
     public void SetAcceleration(float acceleration)
     {
-        _currentAcceleration = acceleration;
+        currentAcceleration = acceleration;
     }
 
     public void AddBonusAcceleration(float bonus)
     {
-        _currentAcceleration = _currentAcceleration * bonus;
+        currentAcceleration = currentAcceleration * bonus;
     }
 
     public void ResetToDefaultAcceleration()
     {
-        _currentAcceleration = _entity.acceleration;
+        currentAcceleration = entity.acceleration;
+    }
+
+    private void SetCurrentWalkAnimationState(float speed)
+    {
+        if(speed == entity.walkSpeed)
+        {
+            currentWalkAnimationState = animationController.walk;
+        }
+        else if(speed == entity.runSpeed)
+        {
+            currentWalkAnimationState = animationController.run;
+        }
+        else
+        {
+            currentWalkAnimationState = animationController.noWalk;
+        }
+
+        animationController.SetWalkAnimationValue(currentWalkAnimationState);
     }
 
     public void RotateToPoint(Vector3 pointToRotate, float rotateAcceleration)

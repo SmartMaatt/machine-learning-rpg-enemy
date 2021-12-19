@@ -6,12 +6,14 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(SpeedController))]
 [RequireComponent(typeof(AnimationRiggingController))]
+[RequireComponent(typeof(AnimationController))]
 public abstract class AbstractEntity : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected NavMeshAgent navAgent;
     [SerializeField] protected SpeedController speedController;
     [SerializeField] protected AnimationRiggingController animationRiggingController;
+    [SerializeField] protected AnimationController animationController;
     [SerializeField] protected RLAgent rlAgent; 
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Cover[] avaliableCovers;
@@ -74,7 +76,7 @@ public abstract class AbstractEntity : MonoBehaviour
     protected float defaultAttackRange;
 
     protected Node decisionTreeTopNode;
-    protected Vector3 currentDestination;
+    public Vector3 currentDestination;
     protected EntityState entityState;
     protected PanelControll uiPanelController;
 
@@ -86,6 +88,7 @@ public abstract class AbstractEntity : MonoBehaviour
         navAgent = GetComponent<NavMeshAgent>();
         speedController = GetComponent<SpeedController>();
         animationRiggingController = GetComponent<AnimationRiggingController>();
+        animationController = GetComponent<AnimationController>();
         avaliableCovers = FindObjectsOfType<Cover>();
         SetDefaultValuesState();
 
@@ -132,6 +135,11 @@ public abstract class AbstractEntity : MonoBehaviour
     public SpeedController GetSpeedController()
     {
         return speedController;
+    }
+
+    public AnimationController GetAnimationController()
+    {
+        return animationController;
     }
 
     public AnimationRiggingController GetAnimationRiggingController()

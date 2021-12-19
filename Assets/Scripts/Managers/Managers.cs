@@ -43,9 +43,8 @@ public class Managers : MonoBehaviour
         foreach (IGameManager manager in startSequence)
         {
             manager.Startup();
+            yield return null;
         }
-
-        yield return null;
 
         int numModels = startSequence.Count;
         int numReady = 0;
