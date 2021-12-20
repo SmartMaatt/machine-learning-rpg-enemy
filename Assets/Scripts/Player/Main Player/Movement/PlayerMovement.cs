@@ -36,9 +36,11 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Ground Detection")]
     [SerializeField] LayerMask groundMask;
+    [SerializeField] LayerMask wallMask;
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.4f;
     bool isGrounded;
+    bool isWalled;
 
     [Header("Sprinting")]
     [SerializeField] float walkSpeed = 4f;
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        isGrounded = (Physics.CheckSphere(groundCheck.position, groundDistance, groundMask) || Physics.CheckSphere(groundCheck.position, groundDistance, wallMask));
 
         MyInput();
         ControlDrag();

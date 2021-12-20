@@ -316,6 +316,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 256
+  wallMask:
+    serializedVersion: 2
+    m_Bits: 512
   groundCheck: {fileID: 698861809676150302}
   groundDistance: 0.4
   walkSpeed: 4
