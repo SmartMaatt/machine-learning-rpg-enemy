@@ -96,11 +96,11 @@ public class WanderNode : Node
         float randomZ = UnityEngine.Random.Range(-WalkPointRange(), WalkPointRange());
 
         RaycastHit hit;
-        Vector3 _tmpWalkPoint = new Vector3(originTransform.position.x + randomX, originTransform.position.y + 500f, originTransform.position.z + randomZ);
+        Vector3 tmpWalkPoint = new Vector3(originTransform.position.x + randomX, originTransform.position.y + 500f, originTransform.position.z + randomZ);
 
-        if (Physics.Raycast(_tmpWalkPoint, -originTransform.up, out hit, Mathf.Infinity, entity.SolidGround) &&
+        if (Physics.Raycast(tmpWalkPoint, -originTransform.up, out hit, Mathf.Infinity, entity.SolidGround) &&
             Vector2.Angle(
-                new Vector2(_tmpWalkPoint.x, _tmpWalkPoint.z),
+                new Vector2(tmpWalkPoint.x, tmpWalkPoint.z),
                 new Vector2(originTransform.position.x, originTransform.position.z)
             )
             < MaxTurnAngle())

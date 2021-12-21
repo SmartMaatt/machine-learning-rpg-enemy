@@ -140,8 +140,11 @@ public class RlCsvManager : MonoBehaviour, IGameManager
 
     public void AddEpisodeData(string[] episodeData)
     {
-        learningData.Add(episodeData);
-        WriteCSV();
+        if (Managers.App.IsTraining())
+        {
+            learningData.Add(episodeData);
+            WriteCSV();
+        }
     }
 
     public int GetEpisodeCount()

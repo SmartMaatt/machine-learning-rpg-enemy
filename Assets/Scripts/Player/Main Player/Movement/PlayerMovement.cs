@@ -40,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Transform groundCheck;
     [SerializeField] float groundDistance = 0.4f;
     bool isGrounded;
-    bool isWalled;
 
     [Header("Sprinting")]
     [SerializeField] float walkSpeed = 4f;

@@ -79,13 +79,17 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         {
                             levelType = GameLevelType.TRAINING;
                         }
-                        else if(configLine[1] == "SelfPlay")
+                        else if(configLine[1] == "SelfPlayTraining")
                         {
-                            levelType = GameLevelType.SELF_PLAY;
+                            levelType = GameLevelType.SELF_PLAY_TRAINING;
                         }
                         else if(configLine[1] == "Play")
                         {
                             levelType = GameLevelType.PLAY;
+                        }
+                        else if(configLine[1] == "SelfPlay")
+                        {
+                            levelType = GameLevelType.SELF_PLAY;
                         }
                         else
                         {
@@ -172,5 +176,15 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     public void CloseApp()
     {
         Application.Quit();
+    }
+
+    public bool IsPlaying()
+    {
+        return (levelType == GameLevelType.PLAY || levelType == GameLevelType.SELF_PLAY);
+    }
+
+    public bool IsTraining()
+    {
+        return (levelType == GameLevelType.SELF_PLAY_TRAINING || levelType == GameLevelType.TRAINING);
     }
 }
