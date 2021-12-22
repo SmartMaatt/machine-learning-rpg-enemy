@@ -55,7 +55,7 @@ public class LevelManager : MonoBehaviour, IGameManager
     {
         Debug.Log("Starting Level manager");
 
-        if(getLevelTypeFromAppManager)
+        if (getLevelTypeFromAppManager)
         {
             levelType = Managers.App.GetLevelType();
         }
@@ -100,7 +100,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             PlayingLevelSetup();
         }
 
-        if(levelType == GameLevelType.SELF_PLAY)
+        if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayLevelSetup();
         }
@@ -120,12 +120,12 @@ public class LevelManager : MonoBehaviour, IGameManager
             SelfPlayTrainingLevelReload();
         }
 
-        if(levelType == GameLevelType.PLAY)
+        if (levelType == GameLevelType.PLAY)
         {
             PlayingLevelReload();
         }
 
-        if(levelType == GameLevelType.SELF_PLAY)
+        if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayLevelReload();
         }
@@ -151,12 +151,12 @@ public class LevelManager : MonoBehaviour, IGameManager
             SelfPlayTrainingEndEpisode(dead);
         }
 
-        if(levelType == GameLevelType.PLAY)
+        if (levelType == GameLevelType.PLAY)
         {
             PlayingEndEpisode(dead);
         }
 
-        if(levelType == GameLevelType.SELF_PLAY)
+        if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayEndEpisode(dead);
         }
@@ -164,7 +164,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public void ValidateLevelEntities(GameObject entity)
     {
-        if(levelType == GameLevelType.TRAINING)
+        if (levelType == GameLevelType.TRAINING)
         {
             if (entity != jack && entity != player)
             {
@@ -189,6 +189,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
         jack.AddComponent<DecisionRequester>();
         jack.GetComponent<BehaviorParameters>().BehaviorName = Managers.App.GetBehaviourName();
+
+        Managers.UI.ActivateGiveUpButton(true);
     }
 
     private void TrainingLevelReload()
@@ -214,7 +216,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
 
-        if(dead == null)
+        if (dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
@@ -276,7 +278,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
 
-        if(dead == null)
+        if (dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
@@ -309,6 +311,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         BehaviorParameters bf = jack.GetComponent<BehaviorParameters>();
         bf.BehaviorType = BehaviorType.InferenceOnly;
         bf.BehaviorName = Managers.App.GetBehaviourName();
+
+        Managers.UI.ActivateGiveUpButton(true);
     }
 
     private void PlayingLevelReload()
@@ -495,15 +499,26 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
+    public void PlayerGiveUp()
+    {
+        try
+        {
+            playerController.InstantKill();
+        }
+        catch (NullReferenceException ex)
+        {
+            Debug.Log(ex.Message);
+        }
+    }
+
     private void UIReload()
     {
-        if (levelType == GameLevelType.TRAINING)
+        if (Managers.App.IsPlayerInGame())
         {
             jackController.GetUIPanelControll().SetupScore(jackScore);
             playerController.GetUIPanelControll().SetupScore(playerScore);
         }
-
-        if (levelType == GameLevelType.SELF_PLAY_TRAINING)
+        else
         {
             jackController.GetUIPanelControll().SetupScore(jackScore);
             madoxController.GetUIPanelControll().SetupScore(madoxScore);
@@ -524,7 +539,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     private void WorldBorderLimit()
     {
-        if(levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY)
+        if (levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY)
         {
             if (player.transform.position.y < yAxisLimit)
             {
@@ -548,7 +563,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         RaycastHit hit;
         Vector3 location = spawnPoint;
-        Vector3 positionCorrection = new Vector3(0f, 5f, 0f);
+        Vector3 positionCorrection = new Vector3(0f, 1f, 0f);
 
         while (!correctLocation)
         {
@@ -595,7 +610,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     public string GetLevelTypeName()
     {
-        if(levelType == GameLevelType.LOCKED)
+        if (levelType == GameLevelType.LOCKED)
         {
             return "Locked";
         }
@@ -603,7 +618,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             return "Training";
         }
-        else if(levelType == GameLevelType.SELF_PLAY_TRAINING)
+        else if (levelType == GameLevelType.SELF_PLAY_TRAINING)
         {
             return "Self play";
         }

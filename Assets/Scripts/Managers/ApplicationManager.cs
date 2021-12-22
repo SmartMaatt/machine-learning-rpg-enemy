@@ -19,13 +19,12 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     [SerializeField] private string mlBrainName;
 
     [Space]
-    [SerializeField] private string lockageReason;
-
-    [Space]
     public int timeWaitingForBrain;
     public float appTimeScale;
 
     private string brainPath;
+    private bool newProfile;
+    private bool levelTypeData, brainSessionNameData, timeScaleData, newProfileData;
 
 
     /*Startup*/
@@ -33,15 +32,16 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     {
         Debug.Log("Starting Application manager");
 
+        SetupConfigFile();
         if (getInfoFromConfigFile)
         {
             ReadConfigFile();
         }
-        brainPath = mlBrainDirectoryPath + "/" + mlBrainName + ".onnx";
-        
-        if(!File.Exists(brainPath))
+
+        SetupBrainPath(mlBrainDirectoryPath, mlBrainName);
+        if(!newProfile && !File.Exists(brainPath))
         {
-            Managers.Self.LockApp("Brain " + mlBrainName + " doesn't exist!");
+            Managers.Self.LockApp("Brain " + brainPath + " doesn't exist!");
         }
 
         status = ManagerStatus.Started;
@@ -50,7 +50,6 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     public void LockApp(string reason)
     {
         levelType = GameLevelType.LOCKED;
-        lockageReason = reason;
         enabled = false;
     }
 
@@ -73,8 +72,15 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         break;
                     }
 
+                    if(line > 4)
+                    {
+                        Managers.Self.LockApp("Incorrect file syntax!\nMore then four parameters in config file!");
+                        break;
+                    }
+
                     if(configLine[0] == "LevelType")
                     {
+                        levelTypeData = true;
                         if(configLine[1] == "Training")
                         {
                             levelType = GameLevelType.TRAINING;
@@ -94,23 +100,37 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         else
                         {
                             Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nUnknown LevelType!");
+                            levelTypeData = false;
                             break;
                         }
                     }
                     else if(configLine[0] == "MLBrainSessionName")
                     {
-                        mlBrainDirectoryPath = "results/" + configLine[1];
-                        mlBrainSessionName = configLine[1];
+                        SetupMlBrainDirectoryPath(configLine[1]);
+                        brainSessionNameData = true;
                     }
                     else if(configLine[0] == "TimeScale")
                     {
                         try
                         {
                             appTimeScale = float.Parse(configLine[1]);
+                            timeScaleData = true;
                         }
                         catch (FormatException err)
                         {
                             Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a float value!");
+                        }
+                    }
+                    else if(configLine[0] == "NewProfile")
+                    {
+                        try
+                        {
+                            newProfile = bool.Parse(configLine[1]);
+                            newProfileData = true;
+                        }
+                        catch (FormatException err)
+                        {
+                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a bool value!");
                         }
                     }
                     else
@@ -119,12 +139,41 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         break;
                     }
                 }
+
+                if(line != 4 || !levelTypeData || !brainSessionNameData || !timeScaleData || !newProfileData)
+                {
+                    Managers.Self.LockApp("Incorrect file syntax!\nThere are too few parameters or they are repeated!");
+                }
             }
         }
         catch (IOException err)
         {
             Managers.Self.LockApp(err.Message + "\n The config file cannot be opened!");
         }
+    }
+
+    private void SetupConfigFile()
+    {
+        #if UNITY_STANDALONE && !UNITY_EDITOR
+            configPath = "../" + configPath;
+        #endif
+    }
+
+    private void SetupBrainPath(string brainDirectory, string brainName)
+    {
+        brainPath = brainDirectory + "/" + brainName + ".onnx";
+    }
+
+    private void SetupMlBrainDirectoryPath(string brainSessionName)
+    {
+        string rootDirectory = "";
+
+        #if UNITY_STANDALONE && !UNITY_EDITOR
+            rootDirectory = "../";
+        #endif
+
+        mlBrainDirectoryPath = rootDirectory + "results/" + brainSessionName;
+        mlBrainSessionName = brainSessionName;
     }
 
     /*Getters*/
@@ -158,11 +207,6 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         return levelType == GameLevelType.LOCKED;
     }
 
-    public string GetLockageReason()
-    {
-        return lockageReason;
-    }
-
     public void PauseGame()
     {
         Time.timeScale = 0;
@@ -186,5 +230,10 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     public bool IsTraining()
     {
         return (levelType == GameLevelType.SELF_PLAY_TRAINING || levelType == GameLevelType.TRAINING);
+    }
+
+    public bool IsPlayerInGame()
+    {
+        return (levelType == GameLevelType.PLAY || levelType == GameLevelType.TRAINING);
     }
 }

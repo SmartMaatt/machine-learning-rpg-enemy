@@ -14,6 +14,7 @@ public class Managers : MonoBehaviour
     public static UIManager UI { get; private set; }
     public static LevelManager Level { get; private set; }
     public static bool allLoaded { get; private set; }
+    public static bool locked { get; private set; }
 
     private List<IGameManager> startSequence;
     private IEnumerator StartupManagersCoroutine;
@@ -63,15 +64,20 @@ public class Managers : MonoBehaviour
             yield return null;
         }
         allLoaded = true;
+        UI.ActivateLoadingScrean(false);
     }
 
     public void LockApp(string reason)
     {
-        StopCoroutine(StartupManagersCoroutine);
-
-        foreach (IGameManager manager in startSequence)
+        if (!locked)
         {
-            manager.LockApp(reason);
+            locked = true;
+            StopCoroutine(StartupManagersCoroutine);
+
+            foreach (IGameManager manager in startSequence)
+            {
+                manager.LockApp(reason);
+            }
         }
     }
 }

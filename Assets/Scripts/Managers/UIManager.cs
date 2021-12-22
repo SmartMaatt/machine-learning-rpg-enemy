@@ -39,10 +39,17 @@ public class UIManager : MonoBehaviour, IGameManager
     [SerializeField] private TMP_Text generationLabel;
 
     [Header("LockScrean")]
-    [SerializeField] private LockScrean lockScrean;
+    [SerializeField] private LockScrean lockScreen;
 
     [Header("Escape menu")]
-    [SerializeField] private GameObject escapeMenu;
+    [SerializeField] private GameObject escapeMenuScreen;
+    [SerializeField] private GameObject giveUpButton;
+
+    [Header("Loading screan")]
+    [SerializeField] private GameObject loadingScreen;
+
+    private bool escapeMenu;
+    private bool lockState;
 
     public void Startup()
     {
@@ -55,6 +62,7 @@ public class UIManager : MonoBehaviour, IGameManager
         elementBar.SetupBarSprites(fire, water, snow);
         elementBar.gameObject.SetActive(false);
 
+        ActivateGiveUpButton(false);
         CloseEscapeMenu();
 
         status = ManagerStatus.Started;
@@ -67,9 +75,9 @@ public class UIManager : MonoBehaviour, IGameManager
             ActivateEscapeMenu();
         }
 
-        if(Input.GetKeyDown(KeyCode.K))
+        if(Input.GetKeyDown(KeyCode.L))
         {
-            ToggleCursor();
+            ToggleLockState();
         }
     }
 
@@ -203,12 +211,12 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void SetLockScreanReason(string reason)
     {
-        lockScrean.SetReason(reason);
+        lockScreen.SetReason(reason);
     }
 
     public void SetLockScreanActive(bool active)
     {
-        lockScrean.gameObject.SetActive(active);
+        lockScreen.gameObject.SetActive(active);
     }
 
     public void ActivateEscapeMenu()
@@ -217,7 +225,8 @@ public class UIManager : MonoBehaviour, IGameManager
         Managers.Level.LockPlayerLook(true);
         Managers.Level.LockSpectatorLook(true);
         LockCursor(false);
-        escapeMenu.SetActive(true);
+        escapeMenuScreen.SetActive(true);
+        escapeMenu = true;
     }
 
     public void CloseEscapeMenu()
@@ -226,7 +235,26 @@ public class UIManager : MonoBehaviour, IGameManager
         Managers.Level.LockPlayerLook(false);
         Managers.Level.LockSpectatorLook(false);
         LockCursor(true);
-        escapeMenu.SetActive(false);
+        escapeMenuScreen.SetActive(false);
+        escapeMenu = false;
+    }
+
+    public void ActivateGiveUpButton(bool value)
+    {
+        giveUpButton.SetActive(value);
+    }
+
+    public void ActivateLockState(bool value)
+    {
+        Managers.Level.LockPlayerLook(value);
+        Managers.Level.LockSpectatorLook(value);
+        LockCursor(!value);
+        lockState = value;
+    }
+
+    public void ToggleLockState()
+    {
+        ActivateLockState(!lockState);
     }
 
     public void LockCursor(bool locked)
@@ -246,13 +274,16 @@ public class UIManager : MonoBehaviour, IGameManager
     {
         if(Cursor.lockState == CursorLockMode.Locked)
         {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            LockCursor(false);
         }
         else if(Cursor.lockState == CursorLockMode.None)
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            LockCursor(true);
         }
+    }
+
+    public void ActivateLoadingScrean(bool value)
+    {
+        loadingScreen.SetActive(value);
     }
 }
