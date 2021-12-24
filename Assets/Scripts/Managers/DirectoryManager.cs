@@ -7,10 +7,6 @@ public class DirectoryManager : MonoBehaviour
     public static void CreateDirectory(string directoryPath)
     {
         Directory.CreateDirectory(directoryPath);
-        if (Directory.Exists(directoryPath))
-        {
-            Debug.Log("Directory \"" + directoryPath + "\" created succesfully!");
-        }
     }
 
     public static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)

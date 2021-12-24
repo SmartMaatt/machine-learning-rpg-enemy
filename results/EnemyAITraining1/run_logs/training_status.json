@@ -1,24 +1,33 @@
 {
     "enemyAI": {
-        "elo": 1183.8339702059184,
+        "elo": 1166.7682711646903,
         "checkpoints": [
             {
-                "steps": 275766,
-                "file_path": "results\\EnemyAITraining1\\enemyAI\\enemyAI-275766.onnx",
-                "reward": -640.7969818115234,
-                "creation_time": 1640176479.028,
+                "steps": 411288,
+                "file_path": "results\\EnemyAITraining1\\enemyAI\\enemyAI-411288.onnx",
+                "reward": -2517.0073750813804,
+                "creation_time": 1640299770.4564846,
                 "auxillary_file_paths": [
-                    "results\\EnemyAITraining1\\enemyAI\\enemyAI-275766.pt"
+                    "results\\EnemyAITraining1\\enemyAI\\enemyAI-411288.pt"
+                ]
+            },
+            {
+                "steps": 424311,
+                "file_path": "results\\EnemyAITraining1\\enemyAI\\enemyAI-424311.onnx",
+                "reward": -2326.2474212646484,
+                "creation_time": 1640301691.164069,
+                "auxillary_file_paths": [
+                    "results\\EnemyAITraining1\\enemyAI\\enemyAI-424311.pt"
                 ]
             }
         ],
         "final_checkpoint": {
-            "steps": 275766,
+            "steps": 424311,
             "file_path": "results\\EnemyAITraining1\\enemyAI.onnx",
-            "reward": -640.7969818115234,
-            "creation_time": 1640176479.028,
+            "reward": -2326.2474212646484,
+            "creation_time": 1640301691.164069,
             "auxillary_file_paths": [
-                "results\\EnemyAITraining1\\enemyAI\\enemyAI-275766.pt"
+                "results\\EnemyAITraining1\\enemyAI\\enemyAI-424311.pt"
             ]
         }
     },

@@ -321,8 +321,8 @@ MonoBehaviour:
     m_Bits: 512
   groundCheck: {fileID: 698861809676150302}
   groundDistance: 0.4
-  walkSpeed: 4
-  sprintSpeed: 6
+  walkSpeed: 8
+  sprintSpeed: 16
   acceleration: 10
 --- !u!114 &698861808838423329
 MonoBehaviour:
@@ -425,7 +425,6 @@ MonoBehaviour:
   timeBetweenAttacks: 1.5
   maxShieldTime: 90
   maxHealTime: 90
-  tmpEntity: {fileID: 0}
 --- !u!114 &698861808838423357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,7 +442,7 @@ MonoBehaviour:
   blocking: 0
   healing: 0
   uiPanelType: 1
-  playerName: Matiq
+  playerName: Player
   headPosition: 0.5
   enemy: {fileID: 0}
 --- !u!1 &698861809153540561

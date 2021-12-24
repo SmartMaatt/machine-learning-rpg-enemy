@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class UIManager : MonoBehaviour, IGameManager
@@ -70,12 +68,12 @@ public class UIManager : MonoBehaviour, IGameManager
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ActivateEscapeMenu();
         }
 
-        if(Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             ToggleLockState();
         }
@@ -94,29 +92,29 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public PanelControll SetupUIPanelController(GameObject owner, PanelType type)
     {
-        if(type == PanelType.LEFT)
+        if (type == PanelType.LEFT)
         {
-            if(leftPanelOwner == null)
+            if (leftPanelOwner == null)
             {
                 SetLeftPanelOwner(owner);
                 return leftPanel;
             }
 
-            if(leftPanelOwner == owner)
+            if (leftPanelOwner == owner)
             {
                 return leftPanel;
             }
         }
 
-        if(type == PanelType.RIGHT)
+        if (type == PanelType.RIGHT)
         {
-            if(rightPanelOwner == null)
+            if (rightPanelOwner == null)
             {
                 SetRightPanelOwner(owner);
                 return rightPanel;
             }
 
-            if(rightPanelOwner == owner)
+            if (rightPanelOwner == owner)
             {
                 return rightPanel;
             }
@@ -127,13 +125,13 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public ElementBar SetupElementBar(GameObject owner)
     {
-        if(elementBarOwner == null)
+        if (elementBarOwner == null)
         {
             SetElementBarOwner(owner);
             return elementBar;
         }
 
-        if(elementBarOwner == owner)
+        if (elementBarOwner == owner)
         {
             return elementBar;
         }
@@ -161,13 +159,13 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void RemovePanelOwner(GameObject owner, PanelType panelType)
     {
-        if(panelType == PanelType.LEFT && leftPanelOwner == owner)
+        if (panelType == PanelType.LEFT && leftPanelOwner == owner)
         {
             leftPanelOwner = null;
             leftPanel.gameObject.SetActive(false);
         }
 
-        if(panelType == PanelType.RIGHT && rightPanelOwner == owner)
+        if (panelType == PanelType.RIGHT && rightPanelOwner == owner)
         {
             rightPanelOwner = null;
             rightPanel.gameObject.SetActive(false);
@@ -176,7 +174,7 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void RemoveElementBarOwner(GameObject owner)
     {
-        if(elementBarOwner == owner)
+        if (elementBarOwner == owner)
         {
             elementBar.gameObject.SetActive(false);
             elementBarOwner = null;
@@ -260,7 +258,7 @@ public class UIManager : MonoBehaviour, IGameManager
     public void LockCursor(bool locked)
     {
         Cursor.visible = !locked;
-        if(locked)
+        if (locked)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -272,11 +270,11 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void ToggleCursor()
     {
-        if(Cursor.lockState == CursorLockMode.Locked)
+        if (Cursor.lockState == CursorLockMode.Locked)
         {
             LockCursor(false);
         }
-        else if(Cursor.lockState == CursorLockMode.None)
+        else if (Cursor.lockState == CursorLockMode.None)
         {
             LockCursor(true);
         }

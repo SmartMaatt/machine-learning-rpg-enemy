@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMagicShield : MagicShield
@@ -10,7 +8,7 @@ public class PlayerMagicShield : MagicShield
     private void Update()
     {
         ChangeTime(-Time.deltaTime);
-        if(CheckIfTimeIsUp())
+        if (CheckIfTimeIsUp())
         {
             EndShield();
         }

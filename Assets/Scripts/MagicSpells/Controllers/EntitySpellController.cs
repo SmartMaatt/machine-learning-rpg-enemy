@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntitySpellController : SpellController
@@ -11,7 +10,9 @@ public class EntitySpellController : SpellController
     private EntityMagicShield currentShield;
     private EntityHealSpell currentHealSpell;
 
-    private void Start()
+
+    /*>>> Unity methods <<<*/
+    protected override void Start()
     {
         entity = GetComponent<Mage>();
         maxMana = entity.maxMana;
@@ -24,21 +25,13 @@ public class EntitySpellController : SpellController
         base.Start();
     }
 
-    private void Update()
+    protected override void Update()
     {
         base.Update();
     }
 
-    protected override float GetMaxMana()
-    {
-        return entity.maxMana;
-    }
 
-    protected override float GetManaRestoreRate()
-    {
-        return entity.manaRestoreRate;
-    }
-
+    /*>>> Abstract methods <<<*/
     public override void ExecuteSpell()
     {
         if (canAttack)
@@ -54,20 +47,28 @@ public class EntitySpellController : SpellController
         }
     }
 
-    private IEnumerator AttackDesorientation(float minTimeDelay, float maxTimeDelay)
+    protected override void SetElementUIBarValue(float value) { }
+
+    protected override void LogMessage(string msg)
     {
-        float DesorientationTime = UnityEngine.Random.Range(minTimeDelay, maxTimeDelay);
-        yield return new WaitForSeconds(DesorientationTime);
-        try
-        {
-            UseSpellType();
-        }
-        catch(UnsetSpellException err)
-        {
-            Debug.LogError(err);
-        }
+        Debug.Log(msg);
     }
 
+
+    /*>>> Spell casting <<<*/
+    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
+    {
+        spellInfo.castSpellNode = spellNode;
+        spellInfo.SetupSpellInfoOwner(entity);
+    }
+
+    protected override void RunCastSpellAnimation(float time, Transform castSpell)
+    {
+        entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
+    }
+
+
+    /*>>> Shield casting <<<*/
     protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
         if (currentShield == null)
@@ -79,7 +80,7 @@ public class EntitySpellController : SpellController
         else
         {
             ShieldSpellNode currentShieldSpellNode = currentShield.GetShieldSpellNode();
-            if(currentShieldSpellNode.spell == shieldSpellNode.spell)
+            if (currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
                 ChargeShieldSpell(shieldSpellNode, currentShield);
                 entity.AddRLReward(entity.GetMageRLParameters().rechargeCurrentShield);
@@ -93,6 +94,8 @@ public class EntitySpellController : SpellController
         }
     }
 
+
+    /*>>> Heal casting <<<*/
     protected override void SetupHealObject(HealSpellNode healSpellNode)
     {
         if (currentHealSpell == null)
@@ -103,52 +106,42 @@ public class EntitySpellController : SpellController
         }
         else
         {
-            ChargeHealSpell(healSpellNode, currentHealSpell); 
+            ChargeHealSpell(healSpellNode, currentHealSpell);
         }
 
-        if(entity.IsHealthLow())
+        if (entity.IsHealthLow())
         {
             entity.AddRLReward(entity.GetMageRLParameters().healWhenHealthUserLow);
         }
     }
 
 
-    /*Spell casting*/
-    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
-    {
-        spellInfo.castSpellNode = spellNode;
-        spellInfo.SetupSpellInfoOwner(entity);
-    }
-
-    protected override void RunCastSpellAnimation(float time, Transform castSpell)
-    {
-        entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
-    }
-
-
-
-    protected override void AreaExplosionAdditionalConfiguration()
-    {
-        if(entity.IsHealthCriticalLow())
-        {
-            entity.AddRLReward(entity.GetMageRLParameters().areaSpellWhenHealthUnderCriticalLow);
-        }
-    }
-
+    /*>>> Area spell casting <<<*/
     protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)
     {
         owner.LoadEntity(entity);
     }
 
-    protected override void SetElementUIBarValue(float value) {}
-
-    protected override void LogMessage(string msg)
+    protected override void AreaExplosionAdditionalConfiguration()
     {
-        Debug.Log(msg);
+        if (entity.IsHealthCriticalLow())
+        {
+            entity.AddRLReward(entity.GetMageRLParameters().areaSpellWhenHealthUnderCriticalLow);
+        }
     }
 
 
-    /*Getters*/
+    /*>>> Getters <<<*/
+    protected override float GetMaxMana()
+    {
+        return entity.maxMana;
+    }
+
+    protected override float GetManaRestoreRate()
+    {
+        return entity.manaRestoreRate;
+    }
+
     public EntityMagicShield GetCurrentShield()
     {
         return currentShield;
@@ -157,5 +150,19 @@ public class EntitySpellController : SpellController
     public EntityHealSpell GetCurrentHealSpell()
     {
         return currentHealSpell;
+    }
+
+    private IEnumerator AttackDesorientation(float minTimeDelay, float maxTimeDelay)
+    {
+        float DesorientationTime = UnityEngine.Random.Range(minTimeDelay, maxTimeDelay);
+        yield return new WaitForSeconds(DesorientationTime);
+        try
+        {
+            UseSpellType();
+        }
+        catch (UnsetSpellException err)
+        {
+            Debug.LogError(err);
+        }
     }
 }

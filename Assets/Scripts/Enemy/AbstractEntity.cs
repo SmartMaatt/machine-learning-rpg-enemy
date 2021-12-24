@@ -14,7 +14,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected SpeedController speedController;
     [SerializeField] protected AnimationRiggingController animationRiggingController;
     [SerializeField] protected AnimationController animationController;
-    [SerializeField] protected RLAgent rlAgent; 
+    [SerializeField] protected RLAgent rlAgent;
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Cover[] avaliableCovers;
     public LayerMask SolidGround;
@@ -83,6 +83,8 @@ public abstract class AbstractEntity : MonoBehaviour
     protected PlayerController playerEnemyController;
     protected AbstractEntity entityEnemyController;
 
+
+    /*>>> Unity methods <<<*/
     protected virtual void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
@@ -104,6 +106,7 @@ public abstract class AbstractEntity : MonoBehaviour
         playerEnemyController = enemy.GetComponent<PlayerController>();
         entityEnemyController = enemy.GetComponent<AbstractEntity>();
     }
+
 
     /*>>> General methods <<<*/
     public bool IsDead()
@@ -158,13 +161,13 @@ public abstract class AbstractEntity : MonoBehaviour
     }
 
     public float GetEnemyHeadPosition()
-    { 
-        if(playerEnemyController != null)
+    {
+        if (playerEnemyController != null)
         {
-           return playerEnemyController.GetHeadPosition();
+            return playerEnemyController.GetHeadPosition();
         }
 
-        if(entityEnemyController != null)
+        if (entityEnemyController != null)
         {
             return entityEnemyController.headPosition;
         }
@@ -241,6 +244,7 @@ public abstract class AbstractEntity : MonoBehaviour
         return health < criticalLowHealthThreshold;
     }
 
+
     /*>>> Setters <<<*/
     public void SetRLAgent(RLAgent rlAgent)
     {
@@ -269,11 +273,11 @@ public abstract class AbstractEntity : MonoBehaviour
         {
             lowHealthThreshold = defaultLowHealthThreshold + (defaultLowHealthThreshold * (newValues[0] - 2) / 10);
             criticalLowHealthThreshold = defaultCriticalLowHealthThreshold + (defaultCriticalLowHealthThreshold * (newValues[1] - 2) / 10);
-            walkSpeed = defaultWalkSpeed + newValues[2] + 2;
-            runSpeed = defaultRunSpeed + newValues[3] + 2;
-            sightRange = defaultSightRange + (newValues[4] * 2);
-            hearRange = defaultHearRange + (newValues[5] * 2);
-            attackRange = defaultAttackRange + (newValues[6] * 2);
+            walkSpeed = defaultWalkSpeed + newValues[2] - 2;
+            runSpeed = defaultRunSpeed + newValues[3] - 2;
+            sightRange = defaultSightRange + ((newValues[4] - 2) * 2);
+            hearRange = defaultHearRange + ((newValues[5] - 2) * 2);
+            attackRange = defaultAttackRange + ((newValues[6] - 2) * 2);
         }
         catch (ArgumentOutOfRangeException err)
         {
@@ -283,7 +287,6 @@ public abstract class AbstractEntity : MonoBehaviour
 
     public void AddRLReward(float reward)
     {
-        Debug.Log("AddRlReward:" + reward);
         try
         {
             rlAgent.AddRLReward(reward);

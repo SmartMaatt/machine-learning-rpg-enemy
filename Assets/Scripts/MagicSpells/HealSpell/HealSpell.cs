@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class HealSpell : MonoBehaviour
@@ -16,6 +14,8 @@ public abstract class HealSpell : MonoBehaviour
     protected GameObject healObject;
     protected PanelControll uiPanelController;
 
+
+    /*>>> Setters <<<*/
     protected void SetupShieldObject(GameObject heal)
     {
         healObject = Instantiate(heal, transform.position, Quaternion.identity);
@@ -30,18 +30,11 @@ public abstract class HealSpell : MonoBehaviour
         uiPanelController.SetHealClock(healLastingTime);
     }
 
+
+    /*>>> Getters <<<*/
     protected bool CheckIfTimeIsUp()
     {
         return (healLastingTime <= 0);
-    }
-
-    public virtual void EndHeal()
-    {
-        uiPanelController.ResetHeal();
-        uiPanelController.ResetHealClock();
-
-        Destroy(healObject);
-        Destroy(this);
     }
 
     public HealSpellNode GetHealSpellNode()
@@ -52,6 +45,17 @@ public abstract class HealSpell : MonoBehaviour
     public float GetHealTime()
     {
         return healLastingTime;
+    }
+
+
+    /*>>> Abstract methods <<<*/
+    public virtual void EndHeal()
+    {
+        uiPanelController.ResetHeal();
+        uiPanelController.ResetHealClock();
+
+        Destroy(healObject);
+        Destroy(this);
     }
 
     public abstract void CollisionWithSpell(SpellInfo spellInfo);

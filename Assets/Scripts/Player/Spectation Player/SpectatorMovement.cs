@@ -5,7 +5,7 @@ public class SpectatorMovement : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private Transform orientation;
     [SerializeField] private float moveSpeed;
-    
+
     private Rigidbody rb;
     private Vector3 moveDirection;
     private float horizontalMovement;

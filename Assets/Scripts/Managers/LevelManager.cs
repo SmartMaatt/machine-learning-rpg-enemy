@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Unity.Barracuda;
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 
@@ -173,7 +172,8 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
-    /*Training methods*/
+
+    /*>>> Training methods <<<*/
     private void TrainingLevelSetup()
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
@@ -218,13 +218,13 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         if (dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
 
-    /*Self play training methods*/
+    /*>>> Self play training methods <<<*/
     private void SelfPlayTrainingLevelSetup()
     {
         madox = Instantiate(madoxPrefab, SpawnPointRandomLocation(), Quaternion.identity);
@@ -280,16 +280,16 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         if (dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
 
-            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
 
-    /*Playing methods*/
+    /*>>> Playing methods <<<*/
     private void PlayingLevelSetup()
     {
         player = Instantiate(playerPrefab, SpawnPointRandomLocation(), Quaternion.identity).transform.GetChild(0).gameObject;
@@ -340,13 +340,13 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         if (dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
 
-    /*Self play methods*/
+    /*>>> Self play methods <<<*/
     private void SelfPlayLevelSetup()
     {
         madox = Instantiate(madoxPrefab, SpawnPointRandomLocation(), Quaternion.identity);
@@ -412,16 +412,16 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         if (dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
 
-            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
         }
     }
 
 
-    /*Reloads*/
+    /*>>> Reloads <<<*/
     private void JackReload()
     {
         // Jack reload
@@ -592,7 +592,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
         catch (NullReferenceException err)
         {
-            Debug.LogWarning(err.Message);
+            Debug.Log(err.Message);
         }
     }
 
@@ -604,7 +604,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
         catch (NullReferenceException err)
         {
-            Debug.LogWarning(err.Message);
+            Debug.Log(err.Message);
         }
     }
 

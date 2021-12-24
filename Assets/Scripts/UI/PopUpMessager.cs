@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -21,11 +20,11 @@ public class PopUpMessager : MonoBehaviour
 
     public void DisplayMessage(string msg)
     {
-        if(popUpLifeCoroutine != null)
+        if (popUpLifeCoroutine != null)
         {
             StopCoroutine(popUpLifeCoroutine);
         }
-      
+
         popUpLifeCoroutine = RunPopUp(msg);
         StartCoroutine(popUpLifeCoroutine);
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerHealSpell : HealSpell
@@ -11,7 +9,7 @@ public class PlayerHealSpell : HealSpell
     {
         ChangeTime(-Time.deltaTime);
         playerController.ChangeHealth(Time.deltaTime * healSpellNode.healPointsPerSecond);
-        if(CheckIfTimeIsUp())
+        if (CheckIfTimeIsUp())
         {
             EndHeal();
         }
@@ -42,11 +40,10 @@ public class PlayerHealSpell : HealSpell
 
     public override void CollisionWithSpell(SpellInfo spellInfo)
     {
-        if(spellInfo.IsAI())
+        if (spellInfo.IsAI())
         {
             spellInfo.AddRLReward(spellInfo.rlParams.destroyHealSpell);
         }
-
         EndHeal();
     }
 }

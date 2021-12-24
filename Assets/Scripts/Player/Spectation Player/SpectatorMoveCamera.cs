@@ -2,8 +2,8 @@
 
 public class SpectatorMoveCamera : MonoBehaviour
 {
-    [SerializeField] Transform cameraPosition;
-    [SerializeField] Transform cameraRotation;
+    [SerializeField] private Transform cameraPosition;
+    [SerializeField] private Transform cameraRotation;
 
     private void Start()
     {

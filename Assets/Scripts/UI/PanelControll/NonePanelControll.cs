@@ -1,6 +1,3 @@
-using UnityEngine;
-using TMPro;
-
 public class NonePanelControll : PanelControll
 {
     public override void ChangeHealth(float newValue) { }

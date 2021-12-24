@@ -1,6 +1,3 @@
-using UnityEngine;
-using TMPro;
-
 public class RealPanelControll : PanelControll
 {
     private void Start()

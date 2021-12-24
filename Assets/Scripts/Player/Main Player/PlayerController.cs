@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -17,7 +15,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private string playerName;
 
     [Header("Other")]
-    [SerializeField] float headPosition;
+    [SerializeField] private float headPosition;
 
     [Header("References")]
     [SerializeField] private GameObject enemy;
@@ -41,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(health <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -49,12 +47,11 @@ public class PlayerController : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("I've never died before!");
         Managers.Level.EndEpisode(gameObject);
     }
 
 
-    /*Getters*/
+    /*>>> Getters <<<*/
     public float GetPlayerHealth()
     {
         return health;
@@ -94,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         return playerSpellController;
     }
-    
+
     public PanelType GetPanelType()
     {
         return uiPanelType;
@@ -106,7 +103,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    /*Setters*/
+    /*>>> Setters <<<*/
     public void ChangeHealth(float hurt)
     {
         health += hurt;

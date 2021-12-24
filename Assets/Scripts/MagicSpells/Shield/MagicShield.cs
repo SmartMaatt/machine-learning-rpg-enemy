@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class MagicShield : MonoBehaviour
@@ -22,6 +20,8 @@ public abstract class MagicShield : MonoBehaviour
     protected GameObject shieldObject;
     protected PanelControll uiPanelController;
 
+
+    /*>>> Setters <<<*/
     protected void SetupShieldObject(GameObject shield)
     {
         shieldObject = Instantiate(shield, transform.position, Quaternion.identity);
@@ -42,11 +42,28 @@ public abstract class MagicShield : MonoBehaviour
         armour = Mathf.Clamp(armour, 0, 100);
     }
 
+    
+    /*>>> Getters <<<*/
+    public ShieldSpellNode GetShieldSpellNode()
+    {
+        return shieldSpellNode;
+    }
+
+    public ShieldSpell GetShieldType()
+    {
+        return shieldSpellNode.spell;
+    }
+
+    public float GetShieldTime()
+    {
+        return shieldLastingTime;
+    }
+
     protected bool CheckIfTimeIsUp()
     {
         return (shieldLastingTime <= 0);
     }
-    
+
     protected void GetReactionBasedOnProtection()
     {
         switch (shieldSpellNode.spell)
@@ -68,6 +85,8 @@ public abstract class MagicShield : MonoBehaviour
         }
     }
 
+
+    /*>>> Abstract methods <<<*/
     public virtual void EndShield()
     {
         uiPanelController.ResetShield();
@@ -76,21 +95,5 @@ public abstract class MagicShield : MonoBehaviour
         Destroy(shieldObject);
         Destroy(this);
     }
-
-    public ShieldSpellNode GetShieldSpellNode()
-    {
-        return shieldSpellNode;
-    }
-
-    public ShieldSpell GetShieldType()
-    {
-        return shieldSpellNode.spell;
-    }
-
-    public float GetShieldTime()
-    {
-        return shieldLastingTime;
-    }
-
     public abstract void CollisionWithSpell(SpellInfo spellInfo, Vector3 ballMoveVector);
 }

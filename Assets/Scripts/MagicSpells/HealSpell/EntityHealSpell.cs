@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityHealSpell : HealSpell
@@ -11,7 +9,7 @@ public class EntityHealSpell : HealSpell
     {
         ChangeTime(-Time.deltaTime);
         entity.ChangeHealth(Time.deltaTime * healSpellNode.healPointsPerSecond);
-        if(CheckIfTimeIsUp())
+        if (CheckIfTimeIsUp())
         {
             entity.SetHealing(false);
             EndHeal();
@@ -48,7 +46,6 @@ public class EntityHealSpell : HealSpell
         {
             spellInfo.AddRLReward(spellInfo.rlParams.destroyHealSpell);
         }
-
         EndHeal();
     }
 }

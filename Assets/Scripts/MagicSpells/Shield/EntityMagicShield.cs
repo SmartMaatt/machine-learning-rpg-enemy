@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EntityMagicShield : MagicShield
@@ -10,7 +8,7 @@ public class EntityMagicShield : MagicShield
     private void Update()
     {
         ChangeTime(-Time.deltaTime);
-        if(CheckIfTimeIsUp())
+        if (CheckIfTimeIsUp())
         {
             EndShield();
         }
@@ -52,7 +50,7 @@ public class EntityMagicShield : MagicShield
 
             //RL rewarding
             entity.AddRLReward(entity.GetMageRLParameters().getHitBySpellSameAsShield);
-            if(spellInfo.IsAI())
+            if (spellInfo.IsAI())
             {
                 spellInfo.AddRLReward(spellInfo.rlParams.useSpellSameAsShield);
             }
@@ -65,7 +63,7 @@ public class EntityMagicShield : MagicShield
 
             //RL rewarding
             entity.AddRLReward(entity.GetMageRLParameters().getHitByStrongSpell);
-            if(spellInfo.IsAI())
+            if (spellInfo.IsAI())
             {
                 spellInfo.AddRLReward(spellInfo.rlParams.useStrongSpell);
             }

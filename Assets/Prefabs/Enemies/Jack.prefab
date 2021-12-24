@@ -784,25 +784,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e00bb36f03f596438fcfd9b30ce90d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  everyFrameReward: -0.003
+  everyFrameReward: -0.0025
   winEpisode: 150
   loseEpisode: -150
-  getHurt: -0.1
-  missShoot: -0.1
-  successShoot: 0.2
-  tryShootWhenNoMana: -0.2
-  useWeekSpell: -0.2
-  useSpellSameAsShield: 0.1
-  useStrongSpell: 0.5
-  useSpellsWhenNotInAttackMode: -0.4
-  getHitByWeekSpell: 0.5
-  getHitBySpellSameAsShield: 0.2
-  getHitByStrongSpell: -0.2
-  rechargeWrongShield: -0.2
-  rechargeCurrentShield: 0.2
-  healWhenHealthUserLow: 0.4
-  destroyHealSpell: 0.4
-  areaSpellWhenHealthUnderCriticalLow: 0.4
+  drawEpisode: -1000
+  getHurt: -1
+  missShoot: -1
+  successShoot: 2
+  tryShootWhenNoMana: -2
+  useWeekSpell: -2
+  useSpellSameAsShield: 1
+  useStrongSpell: 5
+  useSpellsWhenNotInAttackMode: -3
+  getHitByWeekSpell: 5
+  getHitBySpellSameAsShield: 2
+  getHitByStrongSpell: -2
+  rechargeWrongShield: -2
+  rechargeCurrentShield: 2
+  healWhenHealthUserLow: 5
+  destroyHealSpell: 5
+  areaSpellWhenHealthUnderCriticalLow: 5
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

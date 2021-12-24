@@ -12,9 +12,10 @@ public class SpeedController : MonoBehaviour
     private float currentMaxSpeed;
     private bool reachedSpeedPoint;
     private float currentAcceleration;
-
     private float currentWalkAnimationState;
 
+
+    /*>>> Unity methods <<<*/
     private void Start()
     {
         entity = GetComponent<AbstractEntity>();
@@ -30,35 +31,11 @@ public class SpeedController : MonoBehaviour
 
     private void Update()
     {
-        if(ReachedSpeedPoint())
+        if (ReachedSpeedPoint())
         {
             ChangeSpeed();
         }
         RotateToPoint(entity.GetCurrentDestination(), entity.rotateAcceleration);
-    }
-
-    private bool ReachedSpeedPoint()
-    {
-        return currentMoveSpeed != currentMaxSpeed;
-    }
-
-    private void ChangeSpeed()
-    {
-        if (System.Math.Round(currentMoveSpeed, 1) == currentMaxSpeed)
-        {
-            currentMoveSpeed = currentMaxSpeed;
-            reachedSpeedPoint = true;
-        }
-        else if (currentMoveSpeed < currentMaxSpeed)
-        {
-            currentMoveSpeed += Time.deltaTime * currentAcceleration;
-        }
-        else if (currentMoveSpeed > currentMaxSpeed)
-        {
-            currentMoveSpeed -= Time.deltaTime * currentAcceleration;
-        }
-
-        SetNavAgentSpeed(currentMoveSpeed);
     }
 
 
@@ -98,11 +75,11 @@ public class SpeedController : MonoBehaviour
 
     private void SetCurrentWalkAnimationState(float speed)
     {
-        if(speed == entity.walkSpeed)
+        if (speed == entity.walkSpeed)
         {
             currentWalkAnimationState = animationController.walk;
         }
-        else if(speed == entity.runSpeed)
+        else if (speed == entity.runSpeed)
         {
             currentWalkAnimationState = animationController.run;
         }
@@ -112,6 +89,32 @@ public class SpeedController : MonoBehaviour
         }
 
         animationController.SetWalkAnimationValue(currentWalkAnimationState);
+    }
+
+
+    /*>>> Utility methods <<<*/
+    private bool ReachedSpeedPoint()
+    {
+        return currentMoveSpeed != currentMaxSpeed;
+    }
+
+    private void ChangeSpeed()
+    {
+        if (System.Math.Round(currentMoveSpeed, 1) == currentMaxSpeed)
+        {
+            currentMoveSpeed = currentMaxSpeed;
+            reachedSpeedPoint = true;
+        }
+        else if (currentMoveSpeed < currentMaxSpeed)
+        {
+            currentMoveSpeed += Time.deltaTime * currentAcceleration;
+        }
+        else if (currentMoveSpeed > currentMaxSpeed)
+        {
+            currentMoveSpeed -= Time.deltaTime * currentAcceleration;
+        }
+
+        SetNavAgentSpeed(currentMoveSpeed);
     }
 
     public void RotateToPoint(Vector3 pointToRotate, float rotateAcceleration)
@@ -136,7 +139,7 @@ public class SpeedController : MonoBehaviour
         Vector3 pushPosition = currentPosition + (pushDirection * force);
         float elapsedTime = 0;
 
-        while(elapsedTime < 1)
+        while (elapsedTime < 1)
         {
             elapsedTime += Time.deltaTime / time;
             transform.position = Vector3.Lerp(currentPosition, pushPosition, elapsedTime);

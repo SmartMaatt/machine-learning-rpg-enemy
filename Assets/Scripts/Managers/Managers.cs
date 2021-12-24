@@ -55,7 +55,7 @@ public class Managers : MonoBehaviour
             int lastReady = numReady;
             numReady = 0;
 
-            foreach(IGameManager manager in startSequence)
+            foreach (IGameManager manager in startSequence)
             {
                 if (manager.status == ManagerStatus.Started)
                     numReady++;

@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -7,51 +6,50 @@ public class PlayerMovement : MonoBehaviour
     float playerHight = 2f;
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed = 6f;
-    [SerializeField] float airMultiplier = 0.4f;
-    [SerializeField] Transform orientation;
+    [SerializeField] private float moveSpeed = 6f;
+    [SerializeField] private float airMultiplier = 0.4f;
+    [SerializeField] private Transform orientation;
 
     private float movementMultiplier = 10f;
     private float pushMultiplier = 300;
 
     [Header("Keybinds")]
-    [SerializeField] KeyCode jumpKey = KeyCode.Space;
-    [SerializeField] KeyCode sprintKey = KeyCode.LeftShift;
-    [SerializeField] KeyCode dashKey = KeyCode.LeftControl;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode dashKey = KeyCode.LeftControl;
 
     [Header("Jumping")]
     public float jumpForce = 8f;
 
     [Header("Dash")]
     public float dashForce = 8f;
-    [SerializeField] float dashCooldown = 3f;
-    bool dashReady = true;
+    [SerializeField] private float dashCooldown = 3f;
+    private bool dashReady = true;
 
     [Header("Drag")]
-    [SerializeField] float groundDrag = 6f;
-    [SerializeField] float airDrag = 1f;
+    [SerializeField] private float groundDrag = 6f;
+    [SerializeField] private float airDrag = 1f;
 
-    float horizontalMovement;
-    float verticalMovement;
+    private float horizontalMovement;
+    private float verticalMovement;
 
     [Header("Ground Detection")]
-    [SerializeField] LayerMask groundMask;
-    [SerializeField] LayerMask wallMask;
-    [SerializeField] Transform groundCheck;
-    [SerializeField] float groundDistance = 0.4f;
-    bool isGrounded;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask wallMask;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundDistance = 0.4f;
+    private bool isGrounded;
 
     [Header("Sprinting")]
-    [SerializeField] float walkSpeed = 4f;
-    [SerializeField] float sprintSpeed = 6f;
-    [SerializeField] float acceleration = 10f;
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float sprintSpeed = 6f;
+    [SerializeField] private float acceleration = 10f;
 
-    Vector3 moveDirection;
-    Vector3 slopeMoveDirection;
+    private Vector3 moveDirection;
+    private Vector3 slopeMoveDirection;
 
-    Rigidbody rb;
-
-    RaycastHit slopeHit;
+    private Rigidbody rb;
+    private RaycastHit slopeHit;
 
     private void Start()
     {
@@ -67,12 +65,12 @@ public class PlayerMovement : MonoBehaviour
         ControlDrag();
         ControlSpeed();
 
-        if(Input.GetKeyDown(jumpKey) && isGrounded)
+        if (Input.GetKeyDown(jumpKey) && isGrounded)
         {
             Jump();
         }
 
-        if(Input.GetKeyDown(dashKey) && isGrounded && dashReady)
+        if (Input.GetKeyDown(dashKey) && isGrounded && dashReady)
         {
             Dash();
         }
@@ -82,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHight / 2 + 0.5f))
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHight / 2 + 0.5f))
         {
             if (slopeHit.normal != Vector3.up)
                 return true;
@@ -123,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void ControlSpeed()
     {
-        if(Input.GetKey(sprintKey) && isGrounded)
+        if (Input.GetKey(sprintKey) && isGrounded)
         {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
         }
@@ -140,9 +138,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        if(isGrounded && !OnSlope())
+        if (isGrounded && !OnSlope())
             rb.AddForce(moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-        else if(isGrounded && OnSlope())
+        else if (isGrounded && OnSlope())
             rb.AddForce(slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
         else if (!isGrounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * airMultiplier, ForceMode.Acceleration);

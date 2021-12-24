@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -27,7 +25,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     private bool levelTypeData, brainSessionNameData, timeScaleData, newProfileData;
 
 
-    /*Startup*/
+    /*>>> Startup <<<*/
     public void Startup()
     {
         Debug.Log("Starting Application manager");
@@ -39,7 +37,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         }
 
         SetupBrainPath(mlBrainDirectoryPath, mlBrainName);
-        if(!newProfile && !File.Exists(brainPath))
+        if (!newProfile && !File.Exists(brainPath))
         {
             Managers.Self.LockApp("Brain " + brainPath + " doesn't exist!");
         }
@@ -66,34 +64,34 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                     line++;
                     configLine = sr.ReadLine().Split('=');
 
-                    if(configLine.Length != 2)
+                    if (configLine.Length != 2)
                     {
                         Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nMore then two values in one line!");
                         break;
                     }
 
-                    if(line > 4)
+                    if (line > 4)
                     {
                         Managers.Self.LockApp("Incorrect file syntax!\nMore then four parameters in config file!");
                         break;
                     }
 
-                    if(configLine[0] == "LevelType")
+                    if (configLine[0] == "LevelType")
                     {
                         levelTypeData = true;
-                        if(configLine[1] == "Training")
+                        if (configLine[1] == "Training")
                         {
                             levelType = GameLevelType.TRAINING;
                         }
-                        else if(configLine[1] == "SelfPlayTraining")
+                        else if (configLine[1] == "SelfPlayTraining")
                         {
                             levelType = GameLevelType.SELF_PLAY_TRAINING;
                         }
-                        else if(configLine[1] == "Play")
+                        else if (configLine[1] == "Play")
                         {
                             levelType = GameLevelType.PLAY;
                         }
-                        else if(configLine[1] == "SelfPlay")
+                        else if (configLine[1] == "SelfPlay")
                         {
                             levelType = GameLevelType.SELF_PLAY;
                         }
@@ -104,12 +102,12 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                             break;
                         }
                     }
-                    else if(configLine[0] == "MLBrainSessionName")
+                    else if (configLine[0] == "MLBrainSessionName")
                     {
                         SetupMlBrainDirectoryPath(configLine[1]);
                         brainSessionNameData = true;
                     }
-                    else if(configLine[0] == "TimeScale")
+                    else if (configLine[0] == "TimeScale")
                     {
                         try
                         {
@@ -121,7 +119,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                             Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a float value!");
                         }
                     }
-                    else if(configLine[0] == "NewProfile")
+                    else if (configLine[0] == "NewProfile")
                     {
                         try
                         {
@@ -140,7 +138,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                     }
                 }
 
-                if(line != 4 || !levelTypeData || !brainSessionNameData || !timeScaleData || !newProfileData)
+                if (line != 4 || !levelTypeData || !brainSessionNameData || !timeScaleData || !newProfileData)
                 {
                     Managers.Self.LockApp("Incorrect file syntax!\nThere are too few parameters or they are repeated!");
                 }
@@ -154,9 +152,9 @@ public class ApplicationManager : MonoBehaviour, IGameManager
 
     private void SetupConfigFile()
     {
-        #if UNITY_STANDALONE && !UNITY_EDITOR
+#if UNITY_STANDALONE && !UNITY_EDITOR
             configPath = "../" + configPath;
-        #endif
+#endif
     }
 
     private void SetupBrainPath(string brainDirectory, string brainName)
@@ -168,15 +166,16 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     {
         string rootDirectory = "";
 
-        #if UNITY_STANDALONE && !UNITY_EDITOR
+#if UNITY_STANDALONE && !UNITY_EDITOR
             rootDirectory = "../";
-        #endif
+#endif
 
         mlBrainDirectoryPath = rootDirectory + "results/" + brainSessionName;
         mlBrainSessionName = brainSessionName;
     }
 
-    /*Getters*/
+
+    /*>>> Getters <<<*/
     public GameLevelType GetLevelType()
     {
         return levelType;

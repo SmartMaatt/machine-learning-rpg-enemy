@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.Animations.Rigging;
 using UnityEngine;
 
@@ -24,6 +23,8 @@ public class AnimationRiggingController : MonoBehaviour
     private Transform player;
     private AbstractEntity entity;
 
+
+    /*>>> Unity methods <<<*/
     private void Start()
     {
         entity = GetComponent<AbstractEntity>();
@@ -36,6 +37,8 @@ public class AnimationRiggingController : MonoBehaviour
         SetHeadTargetPoint();
     }
 
+
+    /*>>> Setters <<<*/
     public void SetHeadTargetPoint()
     {
         EntityState currentEntityState = entity.GetEntityState();
@@ -67,6 +70,8 @@ public class AnimationRiggingController : MonoBehaviour
         headTarget.transform.position = transform.position;
     }
 
+
+    /*>>> Utility methods <<<*/
     public void ThrowCastSpell(float time, Transform castSpell)
     {
         StartCoroutine(ThrowCastSpellController(time, castSpell));

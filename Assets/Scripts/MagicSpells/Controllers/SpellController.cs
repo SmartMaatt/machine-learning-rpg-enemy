@@ -34,6 +34,8 @@ public abstract class SpellController : MonoBehaviour
     protected PanelType uiPanelType;
     protected PanelControll uiPanelController;
 
+
+    /*>>> Unity methods <<<*/
     protected virtual void Start()
     {
         ConvertSpellsToDicts();
@@ -50,7 +52,8 @@ public abstract class SpellController : MonoBehaviour
         ChargeMana();
     }
 
-    /*Spell casting*/
+
+    /*>>> Spell casting <<<*/
     public void CastBallSpell(CastSpell castSpell)
     {
         try
@@ -94,7 +97,7 @@ public abstract class SpellController : MonoBehaviour
 
 
 
-    /*Shield casting*/
+    /*>>> Shield casting <<<*/
     public void CastShieldSpell(ShieldSpell shieldSpell)
     {
         try
@@ -124,8 +127,6 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
-    protected abstract void SetupShieldObject(ShieldSpellNode shieldSpellNode);
-
     protected void ChargeShieldSpell(ShieldSpellNode shieldSpell, MagicShield shieldScript)
     {
         Debug.Log("Shield charge!");
@@ -133,9 +134,10 @@ public abstract class SpellController : MonoBehaviour
         shieldScript.ChangeTime(shieldSpell.time);
     }
 
+    protected abstract void SetupShieldObject(ShieldSpellNode shieldSpellNode);
 
 
-    /*Heal casting*/
+    /*>>> Heal casting <<<*/
     public void CastHealSpell()
     {
         try
@@ -163,17 +165,16 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
-    protected abstract void SetupHealObject(HealSpellNode healSpellNode);
-
     protected void ChargeHealSpell(HealSpellNode healSpell, HealSpell healScript)
     {
-        Debug.Log("Heal charge!");
         healScript.ChangeTime(healSpell.time);
     }
 
+    protected abstract void SetupHealObject(HealSpellNode healSpellNode);
 
 
-    /*Spell casting*/
+
+    /*>>> Area spell casting <<<*/
     public void CastAreaExplosionSpell()
     {
         try
@@ -218,11 +219,11 @@ public abstract class SpellController : MonoBehaviour
     protected abstract void AreaExplosionAdditionalConfiguration();
 
 
-
+    /*>>> Spell validation and convertion <<<*/
     private void ConvertSpellsToDicts()
     {
         avaliableCastSpellsDict = new Dictionary<CastSpell, CastSpellNode>();
-        foreach(CastSpellNode node in avaliableCastSpells)
+        foreach (CastSpellNode node in avaliableCastSpells)
         {
             avaliableCastSpellsDict.Add(node.spell, node);
         }
@@ -282,9 +283,9 @@ public abstract class SpellController : MonoBehaviour
 
     public void UseSpellType()
     {
-        if(spellTypeSet)
+        if (spellTypeSet)
         {
-            switch(spellType)
+            switch (spellType)
             {
                 case SpellType.CAST:
                     CastBallSpell((CastSpell)spellID);
@@ -295,11 +296,11 @@ public abstract class SpellController : MonoBehaviour
                     break;
 
                 case SpellType.CUSTOM:
-                    if((CustomSpell)spellID == CustomSpell.HEAL)
+                    if ((CustomSpell)spellID == CustomSpell.HEAL)
                     {
                         CastHealSpell();
                     }
-                    else if((CustomSpell)spellID == CustomSpell.AREA_EXPLOSION)
+                    else if ((CustomSpell)spellID == CustomSpell.AREA_EXPLOSION)
                     {
                         CastAreaExplosionSpell();
                     }
@@ -313,19 +314,23 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
+
+    /*>>> Getters <<<*/
     public bool GetCanAttack()
     {
         return canAttack;
     }
 
-    public void SetLastHittedSpellID(int spellID)
-    {
-        lastHittedSpellID = (int)spellID;
-    }
-
     public int GetLastHittedSpellID()
     {
         return lastHittedSpellID;
+    }
+
+
+    /*>>> Setters <<<*/
+    public void SetLastHittedSpellID(int spellID)
+    {
+        lastHittedSpellID = (int)spellID;
     }
 
     public void ResetLastHittedSpellID()
@@ -334,7 +339,7 @@ public abstract class SpellController : MonoBehaviour
     }
 
 
-    /*Mana mehtods*/
+    /*>>> Mana mehtods <<<*/
     public float GetMana()
     {
         return mana;
@@ -391,7 +396,7 @@ public abstract class SpellController : MonoBehaviour
     protected IEnumerator ResetAttack(float time)
     {
         float elapsedTime = 0f;
-        while(elapsedTime < 1f)
+        while (elapsedTime < 1f)
         {
             elapsedTime += Time.deltaTime / time;
             SetElementUIBarValue(elapsedTime);
@@ -400,7 +405,8 @@ public abstract class SpellController : MonoBehaviour
         canAttack = true;
     }
 
-    /*Abstract*/
+
+    /*>>> Abstract methods <<<*/
     protected abstract float GetMaxMana();
     protected abstract float GetManaRestoreRate();
     public abstract void ExecuteSpell();

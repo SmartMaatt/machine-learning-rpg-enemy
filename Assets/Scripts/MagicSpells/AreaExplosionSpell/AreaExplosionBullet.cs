@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AreaExplosionBullet : MonoBehaviour
 {
@@ -44,5 +43,5 @@ public class AreaExplosionBullet : MonoBehaviour
                 playerScript.GetPlayerMovement().ExplodePush(-playerScript.transform.forward, areaExplosionNode.pushForce);
             }
         }
-    } 
+    }
 }

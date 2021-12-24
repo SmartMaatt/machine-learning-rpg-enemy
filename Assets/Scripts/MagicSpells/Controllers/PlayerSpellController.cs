@@ -11,9 +11,6 @@ public class PlayerSpellController : SpellController
     [SerializeField] private float maxShieldTime;
     [SerializeField] private float maxHealTime;
 
-    [Header("Player references")]
-    public Mage tmpEntity;
-
     private PlayerController playerController;
 
     private CastSpell currentSpell;
@@ -22,7 +19,9 @@ public class PlayerSpellController : SpellController
     private PlayerMagicShield currentShield;
     private PlayerHealSpell currentHealSpell;
 
-    private void Start()
+
+    /*>>> Unity methods <<<*/
+    protected override void Start()
     {
         playerController = GetComponent<PlayerController>();
 
@@ -33,20 +32,18 @@ public class PlayerSpellController : SpellController
         elementBar = Managers.UI.SetupElementBar(this.gameObject);
         elementBar.SetupBarValues(1f, 0f, currentSpell);
 
-        tmpEntity = FindObjectOfType<Mage>();
-
         base.Start();
     }
 
-    private void Update()
+    protected override void Update()
     {
         base.Update();
 
         ListenToScrollInput();
 
-        if(currentSpell == CastSpell.FIRE)
+        if (currentSpell == CastSpell.FIRE)
         {
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
                 ExecuteSpell();
@@ -100,56 +97,6 @@ public class PlayerSpellController : SpellController
             SetSpellType(SpellType.CUSTOM, (int)CustomSpell.AREA_EXPLOSION);
             ExecuteSpell();
         }
-        
-
-        
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.FIRE);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.WATER);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            tmpEntity.SetSpellType(SpellType.CAST, (int)CastSpell.SNOW);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.FIRE);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.WATER);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            tmpEntity.SetSpellType(SpellType.SHIELD, (int)ShieldSpell.SNOW);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            tmpEntity.SetSpellType(SpellType.CUSTOM, (int)CustomSpell.HEAL);
-            tmpEntity.Attack();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            tmpEntity.SetSpellType(SpellType.CUSTOM, (int)CustomSpell.AREA_EXPLOSION);
-            tmpEntity.Attack();
-        }
     }
 
     private void ListenToScrollInput()
@@ -173,16 +120,8 @@ public class PlayerSpellController : SpellController
         elementBar.ChangeElement(currentSpell);
     }
 
-    protected override float GetMaxMana()
-    {
-        return maxMana;
-    }
 
-    protected override float GetManaRestoreRate()
-    {
-        return manaRestoreRate;
-    }
-
+    /*>>> Abstract methods <<<*/
     public override void ExecuteSpell()
     {
         if (canAttack)
@@ -197,6 +136,28 @@ public class PlayerSpellController : SpellController
         }
     }
 
+    protected override void SetElementUIBarValue(float value)
+    {
+        elementBar.ChangeValue(value);
+    }
+
+    protected override void LogMessage(string msg)
+    {
+        Managers.UI.DisplayPopUpMessageWithTime(msg, 4f);
+        Debug.Log(msg);
+    }
+
+
+    /*>>> Spell casting <<<*/
+    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
+    {
+        spellInfo.castSpellNode = spellNode;
+        spellInfo.SetupSpellInfoOwner(null);
+    }
+    protected override void RunCastSpellAnimation(float time, Transform castSpell) { }
+
+
+    /*>>> Shield casting <<<*/
     protected override void SetupShieldObject(ShieldSpellNode shieldSpellNode)
     {
         if (currentShield == null)
@@ -218,6 +179,8 @@ public class PlayerSpellController : SpellController
         }
     }
 
+
+    /*>>> Heal casting <<<*/
     protected override void SetupHealObject(HealSpellNode healSpellNode)
     {
         if (currentHealSpell == null)
@@ -232,35 +195,26 @@ public class PlayerSpellController : SpellController
     }
 
 
-    /*Spell casting*/
-    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
-    {
-        spellInfo.castSpellNode = spellNode;
-        spellInfo.SetupSpellInfoOwner(null);
-    }
-    protected override void RunCastSpellAnimation(float time, Transform castSpell) {}
-
-
-    protected override void AreaExplosionAdditionalConfiguration() {}
-
+    /*>>> Area spell casting <<<*/
     protected override void LoadOwnerOfExplosion(AreaExplosionBullet owner)
     {
         owner.LoadPlayer(playerController);
     }
 
-    protected override void SetElementUIBarValue(float value)
+    protected override void AreaExplosionAdditionalConfiguration() { }
+
+
+    /*>>> Getters <<<*/
+    protected override float GetMaxMana()
     {
-        elementBar.ChangeValue(value);
+        return maxMana;
     }
 
-    protected override void LogMessage(string msg)
+    protected override float GetManaRestoreRate()
     {
-        Managers.UI.DisplayPopUpMessageWithTime(msg, 4f);
-        Debug.Log(msg);
+        return manaRestoreRate;
     }
 
-
-    /*Getters*/
     public PlayerMagicShield GetCurrentShield()
     {
         return currentShield;

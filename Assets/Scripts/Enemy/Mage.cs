@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -29,8 +27,8 @@ public class Mage : AbstractEntity
     public float startTreeTime;
     public float repeatTreeTime;
 
-  
-    /*Unity methods*/
+
+    /*>>> Unity methods <<<*/
     protected override void Awake()
     {
         base.Awake();
@@ -220,10 +218,9 @@ public class Mage : AbstractEntity
 
 
 
-    /*Hurting / Die methods*/
+    /*>>> Hurting / Die methods <<<*/
     public override void Die()
     {
-        Debug.Log("I've never died before!");
         Managers.Level.EndEpisode(gameObject);
     }
 
@@ -247,7 +244,7 @@ public class Mage : AbstractEntity
     }
 
 
-    /*Attack methods*/
+    /*>>> Attack methods <<<*/
     public override void Attack()
     {
         spellController.ExecuteSpell();
@@ -261,12 +258,12 @@ public class Mage : AbstractEntity
         }
         catch (UnknownSpellException err)
         {
-            Debug.Log(err);
+            Debug.LogError(err);
         }
     }
 
 
-    /*Getters*/
+    /*>>> Getters <<<*/
     public EntitySpellController GetSpellController()
     {
         return spellController;
@@ -275,26 +272,5 @@ public class Mage : AbstractEntity
     public MageRLParameters GetMageRLParameters()
     {
         return rlParameters;
-    }
-
-
-    /*Debuging gizmoses*/
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
-        //Gizmos.color = Color.green;
-        //Gizmos.DrawWireSphere(transform.position, hearRange);
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(transform.position, sightRange);
-
-        //Gizmos.color = Color.blue;
-        //Ray ray = new Ray(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.forward);
-        //RaycastHit hit;
-
-        //if (Physics.SphereCast(ray, obstacleRange / 2, out hit))
-        //{
-        //    Gizmos.DrawWireSphere(hit.transform.position, obstacleRange / 2);
-        //}
     }
 }

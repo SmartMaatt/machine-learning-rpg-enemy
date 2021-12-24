@@ -1,39 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private float sensX;
     [SerializeField] private float sensY;
 
-    [SerializeField] Transform cam;
-    [SerializeField] Transform orientation;
+    [SerializeField] private Transform cam;
+    [SerializeField] private Transform orientation;
 
-    float mouseX;
-    float mouseY;
+    private float mouseX;
+    private float mouseY;
+    private float multiplier = 0.01f;
 
-    float multiplier = 0.01f;
+    private float xRotation;
+    private float yRotation;
 
-    float xRotation;
-    float yRotation;
-
-    void Start()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    void Update()
+    private void Update()
     {
         MyInput();
 
         cam.transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0);
         orientation.transform.rotation = Quaternion.Euler(0, yRotation, 0);
-        //transform.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 
-    void MyInput()
+    private void MyInput()
     {
         mouseX = Input.GetAxisRaw("Mouse X");
         mouseY = Input.GetAxisRaw("Mouse Y");
