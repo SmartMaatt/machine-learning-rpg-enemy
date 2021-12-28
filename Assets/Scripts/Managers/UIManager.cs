@@ -164,8 +164,7 @@ public class UIManager : MonoBehaviour, IGameManager
             leftPanelOwner = null;
             leftPanel.gameObject.SetActive(false);
         }
-
-        if (panelType == PanelType.RIGHT && rightPanelOwner == owner)
+        else if (panelType == PanelType.RIGHT && rightPanelOwner == owner)
         {
             rightPanelOwner = null;
             rightPanel.gameObject.SetActive(false);

@@ -231,10 +231,7 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
                     shield.ShieldCollisionEnter(collInfo);
 
                     shootMissed = false;
-                    if (spellInfo.IsAI())
-                    {
-                        spellInfo.AddRLReward(spellInfo.rlParams.successShoot);
-                    }
+                    SuccessShootReward();
                 }
 
                 if (magicShield != null)
@@ -274,12 +271,6 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
             }
         }
         onCollision = true;
-
-        if (spellInfo.IsAI() &&shootMissed)
-        {
-            Debug.Log("Shoot missed!");
-            spellInfo.AddRLReward(spellInfo.rlParams.missShoot);
-        }
     }
 
     private void SuccessShootReward()

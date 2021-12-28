@@ -49,7 +49,6 @@ public class EntityMagicShield : MagicShield
             entity.GetSpeedController().ExplodePush(ballMoveVector, attackSpellNode.pushForce / 2);
 
             //RL rewarding
-            entity.AddRLReward(entity.GetMageRLParameters().getHitBySpellSameAsShield);
             if (spellInfo.IsAI())
             {
                 spellInfo.AddRLReward(spellInfo.rlParams.useSpellSameAsShield);
@@ -62,7 +61,6 @@ public class EntityMagicShield : MagicShield
             uiPanelController.SetShield(armour);
 
             //RL rewarding
-            entity.AddRLReward(entity.GetMageRLParameters().getHitByStrongSpell);
             if (spellInfo.IsAI())
             {
                 spellInfo.AddRLReward(spellInfo.rlParams.useStrongSpell);
@@ -77,7 +75,6 @@ public class EntityMagicShield : MagicShield
         else if (attackSpellNode.spell == currentProtection)
         {
             //RL rewarding
-            entity.AddRLReward(entity.GetMageRLParameters().getHitByWeekSpell);
             if (spellInfo.IsAI())
             {
                 spellInfo.AddRLReward(spellInfo.rlParams.useWeekSpell);

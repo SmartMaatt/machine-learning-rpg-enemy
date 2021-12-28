@@ -14,16 +14,20 @@ public enum CastSpell
 {
     FIRE = 0,
     WATER = 1,
-    SNOW = 2
+    SNOW = 2,
+    NUMBER_OF_SPELLS = 3
 }
 
+[System.Serializable]
 public enum ShieldSpell
 {
     FIRE = 0,
     WATER = 1,
-    SNOW = 2
+    SNOW = 2,
+    NUMBER_OF_SHIELDS = 3
 }
 
+[System.Serializable]
 public enum CustomSpell
 {
     HEAL = 0,

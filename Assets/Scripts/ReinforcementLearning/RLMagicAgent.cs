@@ -12,42 +12,52 @@ public class RLMagicAgent : RLAgent
     [SerializeField] protected MagicShield magicShield;
     [SerializeField] protected HealSpell healSpell;
 
+    protected int numberOfEntityStates;
+    protected int numberOfShields;
+    protected int numberOfSpells;
+    protected int numberOfCooldownOptions;
+
+    private float timeRewardLimit = 1f;
+    private float timeCounter = 0f;
+
     protected virtual void Start()
     {
         entity = GetComponent<Mage>();
         spellController = GetComponent<SpellController>();
+
+        numberOfEntityStates = (int)EntityState.NUMBER_OF_STATES;
+        numberOfShields = (int)ShieldSpell.NUMBER_OF_SHIELDS + 1; //Additional "no shield"
+        numberOfSpells = (int)CastSpell.NUMBER_OF_SPELLS + 1; //Additional "no spell"
+        numberOfCooldownOptions = 2;
     }
 
     protected virtual void Update()
-    {
-        AddRLReward(entity.GetMageRLParameters().everyFrameReward);
+    {  
+        AddRLReward(entity.GetMageRLParameters().timeReward);
     }
 
-    public override void OnEpisodeBegin()
-    {
-        Managers.Level.LevelReload();
-    }
-
-    public virtual void CollectObservations(VectorSensor sensor)
+    public override void CollectObservations(VectorSensor sensor)
     {
         // Self observations
-        sensor.AddObservation(entity.GetHealth());
-        sensor.AddObservation(spellController.GetMana());
+        sensor.AddObservation(Managers.Level.GetNormalizedEpisodeTimeLimit());
+        sensor.AddOneHotObservation((int)entity.GetEntityState(), numberOfEntityStates);
+
+        sensor.AddObservation(entity.GetNormalizedHealth());
+        sensor.AddObservation(spellController.GetNormalizedMana());
 
         ShieldObservations(sensor);
         HealObservations(sensor);
 
-        sensor.AddObservation(spellController.GetCanAttack());
-        sensor.AddObservation(spellController.GetLastHittedSpellID());
-        sensor.AddObservation(entity.IsAttacking());
+        sensor.AddOneHotObservation(spellController.GetOneHotCanAttack(), numberOfCooldownOptions);
+        sensor.AddOneHotObservation(spellController.GetLastHittedSpellID() + 1, numberOfSpells);
     }
 
     private void ShieldObservations(VectorSensor sensor)
     {
         if (entity.IsBlocking() == false)
         {
-            sensor.AddObservation(0);   //Shield type
-            sensor.AddObservation(0f);  //Shield time
+            sensor.AddOneHotObservation(0, numberOfShields);   //Shield type
+            sensor.AddObservation(0f);                         //Shield time
         }
         else
         {
@@ -55,8 +65,8 @@ public class RLMagicAgent : RLAgent
             {
                 magicShield = GetComponent<MagicShield>();
             }
-            sensor.AddObservation((int)magicShield.GetShieldType());  //Shield type
-            sensor.AddObservation(magicShield.GetShieldTime());       //Shield time
+            sensor.AddOneHotObservation((int)magicShield.GetShieldType() + 1, numberOfShields);     //Shield type
+            sensor.AddObservation(magicShield.GetNormalizedShieldTime());                           //Shield time
         }
     }
 
@@ -72,7 +82,7 @@ public class RLMagicAgent : RLAgent
             {
                 healSpell = GetComponent<HealSpell>();
             }
-            sensor.AddObservation(healSpell.GetHealTime()); //Heal time
+            sensor.AddObservation(healSpell.GetNormalizedHealTime()); //Heal time
         }
     }
 
@@ -80,23 +90,6 @@ public class RLMagicAgent : RLAgent
     {
         int spellType = actions.DiscreteActions[0];
         int spellElement = actions.DiscreteActions[1];
-
-        if (!executedFirstAction)
-        {
-            entity.SetValuesByRL(
-            new int[]
-                {
-                    actions.DiscreteActions[2],
-                    actions.DiscreteActions[3],
-                    actions.DiscreteActions[4],
-                    actions.DiscreteActions[5],
-                    actions.DiscreteActions[6],
-                    actions.DiscreteActions[7],
-                    actions.DiscreteActions[8]
-                }
-            );
-            executedFirstAction = true;
-        }
 
         if (!(spellType == 2 && spellElement == 2))
         {
@@ -107,10 +100,8 @@ public class RLMagicAgent : RLAgent
 
     public override void GenerateCSVData(string endEpisodeStatus)
     {
-        int[] RLValuesFromEntity = entity.GetValuesByRL();
-
         Managers.RlCsv.AddEpisodeData(
-                new string[13]
+                new string[8]
                 {
                     Managers.RlCsv.GetEpisodeCount().ToString(),
                     DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
@@ -118,13 +109,8 @@ public class RLMagicAgent : RLAgent
                     entity.GetEntityName(),
                     Managers.Level.GetLevelTypeName(),
                     endEpisodeStatus,
-                    RLValuesFromEntity[0].ToString(),
-                    RLValuesFromEntity[1].ToString(),
-                    RLValuesFromEntity[2].ToString(),
-                    RLValuesFromEntity[3].ToString(),
-                    RLValuesFromEntity[4].ToString(),
-                    RLValuesFromEntity[5].ToString(),
-                    RLValuesFromEntity[6].ToString()
+                    ((int)entity.GetFullEpisodeTime()).ToString(),
+                    ((int)(entity.GetPercentageEnemyInteresetTime())).ToString() + "%"
                 }
             );
     }

@@ -3,9 +3,10 @@
 public class MageRLParameters : AbstractEntityRLParameters
 {
     [Header("Mage Rewards - Basic combat")]
-    public float missShoot;
     public float successShoot;
+    public float tryShootWhenNoSpell;
     public float tryShootWhenNoMana;
+    public float tryShootWhenNoCooldown;
 
     [Header("Mage Rewards - Enemy has shield")]
     public float useWeekSpell;
@@ -13,9 +14,6 @@ public class MageRLParameters : AbstractEntityRLParameters
     public float useStrongSpell;
 
     [Header("Mage Rewards - Self shield")]
-    public float getHitByWeekSpell;
-    public float getHitBySpellSameAsShield;
-    public float getHitByStrongSpell;
     public float rechargeWrongShield;
     public float rechargeCurrentShield;
 

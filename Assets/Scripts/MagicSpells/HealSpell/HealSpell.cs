@@ -47,6 +47,11 @@ public abstract class HealSpell : MonoBehaviour
         return healLastingTime;
     }
 
+    public float GetNormalizedHealTime()
+    {
+        return (healLastingTime / maxHealLastingTime);
+    }
+
 
     /*>>> Abstract methods <<<*/
     public virtual void EndHeal()

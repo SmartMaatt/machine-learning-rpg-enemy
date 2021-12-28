@@ -88,18 +88,15 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             TrainingLevelSetup();
         }
-
-        if (levelType == GameLevelType.SELF_PLAY_TRAINING)
+        else if (levelType == GameLevelType.SELF_PLAY_TRAINING)
         {
             SelfPlayTrainingLevelSetup();
         }
-
-        if (levelType == GameLevelType.PLAY)
+        else if (levelType == GameLevelType.PLAY)
         {
             PlayingLevelSetup();
         }
-
-        if (levelType == GameLevelType.SELF_PLAY)
+        else if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayLevelSetup();
         }
@@ -113,18 +110,15 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             TrainingLevelReload();
         }
-
-        if (levelType == GameLevelType.SELF_PLAY_TRAINING)
+        else if (levelType == GameLevelType.SELF_PLAY_TRAINING)
         {
             SelfPlayTrainingLevelReload();
         }
-
-        if (levelType == GameLevelType.PLAY)
+        else if (levelType == GameLevelType.PLAY)
         {
             PlayingLevelReload();
         }
-
-        if (levelType == GameLevelType.SELF_PLAY)
+        else if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayLevelReload();
         }
@@ -144,18 +138,15 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             TrainingEndEpisode(dead);
         }
-
-        if (levelType == GameLevelType.SELF_PLAY_TRAINING)
+        else if (levelType == GameLevelType.SELF_PLAY_TRAINING)
         {
             SelfPlayTrainingEndEpisode(dead);
         }
-
-        if (levelType == GameLevelType.PLAY)
+        else if (levelType == GameLevelType.PLAY)
         {
             PlayingEndEpisode(dead);
         }
-
-        if (levelType == GameLevelType.SELF_PLAY)
+        else if (levelType == GameLevelType.SELF_PLAY)
         {
             SelfPlayEndEpisode(dead);
         }
@@ -208,19 +199,18 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
             jackController.GetRLAgent().EndRLEpisode("Win");
         }
-
-        if (dead == jack)
+        else if (dead == jack)
         {
             playerScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-
-        if (dead == null)
+        else if (dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+        LevelReload();
     }
 
 
@@ -267,8 +257,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
             jackController.GetRLAgent().EndRLEpisode("Win");
         }
-
-        if (dead == jack)
+        else if (dead == jack)
         {
             madoxScore++;
             madoxController.AddRLReward(madoxController.GetMageRLParameters().winEpisode);
@@ -277,15 +266,15 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-
-        if (dead == null)
+        else if (dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
-            jackController.GetRLAgent().EndRLEpisode("Draw");
-
             madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
+
+            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
+            jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+        LevelReload();
     }
 
 
@@ -330,19 +319,18 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
             jackController.GetRLAgent().EndRLEpisode("Win");
         }
-
-        if (dead == jack)
+        else if (dead == jack)
         {
             playerScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-
-        if (dead == null)
+        else if (dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+        LevelReload();
     }
 
 
@@ -399,8 +387,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
             jackController.GetRLAgent().EndRLEpisode("Win");
         }
-
-        if (dead == jack)
+        else if (dead == jack)
         {
             madoxScore++;
             madoxController.AddRLReward(madoxController.GetMageRLParameters().winEpisode);
@@ -409,8 +396,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-
-        if (dead == null)
+        else if (dead == null)
         {
             jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
@@ -418,6 +404,7 @@ public class LevelManager : MonoBehaviour, IGameManager
             madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
         }
+        LevelReload();
     }
 
 
@@ -427,7 +414,10 @@ public class LevelManager : MonoBehaviour, IGameManager
         // Jack reload
         jack.transform.position = SpawnPointRandomLocation();
         jackController.RefilHealth();
+        jackController.ResetEnemyInterestTime();
+
         jackController.GetSpellController().RefilMana();
+        jackController.GetSpellController().ResetLastHittedSpellID();
         try
         {
             jackController.GetSpellController().GetCurrentShield().EndShield();
@@ -445,7 +435,6 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             Debug.Log(ex.Message);
         }
-        jackController.GetSpellController().ResetLastHittedSpellID();
     }
 
     private void MadoxReload()
@@ -453,7 +442,10 @@ public class LevelManager : MonoBehaviour, IGameManager
         // Madox reload
         madox.transform.position = SpawnPointRandomLocation();
         madoxController.RefilHealth();
+        madoxController.ResetEnemyInterestTime();
+
         madoxController.GetSpellController().RefilMana();
+        madoxController.GetSpellController().ResetLastHittedSpellID();
         try
         {
             madoxController.GetSpellController().GetCurrentShield().EndShield();
@@ -471,7 +463,6 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             Debug.Log(ex.Message);
         }
-        madoxController.GetSpellController().ResetLastHittedSpellID();
     }
 
     private void PlayerReload()
@@ -535,6 +526,21 @@ public class LevelManager : MonoBehaviour, IGameManager
             EndEpisode(null);
             SetupEpisodeTimeBar();
         }
+    }
+
+    public float GetEpisodeTimeLimit()
+    {
+        return episodeTime;
+    }
+
+    public float GetMaxEpisodeTimeLimit()
+    {
+        return maxEpisodeTime;
+    }
+
+    public float GetNormalizedEpisodeTimeLimit()
+    {
+        return (episodeTime / maxEpisodeTime);
     }
 
     private void WorldBorderLimit()

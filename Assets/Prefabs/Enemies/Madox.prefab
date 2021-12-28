@@ -583,7 +583,7 @@ MonoBehaviour:
   immortal: 0
   restSpeed: 0
   walkSpeed: 3
-  acceleration: 5
+  acceleration: 10
   walkPointRange: 20
   maxRestTime: 10
   minRestTime: 3
@@ -591,9 +591,9 @@ MonoBehaviour:
   rotateAcceleration: 15
   runSpeed: 6
   obstacleRange: 1
-  accelerationChaseBonus: 8
+  accelerationChaseBonus: 20
   headPosition: 1.5
-  breakAcceleration: 50
+  breakAcceleration: 60
   timeBetweenAttacks: 1.5
   minTimeAttackStartDelay: 0
   maxTimeAttackStartDelay: 0.2
@@ -755,12 +755,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 13
+    VectorObservationSize: 14
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
-      BranchSizes: 030000000300000005000000050000000500000005000000050000000500000005000000
-    VectorActionSize: 030000000300000005000000050000000500000005000000050000000500000005000000
+      BranchSizes: 0300000003000000
+    VectorActionSize: 0300000003000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
     hasUpgradedBrainParametersWithActionSpec: 1
@@ -784,26 +784,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e00bb36f03f596438fcfd9b30ce90d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  everyFrameReward: -0.0025
-  winEpisode: 150
-  loseEpisode: -150
-  drawEpisode: -1000
-  getHurt: -1
-  missShoot: -1
-  successShoot: 2
-  tryShootWhenNoMana: -2
-  useWeekSpell: -2
-  useSpellSameAsShield: 1
-  useStrongSpell: 5
-  useSpellsWhenNotInAttackMode: -3
-  getHitByWeekSpell: 5
-  getHitBySpellSameAsShield: 2
-  getHitByStrongSpell: -2
-  rechargeWrongShield: -2
-  rechargeCurrentShield: 2
-  healWhenHealthUserLow: 5
-  destroyHealSpell: 5
-  areaSpellWhenHealthUnderCriticalLow: 5
+  timeReward: -0.0002
+  winEpisode: 1
+  loseEpisode: -1
+  drawEpisode: -1
+  getHurt: -0.1
+  successShoot: 0.1
+  tryShootWhenNoSpell: -0.1
+  tryShootWhenNoMana: -0.1
+  tryShootWhenNoCooldown: -0.1
+  useWeekSpell: -0.3
+  useSpellSameAsShield: 0.1
+  useStrongSpell: 0.3
+  rechargeWrongShield: -0.1
+  rechargeCurrentShield: 0.1
+  healWhenHealthUserLow: 0.2
+  destroyHealSpell: 0.2
+  areaSpellWhenHealthUnderCriticalLow: 0.2
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

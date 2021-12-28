@@ -78,11 +78,13 @@ public abstract class SpellController : MonoBehaviour
                 else
                 {
                     LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    NoManaRLReward();
                 }
             }
             else
             {
                 LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
+                NoSpellRlReward();
             }
         }
         catch (KeyNotFoundException err)
@@ -113,11 +115,13 @@ public abstract class SpellController : MonoBehaviour
                 else
                 {
                     LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    NoManaRLReward();
                 }
             }
             else
             {
                 LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
+                NoSpellRlReward();
             }
         }
         catch (KeyNotFoundException err)
@@ -151,11 +155,13 @@ public abstract class SpellController : MonoBehaviour
                 else
                 {
                     LogMessage(gameObject.name + " can't spell " + healSpellNode.name + "! Cost: " + healSpellNode.cost + ", Mana: " + GetMana());
+                    NoManaRLReward();
                 }
             }
             else
             {
                 LogMessage("Spell " + healSpellNode.name + " is not avaliable right now!");
+                NoSpellRlReward();
             }
         }
         catch (NullReferenceException err)
@@ -201,11 +207,13 @@ public abstract class SpellController : MonoBehaviour
                 else
                 {
                     LogMessage(gameObject.name + " can't spell " + areaExplosionSpellNode.name + "! Cost: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
+                    NoManaRLReward();
                 }
             }
             else
             {
                 LogMessage("Spell " + areaExplosionSpellNode.name + " is not avaliable right now!");
+                NoSpellRlReward();
             }
         }
         catch (NullReferenceException err)
@@ -321,6 +329,11 @@ public abstract class SpellController : MonoBehaviour
         return canAttack;
     }
 
+    public int GetOneHotCanAttack()
+    {
+        return canAttack ? 1 : 0;
+    }
+
     public int GetLastHittedSpellID()
     {
         return lastHittedSpellID;
@@ -343,6 +356,11 @@ public abstract class SpellController : MonoBehaviour
     public float GetMana()
     {
         return mana;
+    }
+
+    public float GetNormalizedMana()
+    {
+        return (mana / GetMaxMana());
     }
 
     public bool SetMana(float newMana)
@@ -412,4 +430,6 @@ public abstract class SpellController : MonoBehaviour
     public abstract void ExecuteSpell();
     protected abstract void SetElementUIBarValue(float value);
     protected abstract void LogMessage(string msg);
+    protected abstract void NoManaRLReward();
+    protected abstract void NoSpellRlReward();
 }

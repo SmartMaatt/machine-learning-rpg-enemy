@@ -59,6 +59,11 @@ public abstract class MagicShield : MonoBehaviour
         return shieldLastingTime;
     }
 
+    public float GetNormalizedShieldTime()
+    {
+        return (shieldLastingTime / maxShieldLastingTime);
+    }
+
     protected bool CheckIfTimeIsUp()
     {
         return (shieldLastingTime <= 0);

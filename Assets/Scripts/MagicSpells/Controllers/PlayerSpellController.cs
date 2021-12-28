@@ -155,6 +155,8 @@ public class PlayerSpellController : SpellController
         spellInfo.SetupSpellInfoOwner(null);
     }
     protected override void RunCastSpellAnimation(float time, Transform castSpell) { }
+    protected override void NoManaRLReward() { }
+    protected override void NoSpellRlReward() { }
 
 
     /*>>> Shield casting <<<*/

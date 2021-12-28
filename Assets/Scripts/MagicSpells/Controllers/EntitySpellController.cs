@@ -43,7 +43,7 @@ public class EntitySpellController : SpellController
         else
         {
             LogMessage("Can't attack right now!!!");
-            entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoMana);
+            entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoCooldown);
         }
     }
 
@@ -65,6 +65,16 @@ public class EntitySpellController : SpellController
     protected override void RunCastSpellAnimation(float time, Transform castSpell)
     {
         entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
+    }
+
+    protected override void NoManaRLReward()
+    {
+        entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoMana);
+    }
+
+    protected override void NoSpellRlReward()
+    {
+        entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoSpell);
     }
 
 

@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour
         uiPanel = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
         uiPanel.SetupHealth(maxHealth, health);
         uiPanel.SetupName(playerName);
+        uiPanel.SetupScore(0);
     }
 
     private void Update()
@@ -52,12 +53,17 @@ public class PlayerController : MonoBehaviour
 
 
     /*>>> Getters <<<*/
-    public float GetPlayerHealth()
+    public float GetHealth()
     {
         return health;
     }
 
-    public float GetPlayerMaxHealth()
+    public float GetNormalizedHealth()
+    {
+        return (health / maxHealth);
+    }
+
+    public float GetMaxHealth()
     {
         return maxHealth;
     }

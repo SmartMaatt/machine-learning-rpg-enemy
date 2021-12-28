@@ -21,8 +21,8 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
     public override void CollectObservations(VectorSensor sensor)
     {
         base.CollectObservations(sensor);
-        sensor.AddObservation(playerController.GetPlayerHealth());
-        sensor.AddObservation(playerController.GetSpellController().GetMana());
+        sensor.AddObservation(playerController.GetNormalizedHealth());
+        sensor.AddObservation(playerController.GetSpellController().GetNormalizedMana());
         PlayerShieldObservations(sensor);
         PlayerHealObservations(sensor);
     }
@@ -31,8 +31,8 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
     {
         if (playerController.IsBlocking() == false)
         {
-            sensor.AddObservation(0);   //Shield type
-            sensor.AddObservation(0f);  //Shield time
+            sensor.AddOneHotObservation(0, numberOfShields);   //Shield type
+            sensor.AddObservation(0f);                         //Shield time
         }
         else
         {
@@ -40,8 +40,8 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
             {
                 playerMagicShield = player.GetComponent<MagicShield>();
             }
-            sensor.AddObservation((int)playerMagicShield.GetShieldType());  //Shield type
-            sensor.AddObservation(playerMagicShield.GetShieldTime());       //Shield time
+            sensor.AddOneHotObservation((int)playerMagicShield.GetShieldType() + 1, numberOfShields);   //Shield type
+            sensor.AddObservation(playerMagicShield.GetNormalizedShieldTime());                         //Shield time
         }
     }
 
@@ -55,9 +55,9 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
         {
             if (playerHealSpell == null)
             {
-                playerHealSpell = GetComponent<HealSpell>();
+                playerHealSpell = player.GetComponent<HealSpell>();
             }
-            sensor.AddObservation(playerHealSpell.GetHealTime()); //Heal time
+            sensor.AddObservation(playerHealSpell.GetNormalizedHealTime()); //Heal time
         }
     }
 }

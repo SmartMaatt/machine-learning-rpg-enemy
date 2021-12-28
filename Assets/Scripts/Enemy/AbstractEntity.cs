@@ -66,23 +66,16 @@ public abstract class AbstractEntity : MonoBehaviour
     public float hearRange;
     public float attackRange;
 
-    // For dynamic change of state by RL
-    protected float defaultLowHealthThreshold;
-    protected float defaultCriticalLowHealthThreshold;
-    protected float defaultWalkSpeed;
-    protected float defaultRunSpeed;
-    protected float defaultSightRange;
-    protected float defaultHearRange;
-    protected float defaultAttackRange;
-
     protected Node decisionTreeTopNode;
-    public Vector3 currentDestination;
+    protected Vector3 currentDestination;
     protected EntityState entityState;
     protected PanelControll uiPanelController;
 
     protected PlayerController playerEnemyController;
     protected AbstractEntity entityEnemyController;
 
+    public float enemyInterestTime;
+    public float fullEpisodeTime;
 
     /*>>> Unity methods <<<*/
     protected virtual void Awake()
@@ -92,7 +85,6 @@ public abstract class AbstractEntity : MonoBehaviour
         animationRiggingController = GetComponent<AnimationRiggingController>();
         animationController = GetComponent<AnimationController>();
         avaliableCovers = FindObjectsOfType<Cover>();
-        SetDefaultValuesState();
 
         entityState = EntityState.WANDER;
     }
@@ -102,9 +94,16 @@ public abstract class AbstractEntity : MonoBehaviour
         uiPanelController = Managers.UI.SetupUIPanelController(this.gameObject, uiPanelType);
         uiPanelController.SetupHealth(maxHealth, health);
         uiPanelController.SetupName(entityName);
+        uiPanelController.SetupScore(0);
 
         playerEnemyController = enemy.GetComponent<PlayerController>();
         entityEnemyController = enemy.GetComponent<AbstractEntity>();
+        ResetEnemyInterestTime();
+    }
+
+    protected virtual void Update()
+    {
+        AddEnemyInterestTime();
     }
 
 
@@ -121,6 +120,15 @@ public abstract class AbstractEntity : MonoBehaviour
     public void RunCoroutine(IEnumerator enumerator)
     {
         StartCoroutine(enumerator);
+    }
+
+    private void AddEnemyInterestTime()
+    {
+        fullEpisodeTime += Time.deltaTime;
+        if(IsInterestedInEnemy())
+        {
+            enemyInterestTime += Time.deltaTime;
+        }
     }
 
 
@@ -200,23 +208,29 @@ public abstract class AbstractEntity : MonoBehaviour
         return health;
     }
 
+    public float GetNormalizedHealth()
+    {
+        return (health / maxHealth);
+    }
+
     public string GetEntityName()
     {
         return entityName;
     }
 
-    public int[] GetValuesByRL()
+    public float GetEnemyInterestTime()
     {
-        return new int[]
-        {
-            (int)lowHealthThreshold,
-            (int)criticalLowHealthThreshold,
-            (int)walkSpeed,
-            (int)runSpeed,
-            (int)sightRange,
-            (int)hearRange,
-            (int)attackRange
-        };
+        return enemyInterestTime;
+    }
+
+    public float GetFullEpisodeTime()
+    {
+        return fullEpisodeTime;
+    }
+
+    public float GetPercentageEnemyInteresetTime()
+    {
+        return (enemyInterestTime * 100 / fullEpisodeTime);
     }
 
     public bool IsBlocking()
@@ -232,6 +246,11 @@ public abstract class AbstractEntity : MonoBehaviour
     public bool IsAttacking()
     {
         return entityState == EntityState.ATTACK;
+    }
+
+    public bool IsInterestedInEnemy()
+    {
+        return (entityState == EntityState.ATTACK || entityState == EntityState.CHASE || entityState == EntityState.HIDE);
     }
 
     public bool IsHealthLow()
@@ -254,35 +273,6 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetNavAgentDestination(Vector3 destination)
     {
         navAgent.SetDestination(destination);
-    }
-
-    public void SetDefaultValuesState()
-    {
-        defaultLowHealthThreshold = lowHealthThreshold;
-        defaultCriticalLowHealthThreshold = criticalLowHealthThreshold;
-        defaultWalkSpeed = walkSpeed;
-        defaultRunSpeed = runSpeed;
-        defaultSightRange = sightRange;
-        defaultHearRange = hearRange;
-        defaultAttackRange = attackRange;
-    }
-
-    public void SetValuesByRL(int[] newValues)
-    {
-        try
-        {
-            lowHealthThreshold = defaultLowHealthThreshold + (defaultLowHealthThreshold * (newValues[0] - 2) / 10);
-            criticalLowHealthThreshold = defaultCriticalLowHealthThreshold + (defaultCriticalLowHealthThreshold * (newValues[1] - 2) / 10);
-            walkSpeed = defaultWalkSpeed + newValues[2] - 2;
-            runSpeed = defaultRunSpeed + newValues[3] - 2;
-            sightRange = defaultSightRange + ((newValues[4] - 2) * 2);
-            hearRange = defaultHearRange + ((newValues[5] - 2) * 2);
-            attackRange = defaultAttackRange + ((newValues[6] - 2) * 2);
-        }
-        catch (ArgumentOutOfRangeException err)
-        {
-            Debug.LogError(err.Message);
-        }
     }
 
     public void AddRLReward(float reward)
@@ -364,6 +354,12 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetEntityState(EntityState entityState)
     {
         this.entityState = entityState;
+    }
+
+    public void ResetEnemyInterestTime()
+    {
+        this.enemyInterestTime = 0.0f;
+        this.fullEpisodeTime = 0.0f;
     }
 
     /*>>> ABSTRACT <<<*/

@@ -5,7 +5,6 @@ using Unity.MLAgents;
 public abstract class RLAgent : Agent
 {
     protected float currentReward = 0f;
-    protected bool executedFirstAction;
 
     public void AddRLReward(float value)
     {
@@ -17,7 +16,6 @@ public abstract class RLAgent : Agent
     {
         GenerateCSVData(endEpisodeStatus);
         currentReward = 0f;
-        executedFirstAction = false;
         EndEpisode();
     }
 

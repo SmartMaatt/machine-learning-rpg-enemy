@@ -25,16 +25,11 @@ public class RlCsvManager : MonoBehaviour, IGameManager
                                                 "Agent name",
                                                 "Learning type",
                                                 "Won Episode",
-                                                "Low health threshold",
-                                                "Critical low health threshold",
-                                                "Walk speed",
-                                                "Run speed",
-                                                "Sight range",
-                                                "Hear range",
-                                                "Attack range"
+                                                "Episode time [s]",
+                                                "Interest in enemy [%]"
                                             };
 
-    /*Startup*/
+    /*>>> Startup <<<*/
     public void Startup()
     {
         Debug.Log("Starting RL CSV manager");
