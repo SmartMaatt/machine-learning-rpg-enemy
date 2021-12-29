@@ -8,14 +8,12 @@ public class MageRLParameters : AbstractEntityRLParameters
     public float tryShootWhenNoMana;
     public float tryShootWhenNoCooldown;
 
-    [Header("Mage Rewards - Enemy has shield")]
+    [Header("Mage Rewards - Shield combat")]
     public float useWeekSpell;
     public float useSpellSameAsShield;
     public float useStrongSpell;
-
-    [Header("Mage Rewards - Self shield")]
-    public float rechargeWrongShield;
-    public float rechargeCurrentShield;
+    public float useSpellWhenAttackOrChase;
+    public float useShieldWhenHide;
 
     [Header("Mage Rewards - other")]
     public float healWhenHealthUserLow;

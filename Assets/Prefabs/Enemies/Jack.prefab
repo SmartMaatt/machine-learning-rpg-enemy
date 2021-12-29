@@ -756,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 14
+    VectorObservationSize: 27
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -785,20 +785,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e00bb36f03f596438fcfd9b30ce90d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeReward: -0.0001
+  timeReward: -0.001
   winEpisode: 1
   loseEpisode: -1
-  drawEpisode: -1
-  getHurt: -0.02
+  drawEpisode: -10
+  getHurt: -0.5
   successShoot: 0.1
-  tryShootWhenNoSpell: -0.01
-  tryShootWhenNoMana: -0.01
-  tryShootWhenNoCooldown: -0.01
+  tryShootWhenNoSpell: -0.1
+  tryShootWhenNoMana: -0.1
+  tryShootWhenNoCooldown: -0.1
   useWeekSpell: -0.5
   useSpellSameAsShield: 0.1
   useStrongSpell: 0.5
-  rechargeWrongShield: -0.01
-  rechargeCurrentShield: 0.01
+  useSpellWhenAttackOrChase: 0.3
+  useShieldWhenHide: 0.3
   healWhenHealthUserLow: 0.1
   destroyHealSpell: 0.1
   areaSpellWhenHealthUnderCriticalLow: 0.1

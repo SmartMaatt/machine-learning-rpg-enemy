@@ -102,6 +102,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
 
         SetupEpisodeTimeBar();
+        SetupGenerationLabel();
     }
 
     public void LevelReload()
@@ -295,11 +296,10 @@ public class LevelManager : MonoBehaviour, IGameManager
         jack.AddComponent<DecisionRequester>();
 
         BrainModelOverrider brainModelReader = new BrainModelOverrider();
-        brainModelReader.OverrideModel(jack.GetComponent<Agent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
+        brainModelReader.OverrideModel(jack.GetComponent<RLAgent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
 
-        BehaviorParameters bf = jack.GetComponent<BehaviorParameters>();
-        bf.BehaviorType = BehaviorType.InferenceOnly;
-        bf.BehaviorName = Managers.App.GetBehaviourName();
+        BehaviorParameters bp = jack.GetComponent<BehaviorParameters>();
+        bp.BehaviorName = Managers.App.GetBehaviourName();
 
         Managers.UI.ActivateGiveUpButton(true);
     }
@@ -348,22 +348,19 @@ public class LevelManager : MonoBehaviour, IGameManager
         madoxController.SetEnemy(jack);
         madoxController.SetRLAgent(madox.AddComponent<RLMagicAgentSelfPlay>());
         madox.AddComponent<DecisionRequester>();
-        BehaviorParameters madoxBF = madox.GetComponent<BehaviorParameters>();
+        BehaviorParameters madoxBP = madox.GetComponent<BehaviorParameters>();
 
         jackController.SetEnemy(madox);
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentSelfPlay>());
         jack.AddComponent<DecisionRequester>();
-        BehaviorParameters jackBF = jack.GetComponent<BehaviorParameters>();
+        BehaviorParameters jackBP = jack.GetComponent<BehaviorParameters>();
 
         BrainModelOverrider brainModelReader = new BrainModelOverrider();
-        brainModelReader.OverrideModel(jack.GetComponent<Agent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
-        brainModelReader.OverrideModel(madox.GetComponent<Agent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
+        brainModelReader.OverrideModel(jack.GetComponent<RLAgent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
+        brainModelReader.OverrideModel(madox.GetComponent<RLAgent>(), Managers.App.GetBrainPath(), Managers.App.GetBehaviourName(), true);
 
-        jackBF.BehaviorType = BehaviorType.InferenceOnly;
-        jackBF.BehaviorName = Managers.App.GetBehaviourName();
-
-        madoxBF.BehaviorType = BehaviorType.InferenceOnly;
-        madoxBF.BehaviorName = Managers.App.GetBehaviourName();
+        jackBP.BehaviorName = Managers.App.GetBehaviourName();
+        madoxBP.BehaviorName = Managers.App.GetBehaviourName();
 
         spectator = Instantiate(spectatorPlayerPrefab, spectatorSpawnPoint, Quaternion.identity);
         spectatorLook = spectator.transform.GetChild(0).GetComponent<SpectatorMoveCamera>();

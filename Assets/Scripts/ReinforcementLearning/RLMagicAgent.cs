@@ -4,7 +4,7 @@ using Unity.MLAgents.Sensors;
 using System;
 
 [RequireComponent(typeof(SpellController))]
-public class RLMagicAgent : RLAgent
+public abstract class RLMagicAgent : RLAgent
 {
     [Header("Self observations references")]
     [SerializeField] protected Mage entity;
@@ -17,9 +17,6 @@ public class RLMagicAgent : RLAgent
     protected int numberOfSpells;
     protected int numberOfCooldownOptions;
 
-    private float timeRewardLimit = 1f;
-    private float timeCounter = 0f;
-
     protected virtual void Start()
     {
         entity = GetComponent<Mage>();
@@ -29,11 +26,6 @@ public class RLMagicAgent : RLAgent
         numberOfShields = (int)ShieldSpell.NUMBER_OF_SHIELDS + 1; //Additional "no shield"
         numberOfSpells = (int)CastSpell.NUMBER_OF_SPELLS + 1; //Additional "no spell"
         numberOfCooldownOptions = 2;
-    }
-
-    protected virtual void Update()
-    {  
-        AddRLReward(entity.GetMageRLParameters().timeReward);
     }
 
     public override void CollectObservations(VectorSensor sensor)

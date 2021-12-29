@@ -3,17 +3,17 @@ using UnityEngine;
 using Unity.Barracuda;
 using System.IO;
 using Unity.Barracuda.ONNX;
-using Unity.MLAgents;
 
 public class BrainModelOverrider
 {
-    public void OverrideModel(Agent m_Agent, string assetPath, string assetName, bool isOnnx)
+    public void OverrideModel(RLAgent m_Agent, string assetPath, string assetName, bool isOnnx)
     {
+        bool overrideOk = false;
         string overrideError = null;
-        NNModel nnModel = null;
 
         m_Agent.LazyInitialize();
 
+        NNModel nnModel = null;
         try
         {
             nnModel = GetModelForBehaviorName(assetPath, assetName, isOnnx);
@@ -39,7 +39,8 @@ public class BrainModelOverrider
             Debug.Log($"Overriding behavior {assetName} for agent with model {modelName}");
             try
             {
-                m_Agent.SetModel(assetName, nnModel);
+                m_Agent.SetBrainModel(assetName, nnModel);
+                overrideOk = true;
             }
             catch (Exception e)
             {

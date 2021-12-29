@@ -10,12 +10,26 @@ public class RLMagicAgentPlayerTraining : RLMagicAgent
     [SerializeField] private MagicShield playerMagicShield;
     [SerializeField] private HealSpell playerHealSpell;
 
+    private float secondCounterTime = 0f;
+    private float secondIntervalTime = 1f;
+
     protected override void Start()
     {
         base.Start();
         player = entity.GetEnemy();
         playerController = player.GetComponent<PlayerController>();
         playerSpellController = playerController.GetSpellController();
+        SetupBrainModel();
+    }
+
+    protected virtual void Update()
+    {
+        secondCounterTime += Time.deltaTime;
+        if (secondCounterTime >= secondIntervalTime)
+        {
+            AddRLReward(entity.GetMageRLParameters().timeReward * playerController.GetNormalizedHealth() * 100);
+            secondCounterTime -= secondIntervalTime;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)

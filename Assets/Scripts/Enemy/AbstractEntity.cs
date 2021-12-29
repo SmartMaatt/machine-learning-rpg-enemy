@@ -248,6 +248,21 @@ public abstract class AbstractEntity : MonoBehaviour
         return entityState == EntityState.ATTACK;
     }
 
+    public bool IsChasing()
+    {
+        return entityState == EntityState.CHASE;
+    }
+
+    public bool IsHidding()
+    {
+        return entityState == EntityState.HIDE;
+    }
+
+    public bool IsWandering()
+    {
+        return entityState == EntityState.WANDER;
+    }
+
     public bool IsInterestedInEnemy()
     {
         return (entityState == EntityState.ATTACK || entityState == EntityState.CHASE || entityState == EntityState.HIDE);

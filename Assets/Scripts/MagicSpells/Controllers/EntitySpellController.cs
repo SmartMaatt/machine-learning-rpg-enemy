@@ -65,6 +65,10 @@ public class EntitySpellController : SpellController
     protected override void RunCastSpellAnimation(float time, Transform castSpell)
     {
         entity.GetAnimationRiggingController().ThrowCastSpell(time, castSpell);
+        if(entity.IsAttacking() || entity.IsChasing())
+        {
+            entity.AddRLReward(entity.GetMageRLParameters().useSpellWhenAttackOrChase);
+        }
     }
 
     protected override void NoManaRLReward()
@@ -86,6 +90,10 @@ public class EntitySpellController : SpellController
             currentShield = gameObject.AddComponent<EntityMagicShield>() as EntityMagicShield;
             currentShield.SetupShield(shieldSpellNode.time, entity.maxShieldTime, shieldSpellNode, shieldParent, entity, uiPanelController);
             entity.GetAnimationController().PlayBlockAnimation();
+            if(entity.IsHidding())
+            {
+                entity.AddRLReward(entity.GetMageRLParameters().useShieldWhenHide);
+            }
         }
         else
         {
@@ -93,13 +101,15 @@ public class EntitySpellController : SpellController
             if (currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
                 ChargeShieldSpell(shieldSpellNode, currentShield);
-                entity.AddRLReward(entity.GetMageRLParameters().rechargeCurrentShield);
                 entity.GetAnimationController().PlayBlockAnimation();
+                if (entity.IsHidding())
+                {
+                    entity.AddRLReward(entity.GetMageRLParameters().useShieldWhenHide);
+                }
             }
             else
             {
                 LogMessage(gameObject.name + " Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
-                entity.AddRLReward(entity.GetMageRLParameters().rechargeWrongShield);
             }
         }
     }
