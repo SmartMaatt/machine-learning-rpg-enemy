@@ -4661,6 +4661,7 @@ GameObject:
   - component: {fileID: 19900002}
   - component: {fileID: 11400002}
   - component: {fileID: 11400008}
+  - component: {fileID: 3822812182351396948}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -9340,6 +9341,7 @@ MonoBehaviour:
   IsDeviation: 0
   SendCollisionMessage: 1
   ResetParentPositionOnDisable: 0
+  sphereCollider: {fileID: 3822812182351396948}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9355,6 +9357,19 @@ MonoBehaviour:
   IsReverse: 0
   TimeDelay: 0.3
   IsLookAt: 0
+--- !u!135 &3822812182351396948
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &100004
 GameObject:
   m_ObjectHideFlags: 0
@@ -9416,7 +9431,7 @@ MonoBehaviour:
   IsVisible: 1
   InstanceBehaviour: 1
   DeactivateTimeDelay: 4
-  DestroyTimeDelay: 10
+  DestroyTimeDelay: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

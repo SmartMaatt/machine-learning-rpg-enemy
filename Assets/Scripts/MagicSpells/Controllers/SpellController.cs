@@ -72,7 +72,7 @@ public abstract class SpellController : MonoBehaviour
                     fireballSettings.UseMoveVector = true;
                     fireballSettings.MoveVector = orientation.forward;
 
-                    SetupCastballSpellInfo(ballSpellInfo, spellNode);
+                    SetupCastballSpellInfo(fireballSettings, ballSpellInfo, spellNode);
                     RunCastSpellAnimation(0.4f, castball.transform);
                 }
                 else
@@ -94,7 +94,7 @@ public abstract class SpellController : MonoBehaviour
         }
     }
 
-    protected abstract void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode);
+    protected abstract void SetupCastballSpellInfo(EffectSettings effectSettings, SpellInfo spellInfo, CastSpellNode spellNode);
     protected abstract void RunCastSpellAnimation(float time, Transform castSpell);
 
 

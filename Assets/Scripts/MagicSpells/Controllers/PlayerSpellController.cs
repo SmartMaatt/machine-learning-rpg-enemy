@@ -149,8 +149,9 @@ public class PlayerSpellController : SpellController
 
 
     /*>>> Spell casting <<<*/
-    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
+    protected override void SetupCastballSpellInfo(EffectSettings effectSettings, SpellInfo spellInfo, CastSpellNode spellNode)
     {
+        effectSettings.LayerMask =~ LayerMask.GetMask("Player");
         spellInfo.castSpellNode = spellNode;
         spellInfo.SetupSpellInfoOwner(null);
     }

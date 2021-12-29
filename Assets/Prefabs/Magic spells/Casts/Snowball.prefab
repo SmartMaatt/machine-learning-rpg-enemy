@@ -19177,8 +19177,8 @@ GameObject:
   m_Component:
   - component: {fileID: 400014}
   - component: {fileID: 11400012}
-  - component: {fileID: 13600000}
   - component: {fileID: 11400010}
+  - component: {fileID: 6204794192881834256}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -19236,20 +19236,7 @@ MonoBehaviour:
   IsDeviation: 0
   SendCollisionMessage: 1
   ResetParentPositionOnDisable: 0
---- !u!136 &13600000
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100014}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.1
-  m_Height: 1
-  m_Direction: 0
-  m_Center: {x: 0, y: 0, z: 0}
+  sphereCollider: {fileID: 6204794192881834256}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19265,6 +19252,19 @@ MonoBehaviour:
   IsReverse: 0
   TimeDelay: 0
   IsLookAt: 0
+--- !u!135 &6204794192881834256
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100014}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 0
@@ -19325,7 +19325,7 @@ MonoBehaviour:
   IsVisible: 1
   InstanceBehaviour: 1
   DeactivateTimeDelay: 4
-  DestroyTimeDelay: 10
+  DestroyTimeDelay: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

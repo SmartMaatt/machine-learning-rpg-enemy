@@ -56,8 +56,9 @@ public class EntitySpellController : SpellController
 
 
     /*>>> Spell casting <<<*/
-    protected override void SetupCastballSpellInfo(SpellInfo spellInfo, CastSpellNode spellNode)
+    protected override void SetupCastballSpellInfo(EffectSettings effectSettings, SpellInfo spellInfo, CastSpellNode spellNode)
     {
+        effectSettings.LayerMask =~ entity.OwnLayer;
         spellInfo.castSpellNode = spellNode;
         spellInfo.SetupSpellInfoOwner(entity);
     }

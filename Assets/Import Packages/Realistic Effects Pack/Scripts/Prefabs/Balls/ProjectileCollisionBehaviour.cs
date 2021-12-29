@@ -216,13 +216,8 @@ public class ProjectileCollisionBehaviour : MonoBehaviour
         if (SendCollisionMessage)
         {
             var collInfo = new CollisionInfo {Hit = hit};
-            if(spellInfo.IsAI() && hit.transform.gameObject == spellInfo.owner.gameObject)
-            {
-                Physics.IgnoreCollision(spellInfo.owner.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-                return;
-            }
-
             effectSettings.OnCollisionHandler(collInfo);
+
             if (hit.transform != null)
             {
                 var shield = hit.transform.GetComponent<ShieldCollisionBehaviour>();

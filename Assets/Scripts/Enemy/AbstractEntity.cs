@@ -20,6 +20,7 @@ public abstract class AbstractEntity : MonoBehaviour
     public LayerMask SolidGround;
     public LayerMask SolidWall;
     public LayerMask PlayerLayer;
+    public LayerMask OwnLayer;
 
     [Header("UI configuration")]
     [SerializeField] protected PanelType uiPanelType;

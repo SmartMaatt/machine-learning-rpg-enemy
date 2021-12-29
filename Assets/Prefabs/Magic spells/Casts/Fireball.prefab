@@ -9627,6 +9627,7 @@ MonoBehaviour:
   IsDeviation: 0
   SendCollisionMessage: 1
   ResetParentPositionOnDisable: 0
+  sphereCollider: {fileID: 13500000}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -9716,7 +9717,7 @@ MonoBehaviour:
   IsVisible: 1
   InstanceBehaviour: 1
   DeactivateTimeDelay: 4
-  DestroyTimeDelay: 10
+  DestroyTimeDelay: 5
   LayerMask:
     serializedVersion: 2
     m_Bits: 4294967295

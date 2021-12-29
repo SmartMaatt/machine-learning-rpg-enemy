@@ -73,7 +73,7 @@ public class Mage : AbstractEntity
             new GetFloatValue(() => breakAcceleration)
         });
         IsInDestinationPoint gotIntoCover = new IsInDestinationPoint(this, this.transform);
-        IsDirectContactNode isCoveredNode = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
+        IsDirectContactNode isCoveredNode = new IsDirectContactNode(enemy.transform, this.transform);
 
 
         /*Cover level 4*/
@@ -116,7 +116,7 @@ public class Mage : AbstractEntity
         /*>>> Attact branch <<<*/
         /*Attack level 4*/
         RangeNode attackingRangeNode = new RangeNode(enemy.transform, this.transform, new GetFloatValue(() => attackRange));
-        IsDirectContactNode isPlayerCovered = new IsDirectContactNode(enemy.transform, this.transform, PlayerLayer);
+        IsDirectContactNode isPlayerCovered = new IsDirectContactNode(enemy.transform, this.transform);
         Inverter isPlayerNotCovered = new Inverter(isPlayerCovered);
 
         /*Attack level 3*/

@@ -4,13 +4,11 @@ public class IsDirectContactNode : Node
 {
     private Transform targetTransform;
     private Transform originTransform;
-    private LayerMask targetMask;
 
-    public IsDirectContactNode(Transform target, Transform origin, LayerMask mask)
+    public IsDirectContactNode(Transform target, Transform origin)
     {
         targetTransform = target;
         originTransform = origin;
-        targetMask = mask;
     }
 
     public override NodeState Evaluate()

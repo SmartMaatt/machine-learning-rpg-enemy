@@ -2,6 +2,7 @@
 using Unity.MLAgents;
 using Unity.MLAgents.Policies;
 using Unity.Barracuda;
+using Unity.MLAgents.Actuators;
 
 [RequireComponent(typeof(AbstractEntity))]
 public abstract class RLAgent : Agent
@@ -41,5 +42,6 @@ public abstract class RLAgent : Agent
         }
     }
 
+    public override void Heuristic(in ActionBuffers actionsOut) { }
     public abstract void GenerateCSVData(string endEpisodeStatus);
 }

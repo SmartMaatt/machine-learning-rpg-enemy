@@ -1,0 +1,16 @@
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\bin\Release\EnemyAILauncher.exe.config
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\bin\Release\EnemyAILauncher.exe
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\bin\Release\EnemyAILauncher.pdb
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\bin\Release\aa\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\bin\Release\pl\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.Form1.resources
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.Properties.Resources.resources
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.Form1.aa.resources
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.Form1.pl.resources
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.csproj.GenerateResource.cache
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.csproj.CoreCompileInputs.cache
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\aa\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\pl\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.exe
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.pdb
+C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Release\EnemyAILauncher.csprojAssemblyReference.cache
