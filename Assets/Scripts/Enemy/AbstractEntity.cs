@@ -69,7 +69,7 @@ public abstract class AbstractEntity : MonoBehaviour
 
     protected Node decisionTreeTopNode;
     protected Vector3 currentDestination;
-    protected EntityState entityState;
+    public EntityState entityState;
     protected PanelControll uiPanelController;
 
     protected PlayerController playerEnemyController;
@@ -323,6 +323,13 @@ public abstract class AbstractEntity : MonoBehaviour
     public void SetEnemy(GameObject player)
     {
         this.enemy = player;
+    }
+
+    public void SetSpeed(float restSpeed, float walkSpeed, float runSpeed)
+    {
+        this.restSpeed = restSpeed;
+        this.walkSpeed = walkSpeed;
+        this.runSpeed = runSpeed;
     }
 
     public void ChangeHealth(float value)

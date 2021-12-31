@@ -14,3 +14,19 @@ C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\
 C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.Form1.pl.resources
 C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\aa\EnemyAILauncher.resources.dll
 C:\Users\Mateusz\Desktop\EventAI build\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\pl\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\bin\Debug\EnemyAILauncher.exe.config
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\bin\Debug\EnemyAILauncher.exe
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\bin\Debug\EnemyAILauncher.pdb
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\bin\Debug\aa\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\bin\Debug\pl\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.Form1.resources
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.Properties.Resources.resources
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.Form1.aa.resources
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.Form1.pl.resources
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.csproj.GenerateResource.cache
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.csproj.CoreCompileInputs.cache
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\aa\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\pl\EnemyAILauncher.resources.dll
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.exe
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.pdb
+C:\Users\Mateusz\Documents\GitHub\Enemy-AI-Project\launcher\EnemyAILauncher\EnemyAILauncher\obj\Debug\EnemyAILauncher.csprojAssemblyReference.cache

@@ -24,7 +24,9 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     [Header("Episode timing [s]")]
     [SerializeField] private float maxEpisodeTime;
+    [SerializeField] private float maxEpisodeTimeIteration;
     private float episodeTime;
+    private int episodeTimeIteration;
 
     [Header("References")]
     [SerializeField] private GameObject jackPrefab;
@@ -130,7 +132,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     private void SetupGenerationLabel()
     {
-        Managers.UI.SetupGenerationLabel(Managers.RlCsv.GetEpisodeCount());
+        Managers.UI.SetupGenerationLabel(Managers.RlCsv.GetEpisodeCount(), episodeTimeIteration);
     }
 
     public void EndEpisode(GameObject dead)
@@ -176,6 +178,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
         jackController = jack.GetComponent<Mage>();
         jackController.SetEnemy(player);
+        jackController.SetSpeed(0f, 6f, 12f);
         jackScore = 0;
 
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
@@ -198,7 +201,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         {
             jackScore++;
             jackController.AddRLReward(jackController.GetMageRLParameters().winEpisode);
-            jackController.GetRLAgent().EndRLEpisode("Win");
+            jackController.GetRLAgent().EndRLEpisode("Win"); 
         }
         else if (dead == jack)
         {
@@ -206,11 +209,14 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-        else if (dead == null)
+        else if(dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+
+        jackController.ResetEnemyInterestTime();
+        ResetEpisodeTimeIteration();
         LevelReload();
     }
 
@@ -227,11 +233,13 @@ public class LevelManager : MonoBehaviour, IGameManager
         jackScore = 0;
 
         jackController.SetEnemy(madox);
+        jackController.SetSpeed(0f, 3f, 6f);
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentSelfPlay>());
         jack.AddComponent<DecisionRequester>();
         jack.GetComponent<BehaviorParameters>().BehaviorName = Managers.App.GetBehaviourName();
 
         madoxController.SetEnemy(jack);
+        madoxController.SetSpeed(0f, 3f, 6f);
         madoxController.SetRLAgent(madox.AddComponent<RLMagicAgentSelfPlay>());
         madox.AddComponent<DecisionRequester>();
         madox.GetComponent<BehaviorParameters>().BehaviorName = Managers.App.GetBehaviourName();
@@ -267,14 +275,18 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-        else if (dead == null)
+        else if(dead == null)
         {
-            madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
 
-            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+
+        jackController.ResetEnemyInterestTime();
+        madoxController.ResetEnemyInterestTime();
+        ResetEpisodeTimeIteration();
         LevelReload();
     }
 
@@ -290,6 +302,7 @@ public class LevelManager : MonoBehaviour, IGameManager
         jack = Instantiate(jackPrefab, SpawnPointRandomLocation(), Quaternion.identity);
         jackController = jack.GetComponent<Mage>();
         jackController.SetEnemy(player);
+        jackController.SetSpeed(0f, 6f, 12f);
         jackScore = 0;
 
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentPlayerTraining>());
@@ -325,11 +338,14 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-        else if (dead == null)
+        else if(dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+
+        jackController.ResetEnemyInterestTime();
+        ResetEpisodeTimeIteration();
         LevelReload();
     }
 
@@ -346,11 +362,13 @@ public class LevelManager : MonoBehaviour, IGameManager
         jackScore = 0;
 
         madoxController.SetEnemy(jack);
+        madoxController.SetSpeed(0f, 6f, 12f);
         madoxController.SetRLAgent(madox.AddComponent<RLMagicAgentSelfPlay>());
         madox.AddComponent<DecisionRequester>();
         BehaviorParameters madoxBP = madox.GetComponent<BehaviorParameters>();
 
         jackController.SetEnemy(madox);
+        jackController.SetSpeed(0f, 6f, 12f);
         jackController.SetRLAgent(jack.AddComponent<RLMagicAgentSelfPlay>());
         jack.AddComponent<DecisionRequester>();
         BehaviorParameters jackBP = jack.GetComponent<BehaviorParameters>();
@@ -393,14 +411,18 @@ public class LevelManager : MonoBehaviour, IGameManager
             jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
             jackController.GetRLAgent().EndRLEpisode("Fail");
         }
-        else if (dead == null)
+        else if(dead == null)
         {
-            jackController.AddRLReward(jackController.GetMageRLParameters().drawEpisode);
-            jackController.GetRLAgent().EndRLEpisode("Draw");
-
-            madoxController.AddRLReward(madoxController.GetMageRLParameters().drawEpisode);
+            madoxController.AddRLReward(madoxController.GetMageRLParameters().loseEpisode);
             madoxController.GetRLAgent().EndRLEpisode("Draw");
+
+            jackController.AddRLReward(jackController.GetMageRLParameters().loseEpisode);
+            jackController.GetRLAgent().EndRLEpisode("Draw");
         }
+
+        jackController.ResetEnemyInterestTime();
+        madoxController.ResetEnemyInterestTime();
+        ResetEpisodeTimeIteration();
         LevelReload();
     }
 
@@ -411,7 +433,6 @@ public class LevelManager : MonoBehaviour, IGameManager
         // Jack reload
         jack.transform.position = SpawnPointRandomLocation();
         jackController.RefilHealth();
-        jackController.ResetEnemyInterestTime();
 
         jackController.GetSpellController().RefilMana();
         jackController.GetSpellController().ResetLastHittedSpellID();
@@ -439,7 +460,6 @@ public class LevelManager : MonoBehaviour, IGameManager
         // Madox reload
         madox.transform.position = SpawnPointRandomLocation();
         madoxController.RefilHealth();
-        madoxController.ResetEnemyInterestTime();
 
         madoxController.GetSpellController().RefilMana();
         madoxController.GetSpellController().ResetLastHittedSpellID();
@@ -520,8 +540,15 @@ public class LevelManager : MonoBehaviour, IGameManager
 
         if (episodeTime >= maxEpisodeTime)
         {
-            EndEpisode(null);
-            SetupEpisodeTimeBar();
+            episodeTimeIteration++;
+            if(episodeTimeIteration > (maxEpisodeTimeIteration - 1))
+            {
+                EndEpisode(null);
+            }
+            else
+            {
+                LevelReload();
+            }
         }
     }
 
@@ -551,11 +578,25 @@ public class LevelManager : MonoBehaviour, IGameManager
         }
     }
 
-
     private void SetupEpisodeTimeBar()
     {
         episodeTime = 0f;
         Managers.UI.SetupEpisodeTimeBar(maxEpisodeTime, maxEpisodeTime);
+    }
+
+    private void ResetEpisodeTimeIteration()
+    {
+        episodeTimeIteration = 0;
+    }
+
+    public int GetEpisodeTimeIteration()
+    {
+        return episodeTimeIteration;
+    }
+
+    public float GetNormalizedEpisodeTimeIteration()
+    {
+        return ((episodeTimeIteration + 1) / maxEpisodeTimeIteration);
     }
 
     private Vector3 SpawnPointRandomLocation()

@@ -517,9 +517,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3
-  m_Acceleration: 10
+  m_Acceleration: 40
   avoidancePriority: 50
-  m_AngularSpeed: 50
+  m_AngularSpeed: 160
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -585,14 +585,14 @@ MonoBehaviour:
   healing: 0
   immortal: 0
   restSpeed: 0
-  walkSpeed: 3
+  walkSpeed: 6
   acceleration: 10
   walkPointRange: 20
   maxRestTime: 10
   minRestTime: 3
   turnMaxAngle: 120
   rotateAcceleration: 15
-  runSpeed: 6
+  runSpeed: 12
   obstacleRange: 1
   accelerationChaseBonus: 20
   headPosition: 1.5
@@ -604,6 +604,7 @@ MonoBehaviour:
   sightConeRange: 130
   hearRange: 20
   attackRange: 10
+  entityState: 0
   enemyInterestTime: 0
   fullEpisodeTime: 0
   spellController: {fileID: 0}
@@ -612,8 +613,8 @@ MonoBehaviour:
   manaRestoreRate: 1.5
   maxShieldTime: 90
   maxHealTime: 90
-  coverHealProbability: 0.5
-  powerAreaSpellCastProbability: 0.25
+  coverHealProbability: 0.75
+  powerAreaSpellCastProbability: 0.5
   startTreeTime: 0.05
   repeatTreeTime: 0.05
 --- !u!114 &1215319797700901754
@@ -759,7 +760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 27
+    VectorObservationSize: 28
     NumStackedVectorObservations: 1
     m_ActionSpec:
       m_NumContinuousActions: 0
@@ -791,12 +792,11 @@ MonoBehaviour:
   timeReward: -0.001
   winEpisode: 1
   loseEpisode: -1
-  drawEpisode: -10
   getHurt: -0.5
-  successShoot: 0.1
-  tryShootWhenNoSpell: -0.1
-  tryShootWhenNoMana: -0.1
-  tryShootWhenNoCooldown: -0.1
+  successShoot: 0.5
+  tryShootWhenNoSpell: 0
+  tryShootWhenNoMana: 0
+  tryShootWhenNoCooldown: 0
   useWeekSpell: -0.5
   useSpellSameAsShield: 0.1
   useStrongSpell: 0.5

@@ -32,6 +32,7 @@ public abstract class RLMagicAgent : RLAgent
     {
         // Self observations
         sensor.AddObservation(Managers.Level.GetNormalizedEpisodeTimeLimit());
+        sensor.AddObservation(Managers.Level.GetNormalizedEpisodeTimeIteration());
         sensor.AddOneHotObservation((int)entity.GetEntityState(), numberOfEntityStates);
 
         sensor.AddObservation(entity.GetNormalizedHealth());
@@ -88,12 +89,13 @@ public abstract class RLMagicAgent : RLAgent
             entity.SetSpellType((SpellType)spellType, spellElement);
             entity.Attack();
         }
+        Debug.Log(entity.GetEntityName() + ": " + spellType + " - " + spellElement);
     }
 
     public override void GenerateCSVData(string endEpisodeStatus)
     {
         Managers.RlCsv.AddEpisodeData(
-                new string[8]
+                new string[9]
                 {
                     Managers.RlCsv.GetEpisodeCount().ToString(),
                     DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
@@ -101,6 +103,7 @@ public abstract class RLMagicAgent : RLAgent
                     entity.GetEntityName(),
                     Managers.Level.GetLevelTypeName(),
                     endEpisodeStatus,
+                    (Managers.Level.GetEpisodeTimeIteration() + 1).ToString(),
                     ((int)entity.GetFullEpisodeTime()).ToString(),
                     ((int)(entity.GetPercentageEnemyInteresetTime())).ToString() + "%"
                 }

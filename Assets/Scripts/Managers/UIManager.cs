@@ -191,9 +191,9 @@ public class UIManager : MonoBehaviour, IGameManager
         popUpMessager.DisplayMessage(msg);
     }
 
-    public void SetupGenerationLabel(int value)
+    public void SetupGenerationLabel(int generationValue, int iterationValue)
     {
-        generationLabel.text = "Generation: " + value;
+        generationLabel.text = "Generation: " + generationValue + " | Iteration: " + iterationValue;
     }
 
     public void SetupEpisodeTimeBar(float maxValue, float value)

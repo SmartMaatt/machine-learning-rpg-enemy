@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -109, y: -28}
-  m_SizeDelta: {x: 100, y: 10}
+  m_AnchoredPosition: {x: -9, y: -28}
+  m_SizeDelta: {x: 200, y: 10}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &746126333799140430
 CanvasRenderer:
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Generation: '
+  m_text: 'Generation: | Iteration:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -2768,6 +2768,7 @@ MonoBehaviour:
   spectatorSpawnPoint: {x: 0, y: 10, z: 0}
   yAxisLimit: -20
   maxEpisodeTime: 300
+  maxEpisodeTimeIteration: 10
   jackPrefab: {fileID: 1215319797700901759, guid: cc8d4a6607269b641a376ee9bfd4949c, type: 3}
   madoxPrefab: {fileID: 1215319797700901759, guid: fce798b1d12cbf34ab36b4ccd9376481, type: 3}
   playerPrefab: {fileID: 698861808308881314, guid: 4ef469438fdba6d4193e193ca4ea5c71, type: 3}

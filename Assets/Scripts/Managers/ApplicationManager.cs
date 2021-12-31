@@ -30,7 +30,6 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     {
         Debug.Log("Starting Application manager");
 
-        SetupConfigFile();
         if (getInfoFromConfigFile)
         {
             ReadConfigFile();
@@ -40,6 +39,11 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         if (!newProfile && !File.Exists(brainPath))
         {
             Managers.Self.LockApp("Brain " + brainPath + " doesn't exist!");
+        }
+
+        if (IsPlaying())
+        {
+            Screen.fullScreen = true;
         }
 
         status = ManagerStatus.Started;
@@ -146,15 +150,15 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         }
         catch (IOException err)
         {
-            Managers.Self.LockApp(err.Message + "\n The config file cannot be opened!");
+            if(File.Exists("../../EnemyAILauncher.exe"))
+            {
+                Managers.Self.LockApp("This isn't the executable you're looking for!");
+            }
+            else
+            {
+                Managers.Self.LockApp(err.Message + "\n The config file cannot be opened!");
+            }
         }
-    }
-
-    private void SetupConfigFile()
-    {
-#if UNITY_STANDALONE && !UNITY_EDITOR
-            configPath = "../" + configPath;
-#endif
     }
 
     private void SetupBrainPath(string brainDirectory, string brainName)
@@ -165,10 +169,6 @@ public class ApplicationManager : MonoBehaviour, IGameManager
     private void SetupMlBrainDirectoryPath(string brainSessionName)
     {
         string rootDirectory = "";
-
-#if UNITY_STANDALONE && !UNITY_EDITOR
-            rootDirectory = "../";
-#endif
 
         mlBrainDirectoryPath = rootDirectory + "results/" + brainSessionName;
         mlBrainSessionName = brainSessionName;

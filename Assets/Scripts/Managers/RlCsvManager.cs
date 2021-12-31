@@ -24,7 +24,8 @@ public class RlCsvManager : MonoBehaviour, IGameManager
                                                 "RL points",
                                                 "Agent name",
                                                 "Learning type",
-                                                "Won Episode",
+                                                "Won episode",
+                                                "Episode iterations",
                                                 "Episode time [s]",
                                                 "Interest in enemy [%]"
                                             };

@@ -6,6 +6,5 @@ public class AbstractEntityRLParameters : MonoBehaviour
     public float timeReward;
     public float winEpisode;
     public float loseEpisode;
-    public float drawEpisode;
     public float getHurt;
 }

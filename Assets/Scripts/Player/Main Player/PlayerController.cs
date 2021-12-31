@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject enemy;
 
+    [Space]
+    public LayerMask OwnLayer;
+
     private PlayerMovement playerMovement;
     private PlayerSpellController playerSpellController;
     private PanelControll uiPanel;

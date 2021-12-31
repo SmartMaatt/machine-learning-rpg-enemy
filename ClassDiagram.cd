@@ -1,0 +1,820 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MyGui" Collapsed="true">
+    <Position X="43.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>DQQAAAAAgiEAAACMBEAAASBA8gAAMIJkAxLAAUCJAAI=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Demo\MyGui.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AddMaterialOnHit" Collapsed="true">
+    <Position X="38.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEYBAAAAAAABAAAEAAAAAAACAAAHEYAAAggUAECAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Balls\AddMaterialOnHit.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LazyLoad" Collapsed="true">
+    <Position X="47" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAECAAAAAAAAAAAAAAAAAAAAAIAAAAAAAACEg=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Balls\LazyLoad.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileCollisionBehaviour" Collapsed="true">
+    <Position X="50.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQSAAik4ADAkAxACAACyQBIAAAQIRIkoAM0FCiAgCAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Balls\ProjectileCollisionBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldCollisionBehaviour" Collapsed="true">
+    <Position X="45.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAIAAAAEAAEDMAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Buffs\ShieldCollisionBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaterUvAnimation" Collapsed="true">
+    <Position X="38.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AASAEAAAAAACAABAABAAgAABAABAAAAAAAAAAEAAAEA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Buffs\WaterUvAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WaterWaveUvAnimation" Collapsed="true">
+    <Position X="40" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAAAACAAAAAAAAAAAAAAAAAAAUCAABAAAEAACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Buffs\WaterWaveUvAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LineRendererBehaviour" Collapsed="true">
+    <Position X="50.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQECAAEAACAECgBEAAAAAAAEACAABAggAEAACAggKBQ=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Shots\LineRendererBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionActiveBehaviour" Collapsed="true">
+    <Position X="47" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAgAACAAAAAAAAAAAAAAAABAAAgAAAAAAAAAIAg=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\CollisionActiveBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DeadTime" Collapsed="true">
+    <Position X="38.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAEA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\DeadTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DistortionMobile" Collapsed="true">
+    <Position X="41.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAUIAAAAAAQIAQJAgACICAIAEAQRAAhNBCAAAAAACCA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\DistortionMobile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EffectSettings" Collapsed="true">
+    <Position X="43.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>YACAgAghADBEEjAAACASACCAGAIAAQEIRAAFIAABCAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\EffectSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CollisionInfo" Collapsed="true">
+    <Position X="48.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\EffectSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeInOutLight" Collapsed="true">
+    <Position X="47" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IQSEADQRACSDQAgAAQEBAAAAACCAAAgGAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeInOutParticles" Collapsed="true">
+    <Position X="48.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQAAAAAACAAAEAAAAgAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutParticles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeInOutScale" Collapsed="true">
+    <Position X="50.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQBAAMQICACAAAAAAEAAAABAAAAAQgEAAQAAgBACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutScale.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeInOutShaderColor" Collapsed="true">
+    <Position X="38.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IYSEEDQRACSCUAgAAAFBAAAAgCCAAggGAAAUAAAACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutShaderColor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeInOutShaderFloat" Collapsed="true">
+    <Position X="40" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IYSEEDQRACSCYAgIAAGBAAAAACCEAAgWAAAEAABACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutShaderFloat.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FixShaderQueue" Collapsed="true">
+    <Position X="41.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAICAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FixShaderQueue.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OnStartSendCollision" Collapsed="true">
+    <Position X="38.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAAAAAAAAAAAAAAAAAAAgEAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\OnStartSendCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="QueueUvAnimation" Collapsed="true">
+    <Position X="38.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAAEADEIAAAABBAAAAAAAAQAAAAgAIAACgMRAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\QueueUvAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomRotate" Collapsed="true">
+    <Position X="41.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAIACEIgAAAABAAAAAAAAQAAAAAABBgAQAAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\RandomRotate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UVTextureAnimator" Collapsed="true">
+    <Position X="48.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BIBAAAAQACQIEFBwBBAAgAAAAARAAAA7QQCAAAkRCAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\UVTextureAnimator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageEffectBase" Collapsed="true">
+    <Position X="43.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAEBAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Standard Assets\Image Effects (Pro Only)\ImageEffectBase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ImageEffects" Collapsed="true">
+    <Position X="45.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQgAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Standard Assets\Image Effects (Pro Only)\ImageEffects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractEntity" Collapsed="true">
+    <Position X="7.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UzMRQZkJkCiJgKckPQUREVIgYINATAQgCFkSQuwjGUo=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AbstractEntity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimationRiggingController" Collapsed="true">
+    <Position X="33.75" Y="4.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AMQAABBAACAAAAAEQAIAAAMAQQUAAAABAAgIFAAAACA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\AnimationRigging\AnimationRiggingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Inverter" Collapsed="true">
+    <Position X="24.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\Inverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MultiRandomizer" Collapsed="true">
+    <Position X="29" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAEAAgAAgAAAAAAAIAAQAAAAAAAYAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\MultiRandomizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomizerNode" Collapsed="true">
+    <Position X="40" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\MultiRandomizer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node" Collapsed="true">
+    <Position X="19" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAABAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SafeJumpNode" Collapsed="true">
+    <Position X="2" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAABAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\SafeJumpNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Selector" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\Selector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sequence" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Behaviour Trees constructives\Sequence.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OrientationRotation" Collapsed="true">
+    <Position X="40" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAABAAACAAAAAAIAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Controllers\OrientationRotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpeedController" Collapsed="true">
+    <Position X="40" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAYICAAAACAgAEAEAAAQAAAQAAAAgIAAAEAAEAAAgDA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Controllers\SpeedController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Cover" Collapsed="true">
+    <Position X="50.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Environment\Cover.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProbabilityNotEqualHundredPercentException" Collapsed="true">
+    <Position X="48.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Exceptions\RandomizerProbabilityOverHundredPercentException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnknownSpellException" Collapsed="true">
+    <Position X="45.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Exceptions\UnknownSpellException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnsetSpellException" Collapsed="true">
+    <Position X="47" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Exceptions\UnsetSpellException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Mage" Collapsed="true">
+    <Position X="7.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAYECIIAQAgAAUAAAAAAJQAAAAABAAAMBCCAEA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Mage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AreaExplosionExecuteNode" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAJAAAAAAAAAAAAAAApgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\Attack nodes\AreaExplosionExecuteNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealSpellExecuteNode" Collapsed="true">
+    <Position X="13.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAJAAAAAAAAAAAAAAApgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\Attack nodes\HealSpellExecuteNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackNode" Collapsed="true">
+    <Position X="15.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABBAAAEAAAAAgAAAAAgAAEAAIAAAAgAgEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\AttackNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChaseNode" Collapsed="true">
+    <Position X="17.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABBAAAAAACAABAAAAAgAAEAAIAAAAAAgEAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\ChaseNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GoToDestinationPoint" Collapsed="true">
+    <Position X="20" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAABAABAAAAAgAAEAAAAAAAAAgEAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\GoToDestinationPoint.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealthNode" Collapsed="true">
+    <Position X="22.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAgQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\HealthNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IsCoverAvaliableNode" Collapsed="true">
+    <Position X="26.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABBAAAAAAAAAgCIAAQgAAgAAIAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\IsCoverAvaliableNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IsDirectContactNode" Collapsed="true">
+    <Position X="31.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAIAAEAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\IsDirectContactNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RangeNode" Collapsed="true">
+    <Position X="33.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAgAAAAAIAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\RangeNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SightNode" Collapsed="true">
+    <Position X="35.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQgAAAAAIAQAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\SightNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WanderNode" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwBAAAAAIAAAIAUAAAiAAEAAAAAAAgCwEABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Nodes\WanderNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpellNode" Collapsed="true">
+    <Position X="4" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAIAAAAUAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CastSpellNode" Collapsed="true">
+    <Position X="7.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAABAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShieldSpellNode" Collapsed="true">
+    <Position X="0.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealSpellNode" Collapsed="true">
+    <Position X="3" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAQAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AreaExplosionNode" Collapsed="true">
+    <Position X="5.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAgAAAAAAAAAAAAAAAAAABAACAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AreaExplosionBullet" Collapsed="true">
+    <Position X="43.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAgCAAAAAAAAAAAAAQAAAAAAAQBACEAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\AreaExplosionSpell\AreaExplosionBullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntitySpellController" Collapsed="true">
+    <Position X="10.5" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>QAQAAVABACEICAAAEAEiAAAABAAAAAAAEAAAIAMAQAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Controllers\EntitySpellController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerSpellController" Collapsed="true">
+    <Position X="12.75" Y="5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIQAAVABACEICAAEEAEiAAACBAAAAAAAEABAMAOAQAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Controllers\PlayerSpellController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpellController" Collapsed="true">
+    <Position X="11.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgUDIXADWCAKqBALEBChACEABAAAoAMARACQABEAwCg=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Controllers\SpellController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpellInfo" Collapsed="true">
+    <Position X="41.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAIAAAAAAAAgIAgASAAAAAAAAAAAAAAAAEAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Controllers\SpellInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityHealSpell" Collapsed="true">
+    <Position X="1" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAADAAAAAAAQAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\HealSpell\EntityHealSpell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HealSpell" Collapsed="true">
+    <Position X="2" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiIAACCAAAAAAAAAAAAhAAAEAgAAgAADAAAAAAAAAgA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\HealSpell\HealSpell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerHealSpell" Collapsed="true">
+    <Position X="3" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAAAAAAQAAAAAAAAAEAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\HealSpell\PlayerHealSpell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EntityMagicShield" Collapsed="true">
+    <Position X="14.25" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAADIAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Shield\EntityMagicShield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MagicShield" Collapsed="true">
+    <Position X="15.25" Y="10" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QCAAAKIAAACACMAEAAAhAAAAAAIAAAADEAABAAEAAAE=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Shield\MagicShield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMagicShield" Collapsed="true">
+    <Position X="16.5" Y="11.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAACIAAAAAAQAAAAAAAAAAAAAAAAAAAABAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\MagicSpells\Shield\PlayerMagicShield.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ApplicationManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="41.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAMCAgBAAIAIABAAAAQBAIQkAAAAAIAEIEAE=</HashCode>
+      <FileName>Assets\Scripts\Managers\ApplicationManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="DirectoryManager" Collapsed="true">
+    <Position X="40" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAQA=</HashCode>
+      <FileName>Assets\Scripts\Managers\DirectoryManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="48.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>UQQEi6VCAIBAgQiUAAIhkgCQgSCAICARAQNCECAABAA=</HashCode>
+      <FileName>Assets\Scripts\Managers\LevelManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Managers" Collapsed="true">
+    <Position X="40" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAgAAACAAAIBAAAAAAQAAAABAAAAAAAgEEA=</HashCode>
+      <FileName>Assets\Scripts\Managers\Managers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RlCsvManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IxQCAAAABAABAAAABAIAAAAAAAAAIAAAEECAQCAAQAA=</HashCode>
+      <FileName>Assets\Scripts\Managers\RlCsvManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="UIManager" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="43.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIVoACgAAAAAAIAAQAIAEoCAgAEAIAIAJIEAACEYAAg=</HashCode>
+      <FileName>Assets\Scripts\Managers\UIManager.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MoveCamera" Collapsed="true">
+    <Position X="41.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Main Player\Movement\MoveCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerLook" Collapsed="true">
+    <Position X="43.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBZAgAACAAAAAAAEAEAEAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Main Player\Movement\PlayerLook.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovement" Collapsed="true">
+    <Position X="45.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAQBAAkBEqQAIQAEAAY0AACAYAAAEESoAAKAAhUoAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Main Player\Movement\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="41.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAZAIACCAABAgAAEAAwIgABQAAAAgCAASggAgAIo=</HashCode>
+      <FileName>Assets\Scripts\Player\Main Player\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpectatorMoveCamera" Collapsed="true">
+    <Position X="48.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAABBAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Spectation Player\SpectatorMoveCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpectatorMovement" Collapsed="true">
+    <Position X="50.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBCAAAEiAAIgAEAAAAAACAAAAAAACgAAgAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Spectation Player\SpectatorMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpectatorRotation" Collapsed="true">
+    <Position X="38.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAICAAAAAgAAGAAAAAAAAAAAAAAAAAgCAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Spectation Player\SpectatorRotation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BrainModelOverrider" Collapsed="true">
+    <Position X="45.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAQAACAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\BrainModelOverrider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLAgent" Collapsed="true">
+    <Position X="1.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAIAAAAAAAAAAQAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLMagicAgent" Collapsed="true">
+    <Position X="1.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAABAAAKAAQAAAAAAAAAABQAAAAAQAAACAABAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLMagicAgent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLMagicAgentPlayerTraining" Collapsed="true">
+    <Position X="0.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAAACAAAQAAAAAAAAABAAUAAAABAABAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLMagicAgentPlayerTraining.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RLMagicAgentSelfPlay" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAACAAICAAAQAAAAAAAAABAAEAAAAAAABAAAAAAAI=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLMagicAgentSelfPlay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AbstractEntityRLParameters" Collapsed="true">
+    <Position X="10.25" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAEABAA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLParameters\AbstractEntityRLParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MageRLParameters" Collapsed="true">
+    <Position X="10.25" Y="8" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgABIABAAgAAAEAIAIFAACAAEAAAACAQAAABAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Reinforcement learning\RLParameters\MageRLParameters.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ElementBar" Collapsed="true">
+    <Position X="45.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABCAAAAAAAAAAAAAAAAAACCAAAAAAAAAAiEAAgAIAA=</HashCode>
+      <FileName>Assets\Scripts\UI\ElementBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LockScrean" Collapsed="true">
+    <Position X="38.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAIQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\LockScrean.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonePanelControll" Collapsed="true">
+    <Position X="5.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBEgAAAAAAAgQAAAAgAAAAAAIAIIAAAAEoAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\PanelControll\NonePanelControll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PanelControll" Collapsed="true">
+    <Position X="6.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAAEBFoAAAQIBAgQAAAAgAAAAAAIAIIAAAIE4AAA=</HashCode>
+      <FileName>Assets\Scripts\UI\PanelControll\PanelControll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RealPanelControll" Collapsed="true">
+    <Position X="8" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEBEiAAAAAAAgQAAAAgAAAAAAIAIIAAAAEoAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\PanelControll\RealPanelControll.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopUpMessager" Collapsed="true">
+    <Position X="47" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACgAEAAAAAAAIIgAAAAAEgAAAAAAAAAAICA=</HashCode>
+      <FileName>Assets\Scripts\UI\PopUpMessager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ValueBar" Collapsed="true">
+    <Position X="50.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCAAAAEAAAAAABAAAAAAAAAAAAAAAAAAgEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UI\ValueBar.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.AI.NavMeshLink" Collapsed="true">
+    <Position X="45.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAgCAABgABAAABAQEEkQAEJAAAgAGGYAAgAAEAASAE=</HashCode>
+      <FileName>Assets\Scripts\NavMeshComponents\Scripts\NavMeshLink.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.AI.NavMeshModifier" Collapsed="true">
+    <Position X="47" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAQAAAAAAAAAAAAQAAAAAABAAAgIAAgQAAAACCM=</HashCode>
+      <FileName>Assets\Scripts\NavMeshComponents\Scripts\NavMeshModifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.AI.NavMeshModifierVolume" Collapsed="true">
+    <Position X="48.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAgAAAQAAAAAAAAEAIAQAAAAAAAAAAAIAAgAAAIACAM=</HashCode>
+      <FileName>Assets\Scripts\NavMeshComponents\Scripts\NavMeshModifierVolume.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityEngine.AI.NavMeshSurface" Collapsed="true">
+    <Position X="50.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ikgQBAgAhYEgAAIEgKFRQAAoIIABICC8AAgUglIAWgA=</HashCode>
+      <FileName>Assets\Scripts\NavMeshComponents\Scripts\NavMeshSurface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UnityTemplateProjects.SimpleCameraController" Collapsed="true">
+    <Position X="47" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAwgAAAAAAAAAIJAAAAAAAAAAAAAAAAAECAACAA=</HashCode>
+      <FileName>Assets\Scripts\Other\SimpleCameraController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IGameManager" Collapsed="true">
+    <Position X="38.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAIAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Managers\Interface\IGameManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="RandomMoveCoordinates" Collapsed="true">
+    <Position X="40" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAMAAAAAgAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Prefabs\Balls\ProjectileCollisionBehaviour.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="FadeInOutStatus" Collapsed="true">
+    <Position X="45.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAgAAEAAAAAAAAAAAAAAIAAAEAAAAAAAAAAAAAAAASA=</HashCode>
+      <FileName>Assets\Import Packages\Realistic Effects Pack\Scripts\Share\FadeInOutStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="EntityState" Collapsed="true">
+    <Position X="43.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAgCAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\EntityState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GameLevelType" Collapsed="true">
+    <Position X="47" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAEAQAAAAAAAAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\GameLevelType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="NodeState" Collapsed="true">
+    <Position X="50.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\NodeState.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PanelType" Collapsed="true">
+    <Position X="38.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAQAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\PanelType.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SpellType" Collapsed="true">
+    <Position X="45.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAAABAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CastSpell" Collapsed="true">
+    <Position X="38.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ShieldSpell" Collapsed="true">
+    <Position X="43.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="CustomSpell" Collapsed="true">
+    <Position X="41.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Assets\Scripts\Enums\Spells.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ManagerStatus" Collapsed="true">
+    <Position X="48.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Managers\Status\ManagerStatus.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="RotateAxes" Collapsed="true">
+    <Position X="41.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Player\Spectation Player\SpectatorRotation.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="UnityEngine.AI.CollectObjects" Collapsed="true">
+    <Position X="40" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAIIAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\NavMeshComponents\Scripts\NavMeshSurface.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="AddRLReward" Collapsed="true">
+    <Position X="38.25" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Delegates\AddRLReward.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GetFloatValue" Collapsed="true">
+    <Position X="40" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Enemy\Delegates\Behaviour tree delegates.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
