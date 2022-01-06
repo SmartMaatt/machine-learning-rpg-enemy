@@ -115,6 +115,10 @@ namespace EnemyAILauncher
                 ExecuteProgram("cmd.exe", $"echo {info1}&echo {info2}&py -m venv venv&venv\\Scripts\\activate&pip install --upgrade pip&pip install -r requirements.txt&echo ...&echo {info3}&echo {info4}");
                 ExitProgram();
             }
+            else if(dialogResult == DialogResult.No)
+            {
+                ExecuteProgram("https://www.python.org/downloads/", "");
+            }
         }
 
         private bool IsVenvAvaliable()
