@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -108,7 +108,7 @@ public class RlCsvManager : MonoBehaviour, IGameManager
         }
         catch (IOException err)
         {
-            Managers.Self.LockApp(err.Message + "\n The machine state file cannot be opened during learning!");
+            Managers.Self.LockApp(err.Message + "\n Plik danych statystycznych modelu nie może być otwarty w trakcie przeprowadzania treningu!");
         }
     }
 

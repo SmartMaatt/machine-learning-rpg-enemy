@@ -442,9 +442,12 @@ MonoBehaviour:
   blocking: 0
   healing: 0
   uiPanelType: 1
-  playerName: Player
+  playerName: Ben
   headPosition: 0.5
   enemy: {fileID: 0}
+  OwnLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &698861809153540561
 GameObject:
   m_ObjectHideFlags: 0

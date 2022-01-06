@@ -569,7 +569,7 @@ public class LevelManager : MonoBehaviour, IGameManager
 
     private void WorldBorderLimit()
     {
-        if (levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY)
+        if ((levelType == GameLevelType.TRAINING || levelType == GameLevelType.PLAY) && (player != null))
         {
             if (player.transform.position.y < yAxisLimit)
             {

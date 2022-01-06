@@ -8,6 +8,6 @@ public class LockScrean : MonoBehaviour
 
     public void SetReason(string reason)
     {
-        reasonTMP.text = "Reason: " + reason;
+        reasonTMP.text = "Powód: " + reason;
     }
 }

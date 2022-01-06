@@ -71,13 +71,55 @@ namespace EnemyAILauncher
         {
             if (ProfileComboBox.Text != noProfile)
             {
-                ExecuteProgram("cmd.exe", "venv\\Scripts\\activate&tensorboard --logdir results --port 6006");
-                ExecuteProgram("http://localhost:6006", "");
+                if (IsVenvAvaliable())
+                {
+                    ExecuteProgram("cmd.exe", "venv\\Scripts\\activate&tensorboard --logdir results --port 6006");
+                    ExecuteProgram("http://localhost:6006", "");
+                }
+                else
+                {
+                    SetInfo("Nie odnaleziono wirtualnego środowiska Python!");
+                }
             }
             else
             {
                 SetInfo("Brak profilu do wyświetlenia!");
             }
+        }
+
+        private void BuildVenvBtn_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show($"Czy posiadasz zainstalowanego Pythona w wersji powyżej 3.6?", "Budowianie Venv", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                string info1;
+                string info2;
+                string info3;
+                string info4;
+
+                if(!IsVenvAvaliable())
+                {
+                    info1 = "Proszę pozostawić okno konsoli do uzyskania odpowiedzi o pozytywnym przebiegu instalacji wirtualnego środowiska Python";
+                    info2 = "Jeśli komunikat się nie pokaże, oznacza to najprawdopodobniej, że brakuje zaintalowenego Python w wesji 3.6 lub wyższej";
+                    info3 = "Pomyślnie zainstalowano wirtualne środowisko Python. Należy zamknąć okno konsoli i ponownie otworzyć Launcher aplikacji";
+                    info4 = "Pierwsze uruchomienie treningu może trwać do 3 minut!";
+                }
+                else
+                {
+                    info1 = " ";
+                    info2 = " ";
+                    info3 = "\nŚrodowisko wirtualne Python jest już zainstalowane!";
+                    info4 = " ";
+                }
+
+                ExecuteProgram("cmd.exe", $"echo {info1}&echo {info2}&py -m venv venv&venv\\Scripts\\activate&pip install --upgrade pip&pip install -r requirements.txt&echo ...&echo {info3}&echo {info4}");
+                ExitProgram();
+            }
+        }
+
+        private bool IsVenvAvaliable()
+        {
+            return Directory.Exists(Path.Combine(Environment.CurrentDirectory, "venv"));
         }
 
         private void DeleteProfileBtn_Click(object sender, EventArgs e)
@@ -132,34 +174,41 @@ namespace EnemyAILauncher
 
             if (mode == AppModes.PLAYER_TRAINING || mode == AppModes.SELF_PLAY_TRAINING)
             {
-                string venv = "venv\\Scripts\\activate";
-                string pythonCommand = "mlagents-learn";
-                int timeScale = 0;
-
-                if (mode == AppModes.PLAYER_TRAINING)
+                if (IsVenvAvaliable())
                 {
-                    pythonCommand += " Config/enemyAIPlayerTraining.yaml";
-                    timeScale = 1;
+                    string venv = "venv\\Scripts\\activate";
+                    string pythonCommand = "mlagents-learn";
+                    int timeScale = 0;
+
+                    if (mode == AppModes.PLAYER_TRAINING)
+                    {
+                        pythonCommand += " Config/enemyAIPlayerTraining.yaml";
+                        timeScale = 1;
+                    }
+                    else if (mode == AppModes.SELF_PLAY_TRAINING)
+                    {
+                        pythonCommand += " Config/enemyAISelfPlayTraining.yaml";
+                        timeScale = 10;
+                    }
+
+                    pythonCommand += $" --env=Maps/{mapsNames[(int)map]}/Enemy-AI-Project";
+                    pythonCommand += $" --run-id={profileName}";
+                    pythonCommand += $" --time-scale={timeScale} --width=1280 --height=720";
+
+                    if (!newProfle)
+                    {
+                        pythonCommand += " --resume";
+                    }
+
+                    WriteConfigFile(modesNames[(int)mode], profileName, timeScale, newProfle);
+                    if (ExecuteProgram("cmd.exe", venv + "&" + pythonCommand))
+                    {
+                        ExitProgram();
+                    }
                 }
-                else if (mode == AppModes.SELF_PLAY_TRAINING)
+                else
                 {
-                    pythonCommand += " Config/enemyAISelfPlayTraining.yaml";
-                    timeScale = 10;
-                }
-
-                pythonCommand += $" --env=Maps/{mapsNames[(int)map]}/Enemy-AI-Project";
-                pythonCommand += $" --run-id={profileName}";
-                pythonCommand += $" --time-scale={timeScale} --width=1280 --height=720";
-
-                if (!newProfle)
-                {
-                    pythonCommand += " --resume";
-                }
-
-                WriteConfigFile(modesNames[(int)mode], profileName, timeScale, newProfle);
-                if(ExecuteProgram("cmd.exe", venv + "&" + pythonCommand))
-                {
-                    ExitProgram();
+                    SetInfo("Nie odnaleziono wirtualnego środowiska Python!");
                 }
             }
             else if (mode == AppModes.PLAYER_GAME || mode == AppModes.SELF_PLAY_GAME)

@@ -15,6 +15,7 @@ public abstract class AbstractEntity : MonoBehaviour
     [SerializeField] protected AnimationRiggingController animationRiggingController;
     [SerializeField] protected AnimationController animationController;
     [SerializeField] protected RLAgent rlAgent;
+    [SerializeField] protected GameObject orientation;
     [SerializeField] protected GameObject enemy;
     [SerializeField] protected Cover[] avaliableCovers;
     public LayerMask SolidGround;
@@ -69,14 +70,14 @@ public abstract class AbstractEntity : MonoBehaviour
 
     protected Node decisionTreeTopNode;
     protected Vector3 currentDestination;
-    public EntityState entityState;
+    protected EntityState entityState;
     protected PanelControll uiPanelController;
 
     protected PlayerController playerEnemyController;
     protected AbstractEntity entityEnemyController;
 
-    public float enemyInterestTime;
-    public float fullEpisodeTime;
+    protected float enemyInterestTime;
+    protected float fullEpisodeTime;
 
     /*>>> Unity methods <<<*/
     protected virtual void Awake()
@@ -162,6 +163,11 @@ public abstract class AbstractEntity : MonoBehaviour
     public RLAgent GetRLAgent()
     {
         return rlAgent;
+    }
+
+    public GameObject GetOrientation()
+    {
+        return orientation;
     }
 
     public GameObject GetEnemy()

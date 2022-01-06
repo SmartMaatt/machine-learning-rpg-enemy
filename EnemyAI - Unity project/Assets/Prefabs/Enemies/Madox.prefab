@@ -515,9 +515,9 @@ NavMeshAgent:
   m_GameObject: {fileID: 1215319797700901759}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3
-  m_Acceleration: 40
+  m_Acceleration: 50
   avoidancePriority: 50
   m_AngularSpeed: 160
   m_StoppingDistance: 0
@@ -559,6 +559,7 @@ MonoBehaviour:
   animationRiggingController: {fileID: 1215319797700901734}
   animationController: {fileID: 0}
   rlAgent: {fileID: 0}
+  orientation: {fileID: 1215319797399968162}
   enemy: {fileID: 0}
   avaliableCovers: []
   SolidGround:
@@ -594,9 +595,9 @@ MonoBehaviour:
   rotateAcceleration: 15
   runSpeed: 12
   obstacleRange: 1
-  accelerationChaseBonus: 20
-  headPosition: 1.5
-  breakAcceleration: 100
+  accelerationChaseBonus: 30
+  headPosition: 1.7
+  breakAcceleration: 30
   timeBetweenAttacks: 1.5
   minTimeAttackStartDelay: 0
   maxTimeAttackStartDelay: 0.2
@@ -604,9 +605,6 @@ MonoBehaviour:
   sightConeRange: 130
   hearRange: 20
   attackRange: 10
-  entityState: 0
-  enemyInterestTime: 0
-  fullEpisodeTime: 0
   spellController: {fileID: 0}
   rlParameters: {fileID: 0}
   maxMana: 200
@@ -706,7 +704,7 @@ MonoBehaviour:
     pushForce: 7
     spell: 1
   chestPositionCorrection: {x: 0, y: 1.5, z: 0}
-  distanceFromInvoke: 0.3
+  distanceFromInvoke: 0
   orientation: {fileID: 1215319797399968163}
   shieldParent: {fileID: 2025712990402653583}
 --- !u!114 &5880418006739183482

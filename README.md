@@ -9,14 +9,15 @@ Projekt został utworzony na wersji Unity 2020.3.19f1. Jego zawartość można z
 # Projekt Launchera
 Projekt launchera został utworzony w języku C# w szablonie "Aplication windows forms". Jego zawartość można znaleźć w folderze "EnemyAI- Launcher"
 
+# Wymagania dla developera
+* Python w wersji 3.6.1 lub nowszej
+* Instalacja pluginów Python z pliku EnemyAI - Unity project/requirements.txt
+* Unity 3D w wesji 2020.3.19f1 lub nowszej
+
 # Build aplikacji
 Procedura wygenerowania buildu aplikacji jest złożona dlatego dostęp do ostatniej, dostępnej wersji znajduje się w poniższym linku.
-https://drive.google.com/file/d/1tWH-8HiR8EhGA5PglEzASTLlveRxJUHw/view?usp=sharing
-
-# Wymagania dla developera
-*Python w wersji 3.6.1 lub nowszej
-*Instalacja pluginów Python z pliku EnemyAI - Unity project/requirements.txt
-*Unity 3D w wesji 2020.3.19f1 lub nowszej
+https://smartmatt.pl/enemy-ai-build
 
 # Wymagania dla Builda
-*Python w wersji 3.6.1 lub nowszy
+* Python w wersji 3.6.1 lub nowszy
+* (Python jest wymagany jedynie w trybie uczenia, aplikacja umożliwia użycie trybu rozgrywki bez posiadanego wymagania.)

@@ -132,7 +132,7 @@ public class PlayerSpellController : SpellController
         }
         else
         {
-            LogMessage("Can't attack right now!!!");
+            LogMessage("Nie możesz teraz atakować!");
         }
     }
 
@@ -177,7 +177,7 @@ public class PlayerSpellController : SpellController
             }
             else
             {
-                LogMessage(gameObject.name + " can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+                LogMessage(gameObject.name + " nie może użyć " + shieldSpellNode.name + " podczas używania " + currentShieldSpellNode.name + "!");
             }
         }
     }

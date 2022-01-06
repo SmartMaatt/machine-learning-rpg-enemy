@@ -35,7 +35,7 @@ public class RealPanelControll : PanelControll
 
     public override void SetupScore(int score)
     {
-        scoreText.text = "Score: " + score;
+        scoreText.text = "Wynik: " + score;
     }
 
     public override void SetShield(float value)

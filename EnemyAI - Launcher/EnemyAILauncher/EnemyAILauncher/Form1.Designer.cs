@@ -43,6 +43,7 @@
             this.SubmitBtn = new System.Windows.Forms.Button();
             this.MapGroupBox = new System.Windows.Forms.GroupBox();
             this.RefreshBtn = new System.Windows.Forms.Button();
+            this.BuildVenvBtn = new System.Windows.Forms.Button();
             this.ProfileGroupBox.SuspendLayout();
             this.ModeGroupBox.SuspendLayout();
             this.MapGroupBox.SuspendLayout();
@@ -150,7 +151,7 @@
             this.DiagnosticsBtn.Name = "DiagnosticsBtn";
             this.DiagnosticsBtn.Size = new System.Drawing.Size(100, 30);
             this.DiagnosticsBtn.TabIndex = 6;
-            this.DiagnosticsBtn.Text = "Diagnostyka";
+            this.DiagnosticsBtn.Text = "Statystyka";
             this.DiagnosticsBtn.UseVisualStyleBackColor = true;
             this.DiagnosticsBtn.Click += new System.EventHandler(this.DiagnosticsBtn_Click);
             // 
@@ -226,11 +227,24 @@
             this.RefreshBtn.UseVisualStyleBackColor = true;
             this.RefreshBtn.Click += new System.EventHandler(this.RefreshBtn_Click);
             // 
+            // BuildVenvBtn
+            // 
+            this.BuildVenvBtn.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.BuildVenvBtn.Location = new System.Drawing.Point(95, 292);
+            this.BuildVenvBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.BuildVenvBtn.Name = "BuildVenvBtn";
+            this.BuildVenvBtn.Size = new System.Drawing.Size(116, 46);
+            this.BuildVenvBtn.TabIndex = 8;
+            this.BuildVenvBtn.Text = "Zbuduj Venv";
+            this.BuildVenvBtn.UseVisualStyleBackColor = true;
+            this.BuildVenvBtn.Click += new System.EventHandler(this.BuildVenvBtn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(432, 403);
+            this.Controls.Add(this.BuildVenvBtn);
             this.Controls.Add(this.RefreshBtn);
             this.Controls.Add(this.MapGroupBox);
             this.Controls.Add(this.InfoLabel);
@@ -270,6 +284,7 @@
         private System.Windows.Forms.ComboBox MapComboBox;
         private System.Windows.Forms.Button RefreshBtn;
         private System.Windows.Forms.Button DiagnosticsBtn;
+        private System.Windows.Forms.Button BuildVenvBtn;
     }
 }
 

@@ -38,7 +38,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         SetupBrainPath(mlBrainDirectoryPath, mlBrainName);
         if (!newProfile && !File.Exists(brainPath))
         {
-            Managers.Self.LockApp("Brain " + brainPath + " doesn't exist!");
+            Managers.Self.LockApp("Model " + brainPath + " nie istnieje!");
         }
 
         if (IsPlaying())
@@ -70,13 +70,13 @@ public class ApplicationManager : MonoBehaviour, IGameManager
 
                     if (configLine.Length != 2)
                     {
-                        Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nMore then two values in one line!");
+                        Managers.Self.LockApp("Niepoprawna składnia pliku konfiguracyjnego w linii " + line + "!\nLinia zawiera więcej niż dwie wartości!");
                         break;
                     }
 
                     if (line > 4)
                     {
-                        Managers.Self.LockApp("Incorrect file syntax!\nMore then four parameters in config file!");
+                        Managers.Self.LockApp("Niepoprawna składnia pliku!\nWięcej niż cztery linie w pliku konfiguracyjnym!");
                         break;
                     }
 
@@ -101,7 +101,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         }
                         else
                         {
-                            Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nUnknown LevelType!");
+                            Managers.Self.LockApp("Niepoprawna składnia pliku konfiguracyjnego w linii " + line + "!\nNieznana wartość parametru LevelType!");
                             levelTypeData = false;
                             break;
                         }
@@ -120,7 +120,7 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         }
                         catch (FormatException err)
                         {
-                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a float value!");
+                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " nie jest wartością typu float!");
                         }
                     }
                     else if (configLine[0] == "NewProfile")
@@ -132,19 +132,19 @@ public class ApplicationManager : MonoBehaviour, IGameManager
                         }
                         catch (FormatException err)
                         {
-                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " is not a bool value!");
+                            Managers.Self.LockApp(err.Message + "\n" + configLine[1] + " nie jest wartością typu bool!");
                         }
                     }
                     else
                     {
-                        Managers.Self.LockApp("Incorrect file syntax on line " + line + "!\nUnknown argument " + configLine[0] + "!");
+                        Managers.Self.LockApp("Niepoprawna składnia pliku konfiguracyjnego w linii " + line + "!\nNieznany parametr " + configLine[0] + "!");
                         break;
                     }
                 }
 
                 if (line != 4 || !levelTypeData || !brainSessionNameData || !timeScaleData || !newProfileData)
                 {
-                    Managers.Self.LockApp("Incorrect file syntax!\nThere are too few parameters or they are repeated!");
+                    Managers.Self.LockApp("Niepoprawna składnia pliku konfiguracyjnego!\nZbyt mała ilość parametrów lub są one powtórzone!");
                 }
             }
         }
@@ -152,11 +152,11 @@ public class ApplicationManager : MonoBehaviour, IGameManager
         {
             if(File.Exists("../../EnemyAILauncher.exe"))
             {
-                Managers.Self.LockApp("This isn't the executable you're looking for!");
+                Managers.Self.LockApp("To nie jest plik exe którego szukacie!");
             }
             else
             {
-                Managers.Self.LockApp(err.Message + "\n The config file cannot be opened!");
+                Managers.Self.LockApp(err.Message + "\n Plik konfiguracyjny nie mógł zostać otwarty!");
             }
         }
     }

@@ -42,7 +42,7 @@ public class EntitySpellController : SpellController
         }
         else
         {
-            LogMessage("Can't attack right now!!!");
+            LogMessage("Nie możesz teraz atakować!");
             entity.AddRLReward(entity.GetMageRLParameters().tryShootWhenNoCooldown);
         }
     }
@@ -110,7 +110,7 @@ public class EntitySpellController : SpellController
             }
             else
             {
-                LogMessage(gameObject.name + " Can't use " + shieldSpellNode.name + " while using " + currentShieldSpellNode.name + "!");
+                LogMessage(gameObject.name + " nie może użyć " + shieldSpellNode.name + " podczas używania " + currentShieldSpellNode.name + "!");
             }
         }
     }

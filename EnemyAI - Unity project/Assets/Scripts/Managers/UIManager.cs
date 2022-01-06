@@ -193,7 +193,7 @@ public class UIManager : MonoBehaviour, IGameManager
 
     public void SetupGenerationLabel(int generationValue, int iterationValue)
     {
-        generationLabel.text = "Generation: " + generationValue + " | Iteration: " + iterationValue;
+        generationLabel.text = "Generacja: " + generationValue + " | Iteracja: " + iterationValue;
     }
 
     public void SetupEpisodeTimeBar(float maxValue, float value)

@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Generation: | Iteration:'
+  m_text: 'Generacja: | Iteracja:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resume
+  m_text: "Powr\xF3t"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sorry but application couldn't been executed.
+  m_text: "Przepraszamy ale aplikacja nie mo\u017Ce zosta\u0107 uruchomiona."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -1062,7 +1062,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Reason: '
+  m_text: "Pow\xF3d:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -2057,7 +2057,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Exit
+  m_text: "Wyjd\u017A"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loading...
+  m_text: "\u0141adowanie..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -2868,7 +2868,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GiveUp
+  m_text: "Poddaj si\u0119"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
   m_sharedMaterial: {fileID: 7750935933663468447, guid: bbd604bf7bd7fd04e9caa28818063ed9, type: 2}
@@ -3080,6 +3080,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5959602777045493772, guid: 8fd301aa48d900d4a94705ea37108ba9, type: 3}
+      propertyPath: m_text
+      value: 'Wynik:'
+      objectReference: {fileID: 0}
     - target: {fileID: 6717624509304324793, guid: 8fd301aa48d900d4a94705ea37108ba9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -3172,6 +3176,10 @@ PrefabInstance:
     - target: {fileID: 3913095828755487631, guid: 999bdf4afc409f142b76bb45c41a709a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4404250168426937935, guid: 999bdf4afc409f142b76bb45c41a709a, type: 3}
+      propertyPath: m_text
+      value: Ben
       objectReference: {fileID: 0}
     - target: {fileID: 4404250168935984152, guid: 999bdf4afc409f142b76bb45c41a709a, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3329,6 +3337,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7815892448858196662, guid: 999bdf4afc409f142b76bb45c41a709a, type: 3}
+      propertyPath: m_text
+      value: 'Wynik:'
+      objectReference: {fileID: 0}
     - target: {fileID: 8201743629605304857, guid: 999bdf4afc409f142b76bb45c41a709a, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -3362,6 +3374,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 746126333989131061}
     m_Modifications:
+    - target: {fileID: 3089499069153328020, guid: 81960d48cb470054597847a45c3085a0, type: 3}
+      propertyPath: m_text
+      value: 'Czas epizodu:'
+      objectReference: {fileID: 0}
     - target: {fileID: 8113626903997435828, guid: 81960d48cb470054597847a45c3085a0, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

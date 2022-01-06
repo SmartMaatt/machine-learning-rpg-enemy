@@ -89,7 +89,6 @@ public abstract class RLMagicAgent : RLAgent
             entity.SetSpellType((SpellType)spellType, spellElement);
             entity.Attack();
         }
-        Debug.Log(entity.GetEntityName() + ": " + spellType + " - " + spellElement);
     }
 
     public override void GenerateCSVData(string endEpisodeStatus)

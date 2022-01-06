@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,13 +77,13 @@ public abstract class SpellController : MonoBehaviour
                 }
                 else
                 {
-                    LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " nie może użyć zaklęcia " + spellNode.name + "! Koszt: " + spellNode.cost + ", Mana: " + GetMana());
                     NoManaRLReward();
                 }
             }
             else
             {
-                LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
+                LogMessage("Zaklęcie " + spellNode.name + " nie jest aktualnie dostępne!");
                 NoSpellRlReward();
             }
         }
@@ -114,13 +114,13 @@ public abstract class SpellController : MonoBehaviour
                 }
                 else
                 {
-                    LogMessage(gameObject.name + " can't spell " + spellNode.name + "! Cost: " + spellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " nie może użyć zaklęcia " + spellNode.name + "! Koszt: " + spellNode.cost + ", Mana: " + GetMana());
                     NoManaRLReward();
                 }
             }
             else
             {
-                LogMessage("Spell " + spellNode.name + " is not avaliable right now!");
+                LogMessage("Zaklęcie " + spellNode.name + " nie jest aktualnie dostępne!");
                 NoSpellRlReward();
             }
         }
@@ -154,13 +154,13 @@ public abstract class SpellController : MonoBehaviour
                 }
                 else
                 {
-                    LogMessage(gameObject.name + " can't spell " + healSpellNode.name + "! Cost: " + healSpellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " nie może użyć zaklęcia " + healSpellNode.name + "! Koszt: " + healSpellNode.cost + ", Mana: " + GetMana());
                     NoManaRLReward();
                 }
             }
             else
             {
-                LogMessage("Spell " + healSpellNode.name + " is not avaliable right now!");
+                LogMessage("Zaklęcie " + healSpellNode.name + " nie jest aktualnie dostępne!");
                 NoSpellRlReward();
             }
         }
@@ -206,13 +206,14 @@ public abstract class SpellController : MonoBehaviour
                 }
                 else
                 {
-                    LogMessage(gameObject.name + " can't spell " + areaExplosionSpellNode.name + "! Cost: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
+                    LogMessage(gameObject.name + " nie może użyć zaklęcia " + areaExplosionSpellNode.name + "! Koszt: " + areaExplosionSpellNode.cost + ", Mana: " + GetMana());
                     NoManaRLReward();
                 }
             }
             else
             {
-                LogMessage("Spell " + areaExplosionSpellNode.name + " is not avaliable right now!");
+
+                LogMessage("Zaklęcie " + areaExplosionSpellNode.name + " nie jest aktualnie dostępne!");
                 NoSpellRlReward();
             }
         }

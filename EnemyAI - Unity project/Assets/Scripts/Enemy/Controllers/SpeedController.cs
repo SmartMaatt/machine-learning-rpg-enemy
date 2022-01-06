@@ -7,6 +7,8 @@ public class SpeedController : MonoBehaviour
     private AbstractEntity entity;
     private NavMeshAgent navAgent;
     private AnimationController animationController;
+    private GameObject orientation;
+    private Transform enemyTrans;
 
     private float currentMoveSpeed;
     private float currentMaxSpeed;
@@ -21,6 +23,8 @@ public class SpeedController : MonoBehaviour
         entity = GetComponent<AbstractEntity>();
         animationController = entity.GetAnimationController();
         navAgent = entity.GetNavMeshAgent();
+        orientation = entity.GetOrientation();
+        enemyTrans = entity.GetEnemy().transform;
 
         currentMoveSpeed = entity.restSpeed;
         currentMaxSpeed = entity.restSpeed;
@@ -36,6 +40,7 @@ public class SpeedController : MonoBehaviour
             ChangeSpeed();
         }
         RotateToPoint(entity.GetCurrentDestination(), entity.rotateAcceleration);
+        StuckInEnemyCorrection(enemyTrans.position);
     }
 
 
@@ -124,7 +129,17 @@ public class SpeedController : MonoBehaviour
 
         Vector3 lookRotation = flatPointToRotate - flatOwnPosition;
         if (lookRotation != Vector3.zero)
+        {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookRotation), rotateAcceleration);
+        }
+    }
+
+    public void StuckInEnemyCorrection(Vector3 enemyPosition)
+    {
+        if(Vector3.Distance(enemyPosition, transform.position) < 0.5f)
+        {
+            ExplodePush(orientation.transform.forward, 0.5f);
+        }
     }
 
     public void ExplodePush(Vector3 pushDirection, float force)
