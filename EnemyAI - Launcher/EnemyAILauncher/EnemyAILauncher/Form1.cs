@@ -89,7 +89,7 @@ namespace EnemyAILauncher
 
         private void BuildVenvBtn_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show($"Czy posiadasz zainstalowanego Pythona w wersji powyżej 3.6?", "Budowianie Venv", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show($"Czy posiadasz zainstalowanego Pythona w wersji 3.6 lub 3.7?", "Utwórz Venv", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 string info1;
@@ -108,7 +108,7 @@ namespace EnemyAILauncher
                 {
                     info1 = " ";
                     info2 = " ";
-                    info3 = "\nŚrodowisko wirtualne Python jest już zainstalowane!";
+                    info3 = "Środowisko wirtualne Python jest już zainstalowane!";
                     info4 = " ";
                 }
 
@@ -117,7 +117,7 @@ namespace EnemyAILauncher
             }
             else if(dialogResult == DialogResult.No)
             {
-                ExecuteProgram("https://www.python.org/downloads/", "");
+                ExecuteProgram("https://www.python.org/downloads/release/python-370/", "");
             }
         }
 

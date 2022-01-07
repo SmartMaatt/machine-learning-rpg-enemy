@@ -235,7 +235,7 @@
             this.BuildVenvBtn.Name = "BuildVenvBtn";
             this.BuildVenvBtn.Size = new System.Drawing.Size(116, 46);
             this.BuildVenvBtn.TabIndex = 8;
-            this.BuildVenvBtn.Text = "Zbuduj Venv";
+            this.BuildVenvBtn.Text = "Utwórz Venv";
             this.BuildVenvBtn.UseVisualStyleBackColor = true;
             this.BuildVenvBtn.Click += new System.EventHandler(this.BuildVenvBtn_Click);
             // 
