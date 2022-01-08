@@ -56,9 +56,9 @@
             this.ModeComboBox.FormattingEnabled = true;
             this.ModeComboBox.Items.AddRange(new object[] {
             "Trening z graczem",
-            "Trening dwóch robotów",
+            "Trening dwóch AI",
             "Rozgrywka z graczem",
-            "Rozgrywka dwóch robotów"});
+            "Rozgrywka dwóch AI"});
             this.ModeComboBox.Location = new System.Drawing.Point(11, 25);
             this.ModeComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ModeComboBox.Name = "ModeComboBox";
