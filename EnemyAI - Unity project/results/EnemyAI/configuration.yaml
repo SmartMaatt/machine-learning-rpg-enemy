@@ -32,21 +32,27 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 100000
-    max_steps: 3000000
+    max_steps: 10000000
     time_horizon: 1024
     summary_freq: 10000
     threaded: true
-    self_play: null
+    self_play:
+      save_steps: 20000
+      team_change: 100000
+      swap_steps: 10000
+      window: 10
+      play_against_latest_model_ratio: 0.5
+      initial_elo: 1200.0
     behavioral_cloning: null
 env_settings:
-  env_path: null
+  env_path: Maps/Training/Enemy-AI-Project
   env_args: null
   base_port: 5005
   num_envs: 1
   seed: -1
 engine_settings:
-  width: 84
-  height: 84
+  width: 1280
+  height: 720
   quality_level: 5
   time_scale: 10.0
   target_frame_rate: -1

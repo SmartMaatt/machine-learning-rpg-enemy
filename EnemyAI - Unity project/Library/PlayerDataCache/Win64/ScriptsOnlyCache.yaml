@@ -36,6 +36,8 @@ ScriptsOnlyBuild:
     - SpellInfo
     - UIManager
     - UVTextureAnimator
+    - UnityEngine.AI.NavMeshModifierVolume
+    - UnityEngine.AI.NavMeshSurface
     - ValueBar
     - WaterUvAnimation
     Unity.Animation.Rigging.dll:
@@ -78,7 +80,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Slider
     - UnityEngine.UI.VerticalLayoutGroup
   sceneClasses:
-    Assets/Scenes/MainScene.unity:
+    Assets/Scenes/Forest.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -100,6 +102,8 @@ ScriptsOnlyBuild:
     - Class: 49
       Script: {instanceID: 0}
     - Class: 54
+      Script: {instanceID: 0}
+    - Class: 64
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
@@ -127,6 +131,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 1616}
     - Class: 114
       Script: {instanceID: 1618}
+    - Class: 114
+      Script: {instanceID: 1692}
     - Class: 114
       Script: {instanceID: 1694}
     - Class: 114
@@ -177,6 +183,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 3100}
     - Class: 114
       Script: {instanceID: 3234}
+    - Class: 114
+      Script: {instanceID: 3240}
     - Class: 114
       Script: {instanceID: 3288}
     - Class: 114
@@ -249,6 +257,10 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 137
       Script: {instanceID: 0}
+    - Class: 154
+      Script: {instanceID: 0}
+    - Class: 156
+      Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 182
@@ -261,7 +273,11 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 199
       Script: {instanceID: 0}
+    - Class: 205
+      Script: {instanceID: 0}
     - Class: 213
+      Script: {instanceID: 0}
+    - Class: 218
       Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
@@ -270,6 +286,10 @@ ScriptsOnlyBuild:
     - Class: 224
       Script: {instanceID: 0}
     - Class: 238
+      Script: {instanceID: 0}
+    - Class: 850595691
+      Script: {instanceID: 0}
+    - Class: 1953259897
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -1282,5 +1302,5 @@ ScriptsOnlyBuild:
     className: DemonstrationSummary
   platform: 19
   scenePathNames:
-  - Assets/Scenes/MainScene.unity
-  playerPath: C:/Users/Mateusz/Desktop/EventAI build/Maps/Training/Enemy-AI-Project.exe
+  - Assets/Scenes/Forest.unity
+  playerPath: C:/Users/Mateusz/Desktop/EventAI build/Maps/Forest/Enemy-AI-Project.exe

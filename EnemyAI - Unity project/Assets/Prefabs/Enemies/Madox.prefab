@@ -799,10 +799,10 @@ MonoBehaviour:
   useSpellSameAsShield: 0.1
   useStrongSpell: 0.5
   useSpellWhenAttackOrChase: 0.3
-  useShieldWhenHide: 0.3
-  healWhenHealthUserLow: 0.1
-  destroyHealSpell: 0.1
-  areaSpellWhenHealthUnderCriticalLow: 0.1
+  useShieldWhenHide: 0.1
+  healWhenHealthUserLow: 0.5
+  destroyHealSpell: 0.5
+  areaSpellWhenHealthUnderCriticalLow: 0.5
 --- !u!1 &1215319797751190957
 GameObject:
   m_ObjectHideFlags: 0

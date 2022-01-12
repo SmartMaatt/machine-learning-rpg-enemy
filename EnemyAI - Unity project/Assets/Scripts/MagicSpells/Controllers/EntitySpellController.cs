@@ -102,11 +102,7 @@ public class EntitySpellController : SpellController
             if (currentShieldSpellNode.spell == shieldSpellNode.spell)
             {
                 ChargeShieldSpell(shieldSpellNode, currentShield);
-                entity.GetAnimationController().PlayBlockAnimation();
-                if (entity.IsHidding())
-                {
-                    entity.AddRLReward(entity.GetMageRLParameters().useShieldWhenHide);
-                }
+                entity.GetAnimationController().PlayBlockAnimation(); 
             }
             else
             {
@@ -124,15 +120,15 @@ public class EntitySpellController : SpellController
             currentHealSpell = gameObject.AddComponent<EntityHealSpell>() as EntityHealSpell;
             currentHealSpell.SetupShield(healSpellNode.time, entity.maxHealTime, healSpellNode, shieldParent, entity, uiPanelController);
             entity.GetAnimationController().SetHealAnimation(true);
+
+            if (entity.IsHealthLow())
+            {
+                entity.AddRLReward(entity.GetMageRLParameters().healWhenHealthUserLow);
+            }
         }
         else
         {
             ChargeHealSpell(healSpellNode, currentHealSpell);
-        }
-
-        if (entity.IsHealthLow())
-        {
-            entity.AddRLReward(entity.GetMageRLParameters().healWhenHealthUserLow);
         }
     }
 

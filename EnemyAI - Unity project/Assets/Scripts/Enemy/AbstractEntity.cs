@@ -277,12 +277,12 @@ public abstract class AbstractEntity : MonoBehaviour
 
     public bool IsHealthLow()
     {
-        return health < lowHealthThreshold;
+        return health <= lowHealthThreshold;
     }
 
     public bool IsHealthCriticalLow()
     {
-        return health < criticalLowHealthThreshold;
+        return health <= criticalLowHealthThreshold;
     }
 
 

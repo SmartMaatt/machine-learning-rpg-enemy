@@ -1,60 +1,60 @@
 {
     "enemyAI": {
-        "elo": 1203.703156308386,
         "checkpoints": [
             {
-                "steps": 8956,
-                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-8956.onnx",
-                "reward": -56.49762666225433,
-                "creation_time": 1641467099.9035811,
+                "steps": 1899137,
+                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-1899137.onnx",
+                "reward": -1.7831409201025963,
+                "creation_time": 1641978700.4023087,
                 "auxillary_file_paths": [
-                    "results\\EnemyAI\\enemyAI\\enemyAI-8956.pt"
+                    "results\\EnemyAI\\enemyAI\\enemyAI-1899137.pt"
                 ]
             },
             {
-                "steps": 15100,
-                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-15100.onnx",
+                "steps": 1999766,
+                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-1999766.onnx",
+                "reward": -6.5773908123373985,
+                "creation_time": 1641979796.429789,
+                "auxillary_file_paths": [
+                    "results\\EnemyAI\\enemyAI\\enemyAI-1999766.pt"
+                ]
+            },
+            {
+                "steps": 2099742,
+                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-2099742.onnx",
+                "reward": -10.809357523918152,
+                "creation_time": 1641980879.389884,
+                "auxillary_file_paths": [
+                    "results\\EnemyAI\\enemyAI\\enemyAI-2099742.pt"
+                ]
+            },
+            {
+                "steps": 2127609,
+                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-2127609.onnx",
+                "reward": -5.614204558459195,
+                "creation_time": 1641981179.3203523,
+                "auxillary_file_paths": [
+                    "results\\EnemyAI\\enemyAI\\enemyAI-2127609.pt"
+                ]
+            },
+            {
+                "steps": 2148213,
+                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-2148213.onnx",
                 "reward": null,
-                "creation_time": 1641467260.787706,
+                "creation_time": 1641981568.9808848,
                 "auxillary_file_paths": [
-                    "results\\EnemyAI\\enemyAI\\enemyAI-15100.pt"
-                ]
-            },
-            {
-                "steps": 20032,
-                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-20032.onnx",
-                "reward": -33.47524976730347,
-                "creation_time": 1641467547.78515,
-                "auxillary_file_paths": [
-                    "results\\EnemyAI\\enemyAI\\enemyAI-20032.pt"
-                ]
-            },
-            {
-                "steps": 30122,
-                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-30122.onnx",
-                "reward": -117.55688138306141,
-                "creation_time": 1641469419.3998752,
-                "auxillary_file_paths": [
-                    "results\\EnemyAI\\enemyAI\\enemyAI-30122.pt"
-                ]
-            },
-            {
-                "steps": 31806,
-                "file_path": "results\\EnemyAI\\enemyAI\\enemyAI-31806.onnx",
-                "reward": -38.606876373291016,
-                "creation_time": 1641469521.1353004,
-                "auxillary_file_paths": [
-                    "results\\EnemyAI\\enemyAI\\enemyAI-31806.pt"
+                    "results\\EnemyAI\\enemyAI\\enemyAI-2148213.pt"
                 ]
             }
         ],
+        "elo": 1222.8657743309652,
         "final_checkpoint": {
-            "steps": 31806,
+            "steps": 2148213,
             "file_path": "results\\EnemyAI\\enemyAI.onnx",
-            "reward": -38.606876373291016,
-            "creation_time": 1641469521.1353004,
+            "reward": null,
+            "creation_time": 1641981568.9808848,
             "auxillary_file_paths": [
-                "results\\EnemyAI\\enemyAI\\enemyAI-31806.pt"
+                "results\\EnemyAI\\enemyAI\\enemyAI-2148213.pt"
             ]
         }
     },
