@@ -4874,14 +4874,14 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.6901961, b: 0.34509805, a: 0.5019608}
+  m_Color: {r: 1, g: 0.6901961, b: 0.34509805, a: 1}
   m_Intensity: 4
   m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -9627,7 +9627,6 @@ MonoBehaviour:
   IsDeviation: 0
   SendCollisionMessage: 1
   ResetParentPositionOnDisable: 0
-  sphereCollider: {fileID: 13500000}
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 0

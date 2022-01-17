@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour, IGameManager
 {
@@ -33,8 +34,11 @@ public class UIManager : MonoBehaviour, IGameManager
     [Header("Episode time")]
     [SerializeField] private ValueBar episodeTimeBar;
 
-    [Header("Generation label")]
+    [Header("Labels")]
     [SerializeField] private TMP_Text generationLabel;
+    [SerializeField] private TMP_Text FPSLabel;
+    [SerializeField] private float fpsCounterTime = 0f;
+    [SerializeField] private float fpsIntervalTime = 0.5f;
 
     [Header("LockScrean")]
     [SerializeField] private LockScrean lockScreen;
@@ -48,6 +52,8 @@ public class UIManager : MonoBehaviour, IGameManager
 
     private bool escapeMenu;
     private bool lockState;
+    private bool visibleGui;
+    private bool fpsCounter;
 
     public void Startup()
     {
@@ -61,7 +67,9 @@ public class UIManager : MonoBehaviour, IGameManager
         elementBar.gameObject.SetActive(false);
 
         ActivateGiveUpButton(false);
+        ActivateFPSCounter(false);
         CloseEscapeMenu();
+        visibleGui = true;
 
         status = ManagerStatus.Started;
     }
@@ -77,6 +85,17 @@ public class UIManager : MonoBehaviour, IGameManager
         {
             ToggleLockState();
         }
+
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            ToggleVisibleGui();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            ToggleFPSCounter();
+        }
+        CalculateCurrentFPSCount();
     }
 
     public void LockApp(string reason)
@@ -277,6 +296,47 @@ public class UIManager : MonoBehaviour, IGameManager
         {
             LockCursor(true);
         }
+    }
+    public void ToggleVisibleGui()
+    {
+        visibleGui = !visibleGui;
+        ActivateVisibleGui(visibleGui);
+    }
+
+    public void ActivateVisibleGui(bool activate)
+    {
+        leftPanel.gameObject.SetActive(activate);
+        rightPanel.gameObject.SetActive(activate);
+        episodeTimeBar.gameObject.SetActive(activate);
+        generationLabel.gameObject.SetActive(activate);
+
+        popUpMessager.ResetPopUp();
+        popUpMessager.gameObject.SetActive(activate);
+        if (Managers.App.IsPlayerInGame())
+        {
+            elementBar.gameObject.SetActive(activate);
+        }
+    }
+
+    private void CalculateCurrentFPSCount()
+    {
+        fpsCounterTime += Time.deltaTime;
+        if (fpsCounterTime >= fpsIntervalTime)
+        {
+            FPSLabel.text = "FPS " + (int)(1f / Time.unscaledDeltaTime);
+            fpsCounterTime -= fpsIntervalTime;
+        }
+    }
+
+    public void ToggleFPSCounter()
+    {
+        fpsCounter = !fpsCounter;
+        ActivateFPSCounter(fpsCounter);
+    }
+
+    public void ActivateFPSCounter(bool activate)
+    {
+        FPSLabel.gameObject.SetActive(activate);
     }
 
     public void ActivateLoadingScrean(bool value)

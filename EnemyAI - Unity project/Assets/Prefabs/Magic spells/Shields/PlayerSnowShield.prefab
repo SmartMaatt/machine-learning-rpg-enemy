@@ -4947,13 +4947,25 @@ MonoBehaviour:
     time: 0
     armour: 0
     spell: 0
-  customSpellNode:
+  healSpellNode:
     isAvaliable: 0
     cost: 0
     prefab: {fileID: 0}
     name: 
-    healPoints: 0
+    healPointsPerSecond: 0
+    time: 0
     spell: 0
+  areaExplosionNode:
+    isAvaliable: 0
+    cost: 0
+    prefab: {fileID: 0}
+    name: 
+    damage: 0
+    radius: 0
+    pushForce: 0
+    spell: 0
+  owner: {fileID: 0}
+  rlParams: {fileID: 0}
 --- !u!114 &7707428787303611795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5025,7 +5037,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2.4
+  m_Intensity: 3
   m_Range: 6
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

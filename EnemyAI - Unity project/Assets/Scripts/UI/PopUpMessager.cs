@@ -20,13 +20,12 @@ public class PopUpMessager : MonoBehaviour
 
     public void DisplayMessage(string msg)
     {
-        if (popUpLifeCoroutine != null)
+        if (gameObject.activeSelf)
         {
-            StopCoroutine(popUpLifeCoroutine);
+            StopPopUpCoroutine();
+            popUpLifeCoroutine = RunPopUp(msg);
+            StartCoroutine(popUpLifeCoroutine);
         }
-
-        popUpLifeCoroutine = RunPopUp(msg);
-        StartCoroutine(popUpLifeCoroutine);
     }
 
     private void SetPopUpActive(bool state)
@@ -38,6 +37,26 @@ public class PopUpMessager : MonoBehaviour
     public void SetTimeOfDisplay(float time)
     {
         timeOfDisplay = time;
+    }
+
+    public void StopPopUpCoroutine()
+    {
+        if (popUpLifeCoroutine != null)
+        {
+            StopCoroutine(popUpLifeCoroutine);
+        }
+    }
+
+    public void ResetContent()
+    {
+        SetupMessage("");
+        SetPopUpActive(false);
+    }
+
+    public void ResetPopUp()
+    {
+        StopPopUpCoroutine();
+        ResetContent();
     }
 
     private void SetupMessage(string msg)
@@ -52,8 +71,7 @@ public class PopUpMessager : MonoBehaviour
 
         yield return new WaitForSeconds(timeOfDisplay);
 
-        SetupMessage("");
-        SetPopUpActive(false);
+        ResetContent();
         popUpLifeCoroutine = null;
     }
 }

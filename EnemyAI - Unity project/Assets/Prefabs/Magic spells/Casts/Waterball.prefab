@@ -9341,7 +9341,6 @@ MonoBehaviour:
   IsDeviation: 0
   SendCollisionMessage: 1
   ResetParentPositionOnDisable: 0
-  sphereCollider: {fileID: 3822812182351396948}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14364,7 +14363,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
