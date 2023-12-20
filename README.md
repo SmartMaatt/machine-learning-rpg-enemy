@@ -1,23 +1,71 @@
-# System sztucznej inteligencji wrogów w grze cRPG w oparciu o uczenie maszynowe
-Celem pracy jest zaprojektowanie oraz implementacja systemu antagonisty gry gatunku cRPG w silniku Unity 3D z wykorzystaniem technologii Sztucznej Inteligencji. Priorytetem jest zapewnienie dostosowania zachowań i umiejętności wroga do otaczającego go środowiska, sytuacji, bądź poziomu wyszkolenia gracza, zarazem mając na uwadze poziom doświadczenia nabytego podczas walki z użytkownikiem bądź innym wrogiem. Wraz z postępem rozgrywki wróg ma rozwijać zdolności przewidywania, podejmowania racjonalnych decyzji oraz wykonywania akcji będących najbardziej słuszną opcją względem danego problemu. System będzie uczył się poprzez kolejne podejścia do interakcji z graczem, rozwijając przy tym swoje umiejętności walki i odpowiedzi na atak ostatecznie stawiając gracza przed coraz większym wyzwaniem.
+<h1 align="center">Enemy AI system for cRPG games using Machine Learning</h1>
 
-W projekcie zostały wykorzystane dwa rodzaje Uczenia Maszynowego. Pierwszy z nich stosuje Drzewo Behawioralne służące do podejmowania decyzji oraz wykonywania akcji na podstawie aktualnego stanu środowiska otaczającego postać niegrywalną. Przykładowymi reakcjami są podążanie za graczem, gdy znajdzie się on w zasięgu wzroku modelu, bądź ucieczka w możliwie najbezpieczniejsze miejsce w momencie krytycznie niskiego stanu zdrowia. Model dobiera również swoje reakcje zależnie od sytuacji - swobodne poruszanie się po mapie w przypadku braku przeciwnika w pobliżu. Drugi typ Uczenia Maszynowego oparty jest uczenie ze wzmocnieniem. W tym przypadku przeciwnikowi reprezentującemu model dostarczane są liczne obserwacje dotyczące zarówno jego aktualnego stanu, jaki i otaczającego go środowiska oraz wartości maszyny stanów przeciwnika, bądź gracza. Na podstawie dostarczonych informacji model dokonuje decyzji odnośnie do wyboru jednej z udostępnionych mu akcji, którymi w tym przypadku jest wybór odpowiedniego zaklęcia, bądź jego braku. Wykonywane akcje są następnie oceniane i suma wydzielonych punktów w danym epizodzie służy do optymalizacji decyzyjności w późniejszy potyczkach.
+<p align="center">
+  <a href="#overview">Overview</a> •
+  <a href="#machine-learning-implementation">Implementation</a> •
+  <a href="#screenshots">Screenshots</a> •
+  <a href="#unity-3d-application-project">Application Project</a> •
+  <a href="#launcher-project">Launcher</a> •
+  <a href="#developer-requirements">Requirements</a> •
+  <a href="#application-build">Build</a> •
+  <a href="#license">License</a>
+</p>
 
-# Projekt Aplikacji w Unity 3D
-Projekt został utworzony na wersji Unity 2020.3.19f1. Jego zawartość można znaleźć w folderze "EnemyAI - Unity project".
+<p align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  <img src="https://img.shields.io/badge/Author-SmartMatt-blue" />
+</p>
 
-# Projekt Launchera
-Projekt launchera został utworzony w języku C# w szablonie "Aplication windows forms". Jego zawartość można znaleźć w folderze "EnemyAI- Launcher"
+## Overview
+This project aims to design and implement an AI system for antagonists in cRPG games using the Unity 3D engine, with a focus on machine learning technologies. A key feature of this project is the use of the Unity MLAgents plugin, which facilitates the integration of advanced machine learning techniques within the Unity environment. The priority is to ensure that enemy behaviors and abilities adapt to their environment, situational context, or the player's skill level. Additionally, the system is designed to evolve through experience gained in combat against the player or other enemies, enhancing its predictive abilities, decision-making, and action selection in response to various scenarios. The system learns through successive interactions with players, thereby improving its combat skills and responses, ultimately presenting an increasing challenge to the player.
 
-# Wymagania dla developera
-* Python w wersji 3.6 lub 3.7
-* Instalacja pluginów Python z pliku EnemyAI - Unity project/requirements.txt
-* Unity 3D w wesji 2020.3.19f1 lub nowszej
+## Machine Learning Implementation
+Two types of Machine Learning are employed in this project:
 
-# Build aplikacji
-Procedura wygenerowania buildu aplikacji jest złożona dlatego dostęp do ostatniej, dostępnej wersji znajduje się w poniższym linku.
-https://smartmatt.pl/enemy-ai-build
+1. **Behavioral Tree:** Used for decision-making and action execution based on the current state of the environment surrounding the non-playable character (NPC). Responses include following the player when in sight, fleeing to safety when health is critically low, and roaming freely in the absence of nearby enemies.
 
-# Wymagania dla Builda
-* Python w wersji 3.6 lub 3.7
-* (Python jest niezbędny jedynie w trybach treningowych, aplikacja umożliwia użycie trybu rozgrywki bez posiadanego wymagania.)
+2. **Reinforcement Learning:** This approach provides the enemy AI with numerous observations about its current state and the surrounding environment, as well as the state machine values of the enemy or player. Based on this information, the model decides on actions such as casting spells or refraining from action. Actions are evaluated, and the accumulated points in each episode are used to optimize decision-making in subsequent encounters.
+
+## Screenshots
+![Battle](https://smartmatt.pl/github/enemy-ai/battle.png)
+*Presentation of a battle between two learning bots.*
+
+![Behavior tree](https://smartmatt.pl/github/enemy-ai/behaviour-tree.png)
+*The behavioural tree system, which is used by bots as a support for machine learning.*
+
+## Unity 3D Application Project
+- **Unity Version:** The project is developed in Unity 2020.3.19f1 with the integration of the MLAgents plugin.
+- **Project Location:** The content can be found in the folder `EnemyAI - Unity project`.
+
+## Launcher Project
+- **Development Language:** C# in the "Windows Forms Application" template.
+- **Project Location:** The content can be found in the folder `EnemyAI- Launcher`.
+
+## Developer Requirements
+- Python version 3.6 or 3.7
+- Installation of Python plugins from the file `EnemyAI - Unity project/requirements.txt`
+- Unity 3D version 2020.3.19f1 or later, with MLAgents plugin installed
+
+## Application Build
+The build generation procedure is complex. Access to the latest available version can be found at the following link:
+[Enemy AI Build](https://smartmatt.pl/enemy-ai-build)
+
+### Build Requirements
+Python version 3.6 or 3.7 (Python is only necessary in training modes, the application allows gameplay mode without this requirement.)
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+&copy; 2023 Mateusz Płonka (SmartMatt). All rights reserved.
+<a href="https://smartmatt.pl/">
+    <img src="https://smartmatt.pl/github/smartmatt-logo.png" title="SmartMatt Logo" align="right" width="60" />
+</a>
+
+<p align="left">
+  <a href="https://smartmatt.pl/">Portfolio</a> •
+  <a href="https://github.com/SmartMaatt">GitHub</a> •
+  <a href="https://www.linkedin.com/in/mateusz-p%C5%82onka-328a48214/">LinkedIn</a> •
+  <a href="https://www.youtube.com/user/SmartHDesigner">YouTube</a> •
+  <a href="https://www.tiktok.com/@smartmaatt">TikTok</a>
+</p>
